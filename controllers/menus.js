@@ -45,12 +45,36 @@ async function createMenu(req, res) {
     }
 }
 
-// async function updateMenu(req, res) {
-//     try {
-//     } catch (err) {}
-// }
+async function updateMenu(req, res) {
+    try {
+        const { menu_id } = req.params;
+        const menuUrl = req.file.location;
+        const { menuName, menuType, menuStyle, menuWith } = req.body;
+        await menus.updateOne(
+            { menu_id },
+            { $set: { menuName, menuUrl, menuType, menuStyle, menuWith } }
+        );
+        res.status(200).send();
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "메뉴 갱신에 실패하였습니다!",
+        });
+    }
+}
 
-// async function deleteMenu(req, res) {}
+async function deleteMenu(req, res) {
+    try {
+        const { menu_id } = req.params;
+        await menus.deleteOne({ menu_id });
+        res.status(204).send();
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "메뉴 삭제에 실패하였습니다!",
+        });
+    }
+}
 
 module.exports = {
     getAllMenus,
