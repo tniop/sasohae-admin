@@ -82,7 +82,7 @@ async function updateGift(req, res) {
             giftLikeCnt,
             giftResultCnt,
         } = req.body;
-        await gifts.updateMany(
+        await gifts.updateOne(
             { gift_id },
             {
                 $set: {
