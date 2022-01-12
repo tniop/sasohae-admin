@@ -35,4 +35,4 @@ admins.plugin(autoIncrement.plugin, {
     increment: 1,
 });
 
-module.exports = mongoose.model("boards", boards);
+module.exports = mongoose.model("admins", admins);
