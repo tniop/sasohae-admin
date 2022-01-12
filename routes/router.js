@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+
+/* ==================== controllers ==================== */
 const {
     getBoards,
     deleteBoards,
@@ -26,9 +28,16 @@ const {
     updateGiftQuestion,
     deleteGiftQuestion,
 } = require("../controllers/giftQuestions");
-const upload = require("../middleware/upload");
+const {
+    createMoneyQuestions
+} = require("../controllers/moneys");
+/* ================================================== */
 
-/* ==================== controllers ====================*/
+/* ==================== middleware ==================== */
+const upload = require("../middleware/upload");
+/* ================================================== */
+
+/* ==================== router ==================== */
 router.get("/boards", getBoards);
 router.delete("/boards/:board_id", deleteBoards);
 router.post("/boards", createBoards);
@@ -50,14 +59,8 @@ router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);
 router.post("/giftQuestions", createGiftQuestion);
 router.put("/giftQuestions/:giftQuestion_id", updateGiftQuestion);
 router.delete("/giftQuestions/:giftQuestion_id", deleteGiftQuestion);
-/* ==================================================*/
 
-/* ==================== middleware ====================*/
-
-/* ==================================================*/
-
-/* ==================== router ====================*/
-
-/* ==================================================*/
+router.post("/moneyQuestions", createMoneyQuestions);
+/* ================================================== */
 
 module.exports = router;
