@@ -22,8 +22,17 @@ app.set('view engine', 'ejs');
 app.use("/public", express.static("public"));
 
 app.use((req, res, next) => {
-    res.sendStatus(404);
+    try {
+        console.error(error);
+        res.sendStatus(404);
+    } catch (error) {
+        res.render('404');
+    }
 });
+
+// app.use((req, res, next) => {
+//     res.sendStatus(404);
+// });
 app.use((error, req, res, next) => {
     console.error(error);
     res.sendStatus(500);
