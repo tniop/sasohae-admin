@@ -16,6 +16,12 @@ async function getSelectedGift(req, res) {
     try {
         const { gift_id } = req.params;
         const selectedGift = await gifts.findOne({ gift_id });
+        if (!selectedGift) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
         res.status(200).send(selectedGift);
     } catch (err) {
         console.log(err);
@@ -67,6 +73,13 @@ async function createGift(req, res) {
 async function updateGift(req, res) {
     try {
         const { gift_id } = req.params;
+        const selectedGift = await gifts.findOne({ gift_id });
+        if (!selectedGift) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
         const giftUrl = req.file.location;
         const {
             giftName,
@@ -114,6 +127,13 @@ async function updateGift(req, res) {
 async function deleteGift(req, res) {
     try {
         const { gift_id } = req.params;
+        const selectedGift = await gifts.findOne({ gift_id });
+        if (!selectedGift) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
         await gifts.deleteOne({ gift_id });
         res.status(204).send();
     } catch (err) {
