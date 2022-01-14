@@ -37,7 +37,13 @@ const {
     deleteAdmin,
 } = require("../controllers/admins");
 const adminAuth = require("../controllers/auth");
-const { createMoneyQuestions } = require("../controllers/moneys");
+const {
+    getAllMoneyQuestion,
+    getMoneyQuestion,
+    createMoneyQuestions,
+    updateMoneyQuestion,
+    deleteMoneyQuestion,
+} = require("../controllers/moneys");
 /* ==================================================*/
 
 /* ==================== middleware ====================*/
@@ -62,7 +68,11 @@ router.post("/menus", upload.single("img"), createMenu);
 router.put("/menus/:menu_id", upload.single("img"), updateMenu);
 router.delete("/menus/:menu_id", deleteMenu);
 
+router.get("/moneyQuestions", getAllMoneyQuestion);
+router.get("/moneyQuestions/:moneyQuestions_id", getMoneyQuestion);
 router.post("/moneyQuestions", createMoneyQuestions);
+router.put("/moneyQuestions/:moneyQuestions_id", updateMoneyQuestion);
+router.delete("/moneyQuestions/:moneyQuestions_id", deleteMoneyQuestion);
 
 router.get("/giftQuestions", getAllGiftQuestions);
 router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);

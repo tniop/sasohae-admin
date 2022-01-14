@@ -16,6 +16,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
     <style>
         body,
         button,
@@ -65,16 +71,59 @@
     </style>
 
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            getMoneyQuestionList();
+        });
+
+        function getMoneyQuestionList() {
+            $("#moneyQuestionList").empty()
+            $.ajax({
+                type: "GET",
+                url: "/api/moneyQuestions",
+                data: {},
+                success: function (response) {
+                    console.log(response)
+                    for (let i = 0; i < response.length; i++) {
+                        makeTable(response[i])
+                    }
+                }
+            })
+        }
+
+        function makeTable(info) {
+            let htmlTemp = `<tr>
+                                <td>${info["moneyQuestion_id"]}</td>
+                                <td>${info["moneyQuestion"]}</td>
+                                <td>${info["positiveAnswerQuestion"]}</td>
+                                <td>${info["negativeAnswerQuestion"]}</td>
+                                <td>${info["positiveChangeValue"]}</td>
+                                <td style="cursor:pointer;" onclick="location.href='/moneyQuestionsDetail/${info["moneyQuestion_id"]}'">상세</td>
+                                <td><input type="button" id="delete" onClick="deleteItem(${info["moneyQuestion_id"]})"
+                                        class="btn btn-outline-primary" value="삭제"></td>
+                            </tr>
+                            `
+            $("#moneyQuestionList").append(htmlTemp)
+        }
+
         function moveToInsert() {
             location.href = "moneyQuestionsInsert";
         }
 
-        function moveToDetail() {
-            location.href = "moneyQuestionsDetail";
-        }
-
-        function deleteItem() {
-            alert("정말로 삭제하시겠습니까?")
+        function deleteItem(id) {
+            if (confirm("정말로 삭제하시겠습니까?") == true) {
+            } else {
+                return false;
+            }
+            $.ajax({
+                type: "DELETE",
+                url: `/api/moneyQuestions/${id}`,
+                data: {},
+                success: function (response) {
+                        alert("삭제 완료!");
+                        history.go(0);
+                }
+            });
         }
     </script>
 
@@ -86,9 +135,6 @@
         <div id="layoutSidenav"></div>
         <%- include ('layoutBody') %>
             <!-- side bar end -->
-
-            <!-- 페이지에 알맞게 수정 필요 시작 -->
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -109,59 +155,22 @@
                                         <tr>
                                             <th>No</th>
                                             <th>질문</th>
-                                            <th>긍정 답변의 다음 질문</th>
-                                            <th>부정 답변의 다음 질문</th>
+                                            <th>긍정답변 다음질문</th>
+                                            <th>부정답변 다음질문</th>
+                                            <th>긍정답변 변화값</th>
                                             <th>상세</th>
                                             <th>삭제</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>질문</th>
-                                            <th>긍정 답변의 다음 질문</th>
-                                            <th>부정 답변의 다음 질문</th>
-                                            <th>상세</th>
-                                            <th>삭제</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>최근 1년간 청첩장이 아닌 이유로 만난 적이 있다.</td>
-                                            <td>청첩장을 직접 받았다.</td>
-                                            <td>모바일로 받았다.</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>청첩장을 직접 받았다.</td>
-                                            <td>직장동료다.</td>
-                                            <td>모바일로 받았다.</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>모바일로 받았다.</td>
-                                            <td>SNS 친구다.</td>
-                                            <td>직장동료다.</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
+
+                                    <tbody id="moneyQuestionList">
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </main>
-
-                <!-- 페이지에 알맞게 수정 필요 끝 -->
-
 </body>
 
 <footer>

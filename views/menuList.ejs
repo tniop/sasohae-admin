@@ -16,6 +16,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 
+         <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
     <style>
         body,
         button,
@@ -58,6 +64,45 @@
     </style>
 
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            getMenuList();
+        });
+
+        function getMenuList() {
+            $("#menuList").empty()
+            $.ajax({
+                type: "GET",
+                url: "/api/menus",
+                data: {},
+                success: function (response) {
+                    console.log(response)
+                    for(let i=0; i<response.length; i++){
+                        makeTable(response[i])
+                    }
+                }
+            })
+        }
+
+        function makeTable(info) {
+            let htmlTemp = `<tr>
+                                <td>${info["menu_id"]}</td>
+                                <td>${info["menuName"]}</td>
+                                <td>${info["menuUrl"]}</td>
+                                <td>${info["menuType"]}</td>
+                                <td>${info["menuStyle"]}</td>
+                                <td>${info["menuWith"]}</td>
+                                <td>${info["menuRecommendCnt"]}</td>
+                                <td>${info["menuLikeCnt"]}</td>
+                                <td style="cursor:pointer;" onClick="moveToDetail()">상세</td>
+                                <td><input type="button" id="delete" onClick="deleteItem()"
+                                        class="btn btn-outline-primary" value="삭제"></td>
+                            </tr>
+                            `
+            $("#menuList").append(htmlTemp)
+
+        }
+
         function moveToInsert() {
             location.href = "menuInsert";
         }
@@ -102,55 +147,19 @@
                                         <tr>
                                             <th>No</th>
                                             <th>메뉴이름</th>
-                                            <th>메뉴 이미지</th>
+                                            <th>이미지</th>
+                                            <th>목적</th>
+                                            <th>종류</th>
+                                            <th>같이 먹는 사람</th>
                                             <th>추천수</th>
                                             <th>좋아요</th>
                                             <th>상세</th>
                                             <th>삭제</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>메뉴이름</th>
-                                            <th>메뉴 이미지</th>
-                                            <th>추천수</th>
-                                            <th>좋아요</th>
-                                            <th>상세</th>
-                                            <th>삭제</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>오므라이스</td>
-                                            <td>오므라이스 이미지</td>
-                                            <td>20</td>
-                                            <td>10</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>타코</td>
-                                            <td>타코 이미지</td>
-                                            <td>15</td>
-                                            <td>5</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>김치찌개</td>
-                                            <td>김치찌개 이미지</td>
-                                            <td>10</td>
-                                            <td>2</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
+                            
+                                    <tbody id = "menuList">
+                                       
                                     </tbody>
                                 </table>
                             </div>
