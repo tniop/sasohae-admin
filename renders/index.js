@@ -43,7 +43,7 @@ router.get("/giftQuestionsInsert", (req, res, next) => {
     }
 });
 
-router.get("/giftQuestionsDetail", (req, res, next) => {
+router.get("/giftQuestions/:giftQuestion_id", (req, res, next) => {
     try {
         res.render("./giftQuestionsDetail"); // res.render("./gifts/giftQuestionsList"); -> gifts 폴더 내부 파일
     } catch (error) {

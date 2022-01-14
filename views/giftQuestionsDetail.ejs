@@ -16,6 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <style>
         /* .card {
             display: grid;
@@ -50,6 +52,47 @@
     </style>
 
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            getSelectedQuestion();
+
+        });
+
+        // 선물 질문 상세
+        function getSelectedQuestion(giftQuestion_id) {
+            const param = document.location.href.split("/");
+            giftQuestion_id = param[4];
+
+            $("#giftQuestionsList").empty()
+            $.ajax({
+                type: "GET",
+                url: `/api/giftQuestions/${giftQuestion_id}`,
+                data: {},
+                // error: function (xhr, status, error) {
+                //     if (status == 404) {
+                //         alert("존재하지 않는 글입니다.");
+                //     }
+                //     window.location.href = "/giftQuestionsList";
+                // },
+                success: function (selectedGiftQuestions) {
+                    
+                    // 질문 타입 radio 입력
+                    const type = selectedGiftQuestions.giftQuestionType;
+                    const question = selectedGiftQuestions.giftQuestion;
+                    console.log(question)
+                    if(type == "personality") {
+                        $("#personality").prop("checked", true);
+                    } else if (type == "emotional") {
+                        $("#emotional").prop("checked", true);
+                    } else if (type == "trendy") {
+                        $("#trendy").prop("checked", true);
+                    }
+                  
+                    $("#giftQuestion").val(question);
+                }
+            })
+        }
+
         function reviseInfo() {
             location.href = "giftQuestionsList";
         }
@@ -82,17 +125,17 @@
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label for="giftQuestionType" class="col-sm-2 control-label">질문 타입 : </label>
-                                    <input type="radio" name="giftQuestionType" style="margin-right:10px;"
-                                        value="personality" checked="checked">Personality
-                                    <input type="radio" name="giftQuestionType" style="margin-right:10px;"
-                                        value="emotionality">Emotionality
-                                    <input type="radio" name="giftQuestionType" style="margin-right:10px;"
+                                    <input type="radio" id="personality" name="giftQuestionType" style="margin-right:10px;"
+                                        value="personality">Personality
+                                    <input type="radio" id="emotional" name="giftQuestionType" style="margin-right:10px;"
+                                        value="emotional">Emotional
+                                    <input type="radio" id="trendy" name="giftQuestionType" style="margin-right:10px;"
                                         value="trendy">Trendy
                                 </div>
                                 <div class="form-group">
                                     <label for="giftQuestion" class="col-sm-2 control-label">질문 내용 : </label>
                                     <input type="input" class="form-control" id="giftQuestion"
-                                        style="width: 600px; display:inline" placeholder="질문을 입력해주세요">
+                                        style="width: 600px; display:inline;" placeholder="질문을 입력해주세요" disabled>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
