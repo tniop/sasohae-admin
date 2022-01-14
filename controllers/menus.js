@@ -16,6 +16,12 @@ async function getSelectedMenu(req, res) {
     try {
         const { menu_id } = req.params;
         const selectedMenu = await menus.findOne({ menu_id });
+        if (!selectedMenu) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
         res.status(200).send(selectedMenu);
     } catch (err) {
         console.log(err);
@@ -48,6 +54,13 @@ async function createMenu(req, res) {
 async function updateMenu(req, res) {
     try {
         const { menu_id } = req.params;
+        const selectedMenu = await menus.findOne({ menu_id });
+        if (!selectedMenu) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
         const menuUrl = req.file.location;
         const { menuName, menuType, menuStyle, menuWith } = req.body;
         await menus.updateOne(
@@ -66,6 +79,13 @@ async function updateMenu(req, res) {
 async function deleteMenu(req, res) {
     try {
         const { menu_id } = req.params;
+        const selectedMenu = await menus.findOne({ menu_id });
+        if (!selectedMenu) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
         await menus.deleteOne({ menu_id });
         res.status(204).send();
     } catch (err) {
