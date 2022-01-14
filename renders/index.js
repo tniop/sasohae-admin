@@ -62,7 +62,7 @@ router.get("/giftList", (req, res, next) => {
 
 router.get("/giftInsert", (req, res, next) => {
     try {
-        res.render("./giftInsert"); 
+        res.render("./giftInsert");
     } catch (error) {
         res.render("error");
     }
