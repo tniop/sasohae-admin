@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-/* ==================== controllers ====================*/
+/* ==================== controllers ==================== */
 const {
     getBoards,
     deleteBoards,
@@ -44,7 +44,7 @@ const upload = require("../middleware/upload");
 const passportAutheticator = require("../middleware/authenticator");
 /* ==================================================*/
 
-/* ==================== router ====================*/
+/* ==================== router ==================== */
 router.get("/boards", getBoards);
 router.delete("/boards/:board_id", deleteBoards);
 router.post("/boards", createBoards);
@@ -60,6 +60,8 @@ router.get("/menus/:menu_id", getSelectedMenu);
 router.post("/menus", upload.single("img"), createMenu);
 router.put("/menus/:menu_id", upload.single("img"), updateMenu);
 router.delete("/menus/:menu_id", deleteMenu);
+
+router.post("/moneyQuestions", createMoneyQuestions);
 
 router.get("/giftQuestions", getAllGiftQuestions);
 router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);

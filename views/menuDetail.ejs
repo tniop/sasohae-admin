@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Menus - Sasohae Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="../public/css/styles.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+        crossorigin="anonymous"></script>
+
+    <style>
+        label {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .btn {
+            font-weight: 600;
+        }
+        .form-horizontal {
+            display: block;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            width: 700px;
+        }
+        .menu-group {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .checkbox-inline {
+            margin-right: 20px;
+        }
+        .col-sm-2 {
+            font-weight: bold;
+            white-space: nowrap;
+            margin: 10px 30px 0px 0px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function insertInfo() {
+            location.href = "menuList";
+        }
+
+        function goToList() {
+            location.href = "menuList";
+        }
+    </script>
+
+</head>
+
+<body class="sb-nav-fixed">
+    <%- include('layoutHeader') %>
+        <!-- side bar start -->
+        <div id="layoutSidenav"></div>
+        <%- include ('layoutBody') %>
+            <!-- side bar end -->
+
+            <!-- 페이지에 알맞게 수정 필요 시작 -->
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">메뉴 수정</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">SASOHAE MENUS</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <!-- 내부 폼-->
+                            <form class="form-horizontal">
+                                <div class="menu-group">
+                                    <div class="form-group">
+                                        <label for="menuName" class="col-sm-2 control-label">메뉴이름 : </label>
+                                        <input type="input" class="form-control" id="menuName"
+                                            style="width: 400px; display:inline" placeholder="메뉴이름">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="imgFile" class="col-sm-2 control-label">이미지 파일 : </label>
+                                            <label for="exampleInputFile">파일 업로드</label>
+                                            <input type="file" id="imgFile">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="menuType" class="col-sm-2 control-label">Menu Type : </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuTypeCheckbox1" value="1"> 식사
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuTypeCheckbox2" value="2"> 요리
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuTypeCheckbox3" value="3"> 간식
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="menuStyle" class="col-sm-2 control-label">Menu Style : </label>
+                                        <div class="menuStyleSelect" style="width:50%; display: inline-block;">
+                                            <select name="menuStyle" id="menuStyle" data-mini="true">
+                                                <option value="*">전체</option>
+                                                <option value="1">한식</option>
+                                                <option value="2">중식</option>
+                                                <option value="3">일식</option>
+                                                <option value="4">양식</option>
+                                                <option value="5">아시안</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="menuWith" class="col-sm-2 control-label">Menu With : </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuWithCheckboxAll" value="*"> 전체
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuWithCheckbox1" value="1"> 혼밥
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuWithCheckbox2" value="2"> 친구
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuWithCheckbox3" value="3"> 연인
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuWithCheckbox4" value="4"> 가족
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="menuWithCheckbox5" value="5"> 모임
+                                        </label>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div>
+                                                <button type="button" class="btn btn-success" onclick="insertInfo()"
+                                                    style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">수정하기</button>
+                                                <button type="button" class="btn btn-warning" onclick="goToList()"
+                                                    style="margin-top: 30px">취소하기</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </form>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- 페이지에 알맞게 수정 필요 끝 -->
+
+</body>
+
+<footer>
+
+    <%- include ('layoutFooter') %>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+<script src="../public/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="../public/assets/demo/chart-area-demo.js"></script>
+<script src="../public/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="../public/js/datatables-simple-demo.js"></script>
+
+</html>
