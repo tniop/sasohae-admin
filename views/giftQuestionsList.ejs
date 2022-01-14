@@ -73,8 +73,7 @@
         })
 
         // 선물 질문 리스트
-        function getQuestionsList(giftQuestion_id) {
-            console.log("들어옴");
+        function getQuestionsList() {
             $("#giftQuestionsList").empty()
             $.ajax({
                 type: "GET",
@@ -88,7 +87,7 @@
                         <td>${allGiftQuestions[i]["giftQuestionType"]}</td>
                         <td>${allGiftQuestions[i]["giftQuestion"]}</td>
                         <td style="cursor:pointer;"  onclick="location.href='/giftQuestions/${allGiftQuestions[i]["giftQuestion_id"]}'">상세페이지 이동</td>
-                        <td><input type="button" id="delete${allGiftQuestions[i]["giftQuestion_id"]}" onClick="deleteItem()"
+                        <td><input type="button" id="delete${allGiftQuestions[i]["giftQuestion_id"]}" onClick="deleteItem(this.id)"
                         class="btn btn-outline-primary" value="삭제"></td>
                         </tr>`
                         $("#giftQuestionsList").append(htmlTemp)
@@ -105,20 +104,23 @@
             location.href = "giftQuestionsDetail";
         }
 
-        function deleteItem(giftQuestion_id) {
-            if (confirm("정말로 삭제하시겠습니까?") == true) {    //확인
-            } else {   //취소
+        function deleteItem(id) {
+            let giftQuestion_id = id.split("delete")[1]
+            if (confirm("정말로 삭제하시겠습니까?") == true) { // 확인   
+            } else {
                 return false;
             }
             $.ajax({
                 type: "DELETE",
                 url: `/api/giftQuestions/${giftQuestion_id}`,
                 data: {},
-                success: function (giftQuestion_id) {
-                        console.log(giftQuestion_id)
-                        alert("게시글 삭제 완료!");
+                success: function (response) {                  
+                        location.href = location.href
                         history.go(0);
-                }
+                },
+                error: function (error) {
+                    alert(error.responseJSON.errorMessage)
+                },
             });
         }
     </script>

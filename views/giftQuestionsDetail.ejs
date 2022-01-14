@@ -19,10 +19,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
-        /* .card {
-            display: grid;
-            place-content: center;
-        } */
         label {
             font-family: 'Noto Sans KR', sans-serif;
         }
@@ -68,12 +64,12 @@
                 type: "GET",
                 url: `/api/giftQuestions/${giftQuestion_id}`,
                 data: {},
-                // error: function (xhr, status, error) {
-                //     if (status == 404) {
-                //         alert("존재하지 않는 글입니다.");
-                //     }
-                //     window.location.href = "/giftQuestionsList";
-                // },
+                error: function (xhr, status, error) {
+                    if (status == 404) {
+                        alert("존재하지 않는 글입니다.");
+                    }
+                    location.href = "/giftQuestionsList";
+                },
                 success: function (selectedGiftQuestions) {
                     
                     // 질문 타입 radio 입력
@@ -87,18 +83,77 @@
                     } else if (type == "trendy") {
                         $("#trendy").prop("checked", true);
                     }
-                  
                     $("#giftQuestion").val(question);
                 }
-            })
+            });
         }
 
+        // 수정버튼 클릭 시 giftQuestionType, giftQuestion input 활성화
+        function activateInput() { 
+           if ($("#giftQuestion").attr("disabled", true)) {
+                $("#giftQuestion").attr("disabled", false);
+            } 
+            if ($("#personality").attr("disabled", true)) {
+                $("#personality").attr("disabled", false);
+            }
+            if ($("#emotional").attr("disabled", true)) {
+                $("#emotional").attr("disabled", false);
+            }
+            if ($("#trendy").attr("disabled", true)) {
+                $("#trendy").attr("disabled", false);
+            }
+        }
+
+        // 수정 버튼 클릭 시 
         function reviseInfo() {
-            location.href = "giftQuestionsList";
+            activateInput() // 버튼, input 활성화
+            const radio_length = document.getElementsByName("giftQuestionType").length;
+            for (var i = 0; i < radio_length; i++) {
+                if (document.getElementsByName("giftQuestionType")[i].checked == true) {
+                    var chkType = (document.getElementsByName("giftQuestionType")[i].value);
+                }
+            }
+            if ($("#giftQuestion").val() == "") { // 공백
+                alert("공백 없이 입력해주세요!");
+                return;
+            }
+            $("#reviseBtn").click(function() {
+                reviseBtnClickAgain();
+            })       
+        }
+
+        function reviseBtnClickAgain() {
+            const param = document.location.href.split("/");
+            console.log(param)
+            let giftQuestion_id = param[4];
+
+            const radio_length = document.getElementsByName("giftQuestionType").length;
+            for (var i = 0; i < radio_length; i++) {
+                if (document.getElementsByName("giftQuestionType")[i].checked == true) {
+                    var chkType = (document.getElementsByName("giftQuestionType")[i].value);
+                }
+                console.log(chkType)
+            }
+
+            $.ajax({
+                type: "PUT",
+                url: `/api/giftQuestions/${giftQuestion_id}`,
+                data: {
+                    giftQuestionType: chkType,
+                    giftQuestion: $("#giftQuestion").val(),
+                },
+                success: function (response) {
+                    location.href = location.href
+                    history.go(0);
+                },
+                error: function (error) {
+                    alert(error.responseJSON.errorMessage)
+                },
+            });
         }
 
         function goToList() {
-            location.href = "giftQuestionsList";
+            location.href = ("/giftQuestionsList");
         }
     </script>
 
@@ -126,11 +181,11 @@
                                 <div class="form-group">
                                     <label for="giftQuestionType" class="col-sm-2 control-label">질문 타입 : </label>
                                     <input type="radio" id="personality" name="giftQuestionType" style="margin-right:10px;"
-                                        value="personality">Personality
+                                        value="personality" disabled>Personality
                                     <input type="radio" id="emotional" name="giftQuestionType" style="margin-right:10px;"
-                                        value="emotional">Emotional
+                                        value="emotional" disabled>Emotional
                                     <input type="radio" id="trendy" name="giftQuestionType" style="margin-right:10px;"
-                                        value="trendy">Trendy
+                                        value="trendy" disabled>Trendy
                                 </div>
                                 <div class="form-group">
                                     <label for="giftQuestion" class="col-sm-2 control-label">질문 내용 : </label>
@@ -140,7 +195,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <div>
-                                            <button type="button" class="btn btn-success" onclick="reviseInfo()"
+                                            <button type="button" class="btn btn-success" id="reviseBtn"onclick="reviseInfo()"
                                                 style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">수정하기</button>
                                             <button type="button" class="btn btn-warning" onclick="goToList()"
                                                 style="margin-top: 30px">취소하기</button>
