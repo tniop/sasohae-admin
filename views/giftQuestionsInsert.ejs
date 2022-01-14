@@ -16,11 +16,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <style>
-        /* .card {
-            display: grid;
-            place-content: center;
-        } */
         label {
             font-family: 'Noto Sans KR', sans-serif;
         }
@@ -55,8 +53,33 @@
     </style>
 
     <script type="text/javascript">
-        function insertInfo() {
-            location.href = "giftQuestionsList";
+        // 선물 질문 등록
+        function insertInfo(checkedRadio) {        
+            // 체크된 라디오 버튼 확인   
+            const radio_length = document.getElementsByName("giftQuestionType").length;
+            for (var i = 0; i < radio_length; i++) {
+                if (document.getElementsByName("giftQuestionType")[i].checked == true) {
+                    var chkType = (document.getElementsByName("giftQuestionType")[i].value);
+                }
+            }           
+            if ($("#giftQuestion").val() == "" ) { // 미입력 상태일 경우 
+                alert("공백 없이 입력해주세요!");
+                return;
+            }       
+            $.ajax({
+                type: "POST",
+                url: `/api/giftQuestions`,
+                data: {
+                    giftQuestionType: chkType,
+                    giftQuestion: $("#giftQuestion").val(),             
+                },
+                success: function (response) {
+                    location.href = "/giftQuestionsList";
+                }, 
+                error: function (error) {
+                    alert(error.responseJSON.errorMessage)
+                },
+            });
         }
 
         function goToList() {
@@ -91,7 +114,7 @@
                                         <input type="radio" name="giftQuestionType" style="margin-right:10px;" value="personality"
                                             checked="checked">Personality
                                         <input type="radio" name="giftQuestionType" style="margin-right:10px;"
-                                            value="emotionality">Emotionality
+                                            value="emotional">Emotional
                                         <input type="radio" name="giftQuestionType" style="margin-right:10px;"
                                             value="trendy">Trendy
                                     </div>
