@@ -37,6 +37,7 @@ const {
     deleteAdmin,
 } = require("../controllers/admins");
 const adminAuth = require("../controllers/auth");
+const { createMoneyQuestions } = require("../controllers/moneys");
 /* ==================================================*/
 
 /* ==================== middleware ====================*/
