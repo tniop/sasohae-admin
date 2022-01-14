@@ -60,7 +60,7 @@ async function createAdmin(req, res) {
     }
 }
 
-async function loginAdmin(req, res, next) {
+async function loginAdmin(req, res) {
     try {
         passport.authenticate("local", (error, admin, detail) => {
             if (error || !admin) {
