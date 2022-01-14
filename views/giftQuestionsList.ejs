@@ -16,6 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <style>
         body,
         button,
@@ -65,7 +67,37 @@
     </style>
 
     <script type="text/javascript">
-        function moveTogiftQuestionsInsert() {
+        // 화면 로딩되면 
+        $(document).ready(function () {
+            getQuestionsList()
+        })
+
+        // 선물 질문 리스트
+        function getQuestionsList(giftQuestion_id) {
+            console.log("들어옴");
+            $("#giftQuestionsList").empty()
+            $.ajax({
+                type: "GET",
+                url: `/api/giftQuestions`,
+                data: {},
+                success: function (allGiftQuestions) {
+                    for (let i = 0; i < allGiftQuestions.length; i++) {
+                        // 테이블에 표시
+                        let htmlTemp = `<tr style="cursor:pointer;">
+                        <td>${i+1}</td>
+                        <td>${allGiftQuestions[i]["giftQuestionType"]}</td>
+                        <td>${allGiftQuestions[i]["giftQuestion"]}</td>
+                        <td style="cursor:pointer;"  onclick="location.href='/giftQuestions/${allGiftQuestions[i]["giftQuestion_id"]}'">상세페이지 이동</td>
+                        <td><input type="button" id="delete${allGiftQuestions[i]["giftQuestion_id"]}" onClick="deleteItem()"
+                        class="btn btn-outline-primary" value="삭제"></td>
+                        </tr>`
+                        $("#giftQuestionsList").append(htmlTemp)
+                    }
+                }
+            })
+        }
+
+        function moveToInsert() {
             location.href = "giftQuestionsInsert";
         }
 
@@ -73,8 +105,21 @@
             location.href = "giftQuestionsDetail";
         }
 
-        function deleteItem() {
-            alert("정말로 삭제하시겠습니까?")
+        function deleteItem(giftQuestion_id) {
+            if (confirm("정말로 삭제하시겠습니까?") == true) {    //확인
+            } else {   //취소
+                return false;
+            }
+            $.ajax({
+                type: "DELETE",
+                url: `/api/giftQuestions/${giftQuestion_id}`,
+                data: {},
+                success: function (giftQuestion_id) {
+                        console.log(giftQuestion_id)
+                        alert("게시글 삭제 완료!");
+                        history.go(0);
+                }
+            });
         }
     </script>
 
@@ -101,7 +146,7 @@
                                 <i class="fas fa-table me-1"></i>
                                 선물 질문 리스트
                             </div>
-                            <button class="level-item button add" onclick="moveTogiftQuestionsInsert()"
+                            <button class="level-item button add" onclick="moveToInsert()"
                                 style="background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -123,31 +168,17 @@
                                             <th>삭제</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="giftQuestionsList">
+                                        <!-- db data 들어감 -->
+
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>personality</td>
                                             <td>외향적인가요?</td>
                                             <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
                                             <td><input type="button" id="delete" onClick="deleteItem()"
                                                     class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>emotionality</td>
-                                            <td>말보다 행동파이신가요?</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>trendy</td>
-                                            <td>트렌드에 민감한가요?</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
+                                        </tr>                                         -->
                                     </tbody>
                                 </table>
                             </div>
