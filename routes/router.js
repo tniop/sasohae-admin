@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const passport = require("passport");
 /* ==================== controllers ==================== */
 const {
     getBoards,
@@ -29,13 +29,21 @@ const {
     deleteGiftQuestion,
 } = require("../controllers/giftQuestions");
 const {
-    createMoneyQuestions
-} = require("../controllers/moneys");
-/* ================================================== */
+    getAllAdmins,
+    getSelectedAdmin,
+    createAdmin,
+    loginAdmin,
+    updateAdmin,
+    deleteAdmin,
+} = require("../controllers/admins");
+const adminAuth = require("../controllers/auth");
+const { createMoneyQuestions } = require("../controllers/moneys");
+/* ==================================================*/
 
-/* ==================== middleware ==================== */
+/* ==================== middleware ====================*/
 const upload = require("../middleware/upload");
-/* ================================================== */
+const passportAutheticator = require("../middleware/authenticator");
+/* ==================================================*/
 
 /* ==================== router ==================== */
 router.get("/boards", getBoards);
@@ -54,13 +62,22 @@ router.post("/menus", upload.single("img"), createMenu);
 router.put("/menus/:menu_id", upload.single("img"), updateMenu);
 router.delete("/menus/:menu_id", deleteMenu);
 
+router.post("/moneyQuestions", createMoneyQuestions);
+
 router.get("/giftQuestions", getAllGiftQuestions);
 router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);
 router.post("/giftQuestions", createGiftQuestion);
 router.put("/giftQuestions/:giftQuestion_id", updateGiftQuestion);
 router.delete("/giftQuestions/:giftQuestion_id", deleteGiftQuestion);
 
-router.post("/moneyQuestions", createMoneyQuestions);
-/* ================================================== */
+router.get("/admin", getAllAdmins);
+router.get("/admin/:admin_id", getSelectedAdmin);
+router.post("/sign-up", createAdmin);
+router.post("/login", loginAdmin);
+router.put("/admin/:admin_id", updateAdmin);
+router.delete("/admin/:admin_id", deleteAdmin);
+
+router.get("/auth", passportAutheticator(), adminAuth);
+/* ==================================================*/
 
 module.exports = router;

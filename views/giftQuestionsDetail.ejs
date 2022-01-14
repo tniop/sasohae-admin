@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>GiftQuestions - Sasohae Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="../public/css/styles.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+        crossorigin="anonymous"></script>
+
+    <style>
+        /* .card {
+            display: grid;
+            place-content: center;
+        } */
+        label {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .btn {
+            font-weight: 600;
+        }
+
+        .form-horizontal {
+            display: block;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-inline {
+            margin-right: 20px;
+        }
+
+        .col-sm-2 {
+            font-weight: bold;
+            white-space: nowrap;
+            margin: 20px 30px 20px 0px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function reviseInfo() {
+            location.href = "giftQuestionsList";
+        }
+
+        function goToList() {
+            location.href = "giftQuestionsList";
+        }
+    </script>
+
+</head>
+
+<body class="sb-nav-fixed">
+    <%- include('layoutHeader') %>
+        <!-- side bar start -->
+        <div id="layoutSidenav"></div>
+        <%- include ('layoutBody') %>
+            <!-- side bar end -->
+
+            <!-- 페이지에 알맞게 수정 필요 시작 -->
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">선물 질문 수정</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">SASOHAE GIFTS QUESTIONS</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <!-- 내부 폼-->
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="giftQuestionType" class="col-sm-2 control-label">질문 타입 : </label>
+                                    <input type="radio" name="giftQuestionType" style="margin-right:10px;"
+                                        value="personality" checked="checked">Personality
+                                    <input type="radio" name="giftQuestionType" style="margin-right:10px;"
+                                        value="emotionality">Emotionality
+                                    <input type="radio" name="giftQuestionType" style="margin-right:10px;"
+                                        value="trendy">Trendy
+                                </div>
+                                <div class="form-group">
+                                    <label for="giftQuestion" class="col-sm-2 control-label">질문 내용 : </label>
+                                    <input type="input" class="form-control" id="giftQuestion"
+                                        style="width: 600px; display:inline" placeholder="질문을 입력해주세요">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div>
+                                            <button type="button" class="btn btn-success" onclick="reviseInfo()"
+                                                style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">수정하기</button>
+                                            <button type="button" class="btn btn-warning" onclick="goToList()"
+                                                style="margin-top: 30px">취소하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- 페이지에 알맞게 수정 필요 끝 -->
+
+</body>
+
+<footer>
+
+    <%- include ('layoutFooter') %>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+<script src="../public/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="../public/assets/demo/chart-area-demo.js"></script>
+<script src="../public/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="../public/js/datatables-simple-demo.js"></script>
+
+</html>
