@@ -59,13 +59,13 @@ router.post("/boards", createBoards);
 router.get("/gifts", getAllGifts);
 router.get("/gifts/:gift_id", getSelectedGift);
 router.post("/gifts", upload.single("img"), createGift);
-router.put("/gifts/:gift_id", upload.single("img"), updateGift);
+router.put("/gifts/:gift_id", updateGift);
 router.delete("/gifts/:gift_id", deleteGift);
 
 router.get("/menus", getAllMenus);
 router.get("/menus/:menu_id", getSelectedMenu);
 router.post("/menus", upload.single("img"), createMenu);
-router.put("/menus/:menu_id", upload.single("img"), updateMenu);
+router.put("/menus/:menu_id", updateMenu);
 router.delete("/menus/:menu_id", deleteMenu);
 
 router.get("/moneyQuestions", getAllMoneyQuestion);

@@ -93,7 +93,7 @@ router.get("/menuInsert", (req, res, next) => {
     }
 });
 
-router.get("/menuDetail", (req, res, next) => {
+router.get("/menuDetail/:menu_id", (req, res, next) => {
     try {
         res.render("./menuDetail"); // res.render("./menus/menuDetail");
     } catch (error) {

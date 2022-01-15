@@ -33,8 +33,7 @@ function moveToInsert() {
 
 function moveToDetail(Idx) {
     const admin_id = Idx;
-    console.log(admin_id);
-    location.href = `adminDetail/${admin_id}`;
+    location.href = `/adminDetail/${admin_id}`;
 }
 
 function deleteItem(Idx) {
