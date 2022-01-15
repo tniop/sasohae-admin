@@ -16,6 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <style>
         body,
         button,
@@ -58,16 +60,58 @@
     </style>
 
     <script type="text/javascript">
-        function moveTogiftInsert() {
+        // 화면 로딩되면 
+        $(document).ready(function () {
+            getGiftList()
+        })
+
+        // 선물 리스트
+        function getGiftList() {
+            $("#giftList").empty()
+            $.ajax({
+                type: "GET",
+                url: `/api/gifts`,
+                data: {},
+                success: function (allGifts) {
+                    for (let i = 0; i < allGifts.length; i++) {
+                        // 테이블에 표시
+                        let htmlTemp = `<tr>
+                                            <td>${i + 1}</td>
+                                            <td>${allGifts[i]["giftName"]}</td>
+                                            <td><img width="200px" src="../public/assets/img/UI_brand.png"></td> 
+                                            <td>${allGifts[i]["giftRecommendCnt"]}</td>
+                                            <td>${allGifts[i]["giftLikeCnt"]}</td>
+                                            <td style="cursor:pointer;"  onclick="location.href='/gifts/${allGifts[i]["gift_id"]}'">상세페이지 이동</td>
+                                            <td><input type="button" id="delete${allGifts[i]["gift_id"]}" onClick="deleteItem(this.id)"
+                                            class="btn btn-outline-primary" value="삭제"></td>
+                                        </tr>`
+                        $("#giftList").append(htmlTemp)
+                    }
+                }
+            })
+        }
+        function moveToInsert() {
             location.href = "giftInsert";
         }
 
-        function moveToDetail() {
-            location.href = "giftDetail";
-        }
-
-        function deleteItem() {
-            alert("정말로 삭제하시겠습니까?")
+        function deleteItem(id) {
+            let gift_id = id.split("delete")[1]
+            if (confirm("정말로 삭제하시겠습니까?") == true) { // 확인   
+            } else {
+                return false;
+            }
+            $.ajax({
+                type: "DELETE",
+                url: `/api/gifts/${gift_id}`,
+                data: {},
+                success: function (response) {
+                    location.href = location.href
+                    history.go(0);
+                },
+                error: function (error) {
+                    alert(error.responseJSON.errorMessage)
+                },
+            });
         }
     </script>
 
@@ -119,8 +163,8 @@
                                             <th>삭제</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="giftList">
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>케이크</td>
                                             <td>케이크 이미지</td>
@@ -128,25 +172,7 @@
                                             <td>10</td>
                                             <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
                                             <td><input type="button" id="delete" onClick="deleteItem()" class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>벨트</td>
-                                            <td>벨트 이미지</td>
-                                            <td>15</td>
-                                            <td>5</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()" class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>공기청정기</td>
-                                            <td>공기청정기 이미지</td>
-                                            <td>10</td>
-                                            <td>2</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()" class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
