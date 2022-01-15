@@ -69,10 +69,10 @@ router.put("/menus/:menu_id", upload.single("img"), updateMenu);
 router.delete("/menus/:menu_id", deleteMenu);
 
 router.get("/moneyQuestions", getAllMoneyQuestion);
-router.get("/moneyQuestions/:moneyQuestions_id", getMoneyQuestion);
+router.get("/moneyQuestions/:moneyQuestion_id", getMoneyQuestion);
 router.post("/moneyQuestions", createMoneyQuestions);
-router.put("/moneyQuestions/:moneyQuestions_id", updateMoneyQuestion);
-router.delete("/moneyQuestions/:moneyQuestions_id", deleteMoneyQuestion);
+router.put("/moneyQuestions/:moneyQuestion_id", updateMoneyQuestion);
+router.delete("/moneyQuestions/:moneyQuestion_id", deleteMoneyQuestion);
 
 router.get("/giftQuestions", getAllGiftQuestions);
 router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);

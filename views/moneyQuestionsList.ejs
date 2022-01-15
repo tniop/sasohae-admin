@@ -98,8 +98,8 @@
                                 <td>${info["positiveAnswerQuestion"]}</td>
                                 <td>${info["negativeAnswerQuestion"]}</td>
                                 <td>${info["positiveChangeValue"]}</td>
-                                <td style="cursor:pointer;" onclick="location.href='/moneyQuestionsDetail/${info["moneyQuestion_id"]}'">상세</td>
-                                <td><input type="button" id="delete" onClick="deleteItem(${info["moneyQuestion_id"]})"
+                                <td style="cursor:pointer;" onclick="location.href='/moneyQuestions/${info["moneyQuestion_id"]}'">상세</td>
+                                <td><input type="button" onClick="deleteItem(${info["moneyQuestion_id"]})"
                                         class="btn btn-outline-primary" value="삭제"></td>
                             </tr>
                             `
@@ -111,16 +111,19 @@
         }
 
         function deleteItem(id) {
+            let moneyQuestion_id = id;
+            console.log(moneyQuestion_id)
             if (confirm("정말로 삭제하시겠습니까?") == true) {
             } else {
                 return false;
             }
             $.ajax({
                 type: "DELETE",
-                url: `/api/moneyQuestions/${id}`,
+                url: `/api/moneyQuestions/${moneyQuestion_id}`,
                 data: {},
                 success: function (response) {
                         alert("삭제 완료!");
+                        location.href = location.href
                         history.go(0);
                 }
             });
