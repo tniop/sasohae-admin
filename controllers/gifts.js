@@ -80,7 +80,6 @@ async function updateGift(req, res) {
             });
             return;
         }
-//         const giftUrl = req.file.location;
         const {
             giftName,
             giftTarget,
@@ -100,7 +99,6 @@ async function updateGift(req, res) {
             {
                 $set: {
                     giftName,
-//                     giftUrl,
                     giftTarget,
                     giftEvent,
                     sex,
