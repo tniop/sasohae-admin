@@ -82,7 +82,7 @@
                 success: function (allGiftQuestions) {
                     for (let i = 0; i < allGiftQuestions.length; i++) {
                         // 테이블에 표시
-                        let htmlTemp = `<tr style="cursor:pointer;">
+                        let htmlTemp = `<tr>
                         <td>${i+1}</td>
                         <td>${allGiftQuestions[i]["giftQuestionType"]}</td>
                         <td>${allGiftQuestions[i]["giftQuestion"]}</td>
@@ -98,10 +98,6 @@
 
         function moveToInsert() {
             location.href = "giftQuestionsInsert";
-        }
-
-        function moveToDetail() {
-            location.href = "giftQuestionsDetail";
         }
 
         function deleteItem(id) {
