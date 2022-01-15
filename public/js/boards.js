@@ -17,7 +17,7 @@ function makeTable() {
                                         <td><input type="button" id="${allBoards[i].board_id}" onClick="deleteItem(this.id)"
                                                 class="btn btn-outline-primary" value="삭제"></td>
                                     </tr>`;
-                $("#tbody").append(tempTableList);
+                $("#boardList").append(tempTableList);
             }
         },
         error: (err) => {
