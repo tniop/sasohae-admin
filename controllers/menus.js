@@ -61,11 +61,10 @@ async function updateMenu(req, res) {
             });
             return;
         }
-        const menuUrl = req.file.location;
         const { menuName, menuType, menuStyle, menuWith } = req.body;
         await menus.updateOne(
             { menu_id },
-            { $set: { menuName, menuUrl, menuType, menuStyle, menuWith } }
+            { $set: { menuName, menuType, menuStyle, menuWith } }
         );
         res.status(200).send();
     } catch (err) {
