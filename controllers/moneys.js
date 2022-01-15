@@ -87,6 +87,7 @@ async function updateMoneyQuestion(req, res) {
 async function deleteMoneyQuestion(req, res) {
     try {
         const { moneyQuestion_id } = req.params;
+        console.log(moneyQuestion_id)
         const selectedMoneyQuestion = await moneyQuestions.findOne({
             moneyQuestion_id,
         });
