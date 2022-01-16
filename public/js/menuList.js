@@ -21,9 +21,6 @@ function makeTable(info) {
                         <td>${info["menu_id"]}</td>
                         <td>${info["menuName"]}</td>
                         <td><img width="37px" src="${info["menuUrl"]}"></td>
-                        <td>${info["menuType"]}</td>
-                        <td>${info["menuStyle"]}</td>
-                        <td>${info["menuWith"]}</td>
                         <td>${info["menuRecommendCnt"]}</td>
                         <td>${info["menuLikeCnt"]}</td>
                         <td id="${info["menu_id"]}" style="cursor:pointer;" onClick="moveToDetail(this.id)">상세</td>
@@ -61,3 +58,7 @@ function deleteItem(Idx) {
         });
     }
 }
+
+// <td>${info["menuType"]}</td>
+// <td>${info["menuStyle"]}</td>
+// <td>${info["menuWith"]}</td>

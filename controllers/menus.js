@@ -34,7 +34,9 @@ async function getSelectedMenu(req, res) {
 async function createMenu(req, res) {
     try {
         const menuUrl = req.file.location;
-        const { menuName, menuType, menuStyle, menuWith } = req.body;
+        let { menuName, menuType, menuStyle, menuWith } = req.body;
+        menuType = JSON.parse(menuType);
+        menuWith = JSON.parse(menuWith);
         await menus.create({
             menuName,
             menuUrl,
