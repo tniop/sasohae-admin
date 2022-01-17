@@ -68,7 +68,7 @@
             }       
             $.ajax({
                 type: "POST",
-                url: `/api/giftQuestions`,
+                url: "/api/giftQuestions",
                 data: {
                     giftQuestionType: chkType,
                     giftQuestion: $("#giftQuestion").val(),             
@@ -82,8 +82,8 @@
             });
         }
 
-        function goToList() {
-            location.href = "giftQuestionsList";
+        function backToList() {
+            location.href = "/giftQuestionsList";
         }
     </script>
 
@@ -128,7 +128,7 @@
                                             <div>
                                                 <button type="button" class="btn btn-success" onclick="insertInfo()"
                                                     style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
-                                                <button type="button" class="btn btn-warning" onclick="goToList()"
+                                                <button type="button" class="btn btn-warning" onclick="backToList()"
                                                     style="margin-top: 30px">취소하기</button>
                                             </div>
                                         </div>
