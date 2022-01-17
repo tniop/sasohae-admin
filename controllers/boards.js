@@ -12,6 +12,24 @@ async function getBoards(req, res) {
     }
 }
 
+async function getPagingBoards(req, res) {
+    try {
+        const board_id = req.params.board_id;
+        const startNumber = Number(board_id) * 10;
+        const selectedBoards = await boards
+            .find({})
+            .limit(10)
+            .skip(startNumber)
+            .sort({ _id: -1 });
+        res.status(200).send(selectedBoards);
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "게시글 조회에 실패하였습니다!",
+        });
+    }
+}
+
 async function deleteBoards(req, res) {
     try {
         const { board_id } = req.params;
@@ -38,4 +56,4 @@ async function createBoards(req, res) {
     }
 }
 
-module.exports = { getBoards, deleteBoards, createBoards };
+module.exports = { getBoards, getPagingBoards, deleteBoards, createBoards };
