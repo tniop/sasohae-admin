@@ -60,7 +60,7 @@ router.post("/boards", createBoards);
 router.get("/gifts", getAllGifts);
 router.get("/gifts/:gift_id", getSelectedGift);
 router.post("/gifts", upload.single("img"), createGift);
-router.put("/gifts/:gift_id", upload.single("img"), updateGift);
+router.put("/gifts/:gift_id", updateGift);
 router.delete("/gifts/:gift_id", deleteGift);
 
 router.get("/menus", getAllMenus);

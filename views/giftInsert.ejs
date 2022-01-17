@@ -7,48 +7,220 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>GiftQuestions - Sasohae Admin</title>
+    <title>Gifts - Sasohae Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="../public/css/styles.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap"
-        rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-        crossorigin="anonymous"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
     <style>   
-        label {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-        .btn {
-            font-weight: 600;
-        }
+        label { font-family: 'Noto Sans KR', sans-serif; }
+        .btn { font-weight: 600; }
         .form-horizontal {
             display: block;
-            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-left: 50px;
         }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .gift-group {
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-        .checkbox-inline {
-            margin-right: 20px;
-        }
-        .col-sm-2 {
-            font-weight: bold;
-        }
+        .form-group { margin-bottom: 20px; }
+        .checkbox-inline { margin-right: 20px; }
+        .col-sm-2 { font-weight: bold; }
     </style>
 
     <script type="text/javascript">
-        function insertInfo() {
-            location.href = "giftList";
+        $(document).ready(function () {
+                targetAllChkClicked();
+                eventAllChkClicked();
+                ageAllChkClicked();
+        });
+
+        // 선물타겟 체크박스를 전체선택한 경우
+        function targetAllChkClicked() {
+            $("#giftTargetCheckboxAll").click(function () {
+                if ($("#giftTargetCheckboxAll").is(":checked", true)) {
+                    for (let i = 0; i < 9; i++) {
+                        $("#giftTargetCheckbox" + i).prop("checked", false)
+                        $("#giftTargetCheckbox" + i).prop("disabled", true);
+                    }
+                } else {
+                    for (let i = 0; i < 9; i++) {
+                        $("#giftTargetCheckbox" + i).prop("disabled", false);
+                    }
+                }
+            });
+        }
+        // 선물목적 체크박스를 전체선택한 경우
+        function eventAllChkClicked() {
+            $("#giftEventCheckboxAll").click(function () {
+                if ($("#giftEventCheckboxAll").is(":checked", true)) {
+                    for (let i = 0; i < 10; i++) {
+                        $("#giftEventCheckbox" + i).prop("checked", false)
+                        $("#giftEventCheckbox" + i).prop("disabled", true);
+                    }
+                } else {
+                    for (let i = 0; i < 10; i++) {
+                        $("#giftEventCheckbox" + i).prop("disabled", false);
+                    }
+                }
+            });
+        }
+        // 연령대 체크박스를 전체선택한 경우
+        function ageAllChkClicked() {
+            $("#ageCheckboxAll").click(function () {
+                if ($("#ageCheckboxAll").is(":checked", true)) {
+                    for (let i = 0; i < 10; i++) {
+                        $("#ageCheckbox" + i).prop("checked", false);
+                        $("#ageCheckbox" + i).prop("disabled", true);
+                    }
+                } else {
+                    for (let i = 0; i < 10; i++) {
+                        $("#ageCheckbox" + i).prop("disabled", false);
+                    }
+                }
+            });
         }
 
-        function goToList() {
-            location.href = "giftList";
+        function insertInfo() {
+            if (confirm("등록하시겠습니까?") == true) { 
+            } else {
+                return false;
+            }
+
+            const giftName = $("#giftName").val();        
+            if ( $("#giftName").val() == "" ) {
+                alert("선물이름을 입력해 주세요!");
+                $("#giftName").focus();
+                return;
+            }
+
+            if ( $("#imgFile").val() == "" ) {
+                alert("이미지 파일을 첨부해 주세요!");
+                return;
+            }
+  
+            // 선물타겟 value 확인 및 체크박스 미선택에 대한 알림
+            const giftTarget = [];
+            let targetChkCnt = 0;
+            const targetChkBox = $(".targetChk");
+            for (let i = 1; i <= targetChkBox.length; i++) { // 1부터->전체(*) 제외하고 들어감
+                if ($("#giftTargetCheckbox" + i).is(":checked", true)) {
+                    result = String($("#giftTargetCheckbox" + i).val());
+                    giftTarget.push(result);
+                    targetChkCnt++;
+                } else if ($("#giftTargetCheckboxAll").is(":checked", true)) {
+                    giftTarget.push("*");
+                    targetChkCnt++;
+                    break;
+                }
+            }
+            if (targetChkCnt == 0) {
+                alert("선물타겟을 체크해 주세요!")
+                return false;
+            }
+
+            // 선물목적 value 확인 및 체크박스 미선택에 대한 알림
+            const giftEvent = [];
+            let eventChkCnt = 0;
+            const eventChkBox = $(".eventChk");
+            for (let i = 1; i <= eventChkBox.length; i++) {
+                if ($("#giftEventCheckbox" + i).is(":checked", true)) {
+                    result = String($("#giftEventCheckbox" + i).val());
+                    giftEvent.push(result);
+                    eventChkCnt++;
+                } else if ($("#giftEventCheckboxAll").is(":checked", true)) {
+                    giftEvent.push("*");
+                    eventChkCnt++;
+                    break;
+                }
+            }
+            if (eventChkCnt == 0) {
+                alert("선물목적을 체크해 주세요!")
+                return false;
+            }
+
+            // 연령대 value 확인 및 체크박스 미선택에 대한 알림
+            const age = [];
+            let ageChkCnt = 0;
+            const ageChkBox = $(".ageChk");
+            for (let i = 1; i <= ageChkBox.length; i++) {
+                if ($("#ageCheckbox" + i).is(":checked", true)) {
+                    result = String($("#ageCheckbox" + i).val());
+                    age.push(result);
+                    ageChkCnt++;
+                } else if ($("#ageCheckboxAll").is(":checked", true)) {
+                    age.push("*");
+                    ageChkCnt++;
+                    break;
+                }
+            }
+            if (ageChkCnt == 0) {
+                alert("연령대를 체크해 주세요!")
+                return false;
+            }
+
+            // 성별
+            let sex = "";
+            const radioLength = document.getElementsByName("sexRadios").length;
+            for (let i = 0; i < radioLength; i++) {
+                if (document.getElementsByName("sexRadios")[i].checked == true) {
+                    sex = (document.getElementsByName("sexRadios")[i].value);
+                }
+            }
+
+            // 설문에 대한 답변들
+            const giftAnswerExpensive = $("#expensive").val();
+            const giftAnswerPersonality = $("#personality").val();
+            const giftAnswerEmotional = $("#emotional").val();
+            const giftAnswerTrendy = $("#trendy").val();
+
+            const formData = new FormData();           
+            const img = document.getElementById("imgFile").files[0];
+
+            // formData에 담음. DB에 배열로 담기는 부분 JSON.stringify 처리
+            formData.append("giftName", giftName);
+            formData.append("img", img);
+            formData.append("giftTarget", JSON.stringify(giftTarget));
+            formData.append("giftEvent", JSON.stringify(giftEvent));
+            formData.append("sex", sex);
+            formData.append("age", JSON.stringify(age));
+            formData.append("giftAnswerExpensive", giftAnswerExpensive);
+            formData.append("giftAnswerPersonality", giftAnswerPersonality);
+            formData.append("giftAnswerEmotional", giftAnswerEmotional);
+            formData.append("giftAnswerTrendy", giftAnswerTrendy);
+
+            const body = {
+                giftName,
+                img,
+                giftTarget,
+                giftEvent,
+                sex,
+                age,
+                giftAnswerExpensive,
+                giftAnswerPersonality,
+                giftAnswerEmotional,
+                giftAnswerTrendy,
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/gifts",
+                data: formData,
+                traditional: true,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    alert("선물 등록에 성공하였습니다!")
+                    location.href = "/giftList"
+                },
+                error: function (error) {
+                    alert(error.responseJSON.errorMessage)
+                },
+            });
+        
+        }
+
+        function backToList() {
+            location.href = "/giftList";
         }
     </script>
 
@@ -58,11 +230,10 @@
     <%- include('layoutHeader') %>
         <!-- side bar start -->
         <div id="layoutSidenav"></div>
-        <%- include ('layoutBody') %>
+            <%- include ('layoutBody') %>
             <!-- side bar end -->
 
             <!-- 페이지에 알맞게 수정 필요 시작 -->
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -72,7 +243,7 @@
                         </ol>
                         <div class="card mb-4">
                             <!-- 내부 폼-->
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" id="formId">
                                 <div class="gift-group">
                                     <div class="form-group">                                 
                                             <label for="giftName" class="col-sm-2 control-label">선물이름 : </label>
@@ -85,106 +256,105 @@
                                             <input type="file" id="imgFile">
                                         </div>
                                     </div>                              
-                                    <div class="form-group">
+                                    <div class="form-group" id="targetArea">
                                         <label for="giftTarget" class="col-sm-2 control-label">선물타겟 : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckbox1" value="1"> 부모님
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckboxAll" value="*"> 전체
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckbox2" value="2"> 친구
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox1" value="1"> 부모님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckbox3" value="3"> 연인
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox2" value="2"> 친구
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckbox4" value="4"> 선생님
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox3" value="3"> 연인
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckbox5" value="5"> 교수님
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox4" value="4"> 선생님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckbox6" value="6"> 직장선배
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox5" value="5"> 교수님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckbox7" value="7"> 선후배
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox6" value="6"> 직장선배
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckbox8" value="8"> 구연인
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox7" value="7"> 선후배
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftTargetCheckboxAll" value="*"> 전체
+                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox8" value="8"> 구연인
                                         </label>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="giftEvent" class="col-sm-2 control-label">선물목적 : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox1" value="1"> 생일
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckboxAll" value="*"> 전체 (하찮은 선물 X)
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox2" value="2"> 연인기념일
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox1" value="1"> 생일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox3" value="3"> 결혼기념일
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox2" value="2"> 연인기념일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox4" value="4"> 합격
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox3" value="3"> 결혼기념일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox5" value="5"> 입학
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox4" value="4"> 합격
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox6" value="6"> 졸업
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox5" value="5"> 입학
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox7" value="7"> 집들이
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox6" value="6"> 졸업
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox8" value="8"> 명절
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox7" value="7"> 집들이
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckbox9" value="9"> 하찮은 선물
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox8" value="8"> 명절
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="giftEventCheckboxAll" value="*"> 전체
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox9" value="9"> 하찮은 선물
                                         </label>
                                     </div>
                                     <div class="form-group">
-                                        <!-- <label for="inputEmail3" class="col-sm-2 control-label">성별</label> -->
                                         <div class="radio">
                                             <label for="sex" class="col-sm-2 control-label">성별 : </label>
                                             <label>
-                                                <input type="radio" name="sexRadios" id="sexRadios3" style="margin-right:5px;" value="*" checked> 전체
+                                                <input type="radio" name="sexRadios" id="sexRadiosAll" style="margin-right:5px;" value="*" checked> 전체
                                             </label>
                                             <label>
-                                                <input type="radio" name="sexRadios" id="sexRadios1" style="margin-right:5px;" value="M" > 남
+                                                <input type="radio" name="sexRadios" id="sexRadios1" style="margin-right:5px;" value="M"> 남
                                             </label>
                                             <label>
                                                 <input type="radio" name="sexRadios" id="sexRadios2" style="margin-right:5px;" value="W"> 여
-                                            </label>                                      
-                                        </div>                               
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="age" class="col-sm-2 control-label">연령대 : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="ageCheckbox1" value="20"> 20대
+                                            <input type="checkbox" class="ageChk" id="ageCheckboxAll" value="*"> 전체
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="ageCheckbox2" value="30"> 30대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox1" value="20"> 20대
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="ageCheckbox3" value="40"> 40대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox2" value="30"> 30대
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="ageCheckbox4" value="50"> 50대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox3" value="40"> 40대
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="ageCheckbox5" value="60"> 60대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox4" value="50"> 50대
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="ageCheckboxAll" value="*"> 전체
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox5" value="60"> 60대
                                         </label>
-                                    </div>                               
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="expensive" class="col-sm-2 control-label">Expensive : </label>
@@ -207,9 +377,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="emotionality" class="col-sm-2 control-label">Emotionality : </label>
-                                        <div class="emotionalitySelect" style="width:50%; display: inline-block;">
-                                            <select name="emotionality" id="emotionality" data-mini="true">
+                                        <label for="emotional" class="col-sm-2 control-label">Emotional : </label>
+                                        <div class="emotionalSelect" style="width:50%; display: inline-block;">
+                                            <select name="emotional" id="emotional" data-mini="true">
                                                 <option value="*">전체</option>
                                                 <option value="T">True</option>
                                                 <option value="F">False</option>
@@ -219,7 +389,7 @@
                                     <div class="form-group">
                                         <label for="trendy" class="col-sm-2 control-label">Trendy : </label>
                                         <div class="trendySelect" style="width:50%; display: inline-block;">
-                                            <select name="time" id="time" data-mini="true">
+                                            <select name="trendy" id="trendy" data-mini="true">
                                                 <option value="*">전체</option>
                                                 <option value="T">True</option>
                                                 <option value="F">False</option>
@@ -231,7 +401,7 @@
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <div>
                                                 <button type="button" class="btn btn-success" onclick="insertInfo()"  style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
-                                                <button type="button" class="btn btn-warning" onclick="goToList()" style="margin-top: 30px">취소하기</button>
+                                                <button type="button" class="btn btn-warning" onclick="backToList()" style="margin-top: 30px">취소하기</button>
                                             </div>
                                         </div>
                                     </div>
@@ -240,19 +410,14 @@
                         </div>
                     </div>
                 </main>
-
                 <!-- 페이지에 알맞게 수정 필요 끝 -->
-
 </body>
 
 <footer>
-
     <%- include ('layoutFooter') %>
-
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="../public/js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="../public/assets/demo/chart-area-demo.js"></script>

@@ -68,7 +68,7 @@ router.get("/giftInsert", (req, res, next) => {
     }
 });
 
-router.get("/giftDetail", (req, res, next) => {
+router.get("/gifts/:gift_id", (req, res, next) => {
     try {
         res.render("./giftDetail");
     } catch (error) {
