@@ -13,9 +13,10 @@ function insertInfo() {
         success: (res) => {
             const adminInfo = res;
             const radioButtonChk = adminInfo.adminPosition;
-            console.log(radioButtonChk);
             chkRadioButton(radioButtonChk);
             document.querySelector("#adminName").value = adminInfo.adminName;
+            document.querySelector("#adminNickname").value =
+                adminInfo.adminNickname;
         },
         error: (err) => {
             alert(err.responseJSON.errorMessage);
@@ -82,7 +83,7 @@ function goToList() {
 function chkRadioButton(position) {
     const radioButtonGroup = document.getElementsByName("titleRadios");
     for (let i = 0; i < radioButtonGroup.length; i++) {
-        if (radioButtonGroup[i] == position) {
+        if (radioButtonGroup[i].value == position) {
             radioButtonGroup[i].checked = true;
             return;
         }

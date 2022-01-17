@@ -20,7 +20,7 @@ function auth() {
                                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                     관리자
                                 </a>`;
-            if (position == "Master") {
+            if (position == "master") {
                 $("#admin").append(tempHtml);
             }
         },

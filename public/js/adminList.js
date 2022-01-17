@@ -10,7 +10,8 @@ function makeTable() {
         success: (res) => {
             const alladmins = res;
             for (let i = 0; i < alladmins.length; i++) {
-                let tempTableList = `<tr>
+                if (alladmins[i].adminPosition != "master") {
+                    let tempTableList = `<tr>
                                         <td>${alladmins[i].admin_id}</td>
                                         <td>${alladmins[i].adminPosition}</td>
                                         <td>${alladmins[i].adminNickname}</td>
@@ -18,7 +19,8 @@ function makeTable() {
                                         <td id="${alladmins[i].admin_id}" style="cursor:pointer;" onClick="moveToDetail(this.id)">상세페이지</td>
                                         <td><input type="button" id="${alladmins[i].admin_id}" onClick="deleteItem(this.id)" class="btn btn-outline-primary" value="삭제"></td>
                                     </tr>`;
-                $("#adminTable").append(tempTableList);
+                    $("#adminTable").append(tempTableList);
+                }
             }
         },
         error: (err) => {

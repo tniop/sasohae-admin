@@ -36,12 +36,6 @@ function insertInfo() {
     formData.append("menuStyle", menuStyle);
     formData.append("menuWith", JSON.stringify(menuWith));
 
-    console.log(formData.get("menuName"));
-    console.log(formData.get("img"));
-    console.log(formData.get("menuType"));
-    console.log(formData.get("menuStyle"));
-    console.log(formData.get("menuWith"));
-
     if (window.confirm("메뉴를 등록 하시겠습니까?")) {
         $.ajaxSettings.traditional = true;
         $.ajax({
@@ -58,6 +52,57 @@ function insertInfo() {
                 alert(err.responseJSON.errorMessage);
             },
         });
+    }
+}
+
+function IsMenuTypeCheckAllChecked() {
+    const menuType = document.getElementsByName("menuType");
+
+    if (menuType[0].checked) {
+        for (let i = 1; i < menuType.length; i++) {
+            menuType[i].checked = false;
+            menuType[i].disabled = true;
+        }
+    } else {
+        for (let i = 1; i < menuType.length; i++) {
+            menuType[i].disabled = false;
+        }
+    }
+}
+
+function IsMenuWithCheckboxAllChecked() {
+    const menuWith = document.getElementsByName("menuWith");
+
+    if (menuWith[0].checked) {
+        for (let i = 1; i < menuWith.length; i++) {
+            menuWith[i].checked = false;
+            menuWith[i].disabled = true;
+        }
+    } else {
+        for (let i = 1; i < menuWith.length; i++) {
+            menuWith[i].disabled = false;
+        }
+    }
+}
+
+function chkboxAllChecked() {
+    const menuType = document.getElementsByName("menuType");
+    const menuWith = document.getElementsByName("menuWith");
+
+    if (menuType[1].checked && menuType[2].checked && menuType[3].checked) {
+        menuType[0].checked = true;
+        IsMenuTypeCheckAllChecked();
+    }
+
+    if (
+        menuWith[1].checked &&
+        menuWith[2].checked &&
+        menuWith[3].checked &&
+        menuWith[4].checked &&
+        menuWith[5].checked
+    ) {
+        menuWith[0].checked = true;
+        IsMenuWithCheckboxAllChecked();
     }
 }
 
