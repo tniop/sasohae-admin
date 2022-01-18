@@ -8,10 +8,13 @@ const cors = require("cors");
 const port = 3000;
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output");
+const passport = require("passport");
+const passportConfig = require("./passport/index");
 const fs = require("fs");
 const http = require("http");
 const https = require("https");
 require("dotenv").config();
+passportConfig();
 
 app.use(
     cors({
@@ -30,24 +33,22 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.use("/public", express.static("public"));
 app.use(express.static("public"));
+app.use(passport.initialize());
 
 app.use((req, res, next) => {
-    try {
-        console.error(error);
-        res.sendStatus(404);
-    } catch (error) {
-        res.render("404");
-    }
+    res.sendStatus(404);
 });
-
-// app.use((req, res, next) => {
-//     res.sendStatus(404);
-// });
 app.use((error, req, res, next) => {
     console.error(error);
     res.sendStatus(500);
 });
 
-app.listen(port, () => {
-    console.log(`listening at http://localhost:${port}`);
+//  const options = {
+//   ca: fs.readFileSync(process.env.HTTPS_CA),
+//   key: fs.readFileSync(process.env.HTTPS_KEY),
+//   cert: fs.readFileSync(process.env.HTTPS_CERT)
+//   };
+app.listen(3000, () => {
+    console.log("listening at port 3000");
 });
+//   https.createServer(options, app).listen(443);
