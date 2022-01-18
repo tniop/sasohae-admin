@@ -75,7 +75,7 @@ function getQuestionsList() {
         }
 
         // 페이지에 따른 No 처리
-        for (let i = 0; i <= totalPage; i++) {
+        for (let i = 0; i <= totalInfo; i++) { 
             if (currentPage == 1) {
                 console.log("currentPage: " + currentPage)
                 let tdNumbering = document.getElementById("giftQuestionsList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1}`;

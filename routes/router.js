@@ -63,7 +63,7 @@ router.put("/boards/:board_id", updateBoards);
 router.delete("/boards/:board_id", deleteBoards);
 router.post("/boards", createBoards);
 
-router.get("/gifts", getAllGifts);
+router.get("/gifts/list/:page", getAllGifts, paging);
 router.get("/gifts/:gift_id", getSelectedGift);
 router.post("/gifts", upload.single("img"), createGift);
 router.put("/gifts/:gift_id", updateGift);
