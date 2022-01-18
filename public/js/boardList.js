@@ -18,6 +18,8 @@ function makeTable() {
                                         <td>${allBoards[i].board_id}</td>
                                         <td>${allBoards[i].comment}</td>
                                         <td>${allBoards[i].createdAt}</td>
+                                        <td><input type="button" id="${allBoards[i].board_id}" onClick="blindItem(this.id)"
+                                                class="btn btn-outline-primary" value="블라인드"></td>
                                         <td><input type="button" id="${allBoards[i].board_id}" onClick="deleteItem(this.id)"
                                                 class="btn btn-outline-primary" value="삭제"></td>
                                     </tr>`;
@@ -32,6 +34,29 @@ function makeTable() {
             alert(err.responseJSON.errorMessage);
         },
     });
+}
+
+function blindItem(Idx) {
+    const board_id = Idx;
+    const blindString = "(관리자에 의해 블라인드 처리된 게시글입니다)";
+
+    if (window.confirm("블라인드 처리 하시겠습니까?")) {
+        $.ajax({
+            type: "put",
+            url: `/api/boards/${board_id}`,
+            data: {
+                comment: blindString,
+            },
+            success: (res) => {
+                alert("해당 댓글을 블라인드 처리하였습니다!");
+                location.reload(true);
+                return;
+            },
+            error: (err) => {
+                alert(err.responseJSON.errorMessage);
+            },
+        });
+    }
 }
 
 function deleteItem(Idx) {
@@ -122,6 +147,8 @@ function getPagingBoards(Idx) {
                                         <td>${selectedBoards[i].board_id}</td>
                                         <td>${selectedBoards[i].comment}</td>
                                         <td>${selectedBoards[i].createdAt}</td>
+                                        <td><input type="button" id="${selectedBoards[i].board_id}" onClick="blindItem(this.id)"
+                                                class="btn btn-outline-primary" value="블라인드"></td>
                                         <td><input type="button" id="${selectedBoards[i].board_id}" onClick="deleteItem(this.id)"
                                                 class="btn btn-outline-primary" value="삭제"></td>
                                     </tr>`;

@@ -5,6 +5,7 @@ const passport = require("passport");
 const {
     getBoards,
     getPagingBoards,
+    updateBoards,
     deleteBoards,
     createBoards,
 } = require("../controllers/boards");
@@ -56,6 +57,7 @@ const passportAutheticator = require("../middleware/authenticator");
 /* ==================== router ==================== */
 router.get("/boards", getBoards);
 router.get("/boards/paging/:board_id", getPagingBoards);
+router.put("/boards/:board_id", updateBoards);
 router.delete("/boards/:board_id", deleteBoards);
 router.post("/boards", createBoards);
 
