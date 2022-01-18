@@ -93,7 +93,7 @@ router.get("/menuInsert", (req, res, next) => {
     }
 });
 
-router.get("/menuDetail", (req, res, next) => {
+router.get("/menuDetail/:menu_id", (req, res, next) => {
     try {
         res.render("./menuDetail"); // res.render("./menus/menuDetail");
     } catch (error) {
@@ -138,7 +138,7 @@ router.get("/boardList", (req, res, next) => {
 /* admin management */
 router.get("/adminList", (req, res, next) => {
     try {
-        res.render("adminList");
+        res.render("./adminList");
     } catch (error) {
         res.render("error");
     }
@@ -146,15 +146,15 @@ router.get("/adminList", (req, res, next) => {
 
 router.get("/adminInsert", (req, res, next) => {
     try {
-        res.render("adminInsert");
+        res.render("./adminInsert");
     } catch (error) {
         res.render("error");
     }
 });
 
-router.get("/adminDetail", (req, res, next) => {
+router.get("/adminDetail/:admin_id", (req, res, next) => {
     try {
-        res.render("adminDetail");
+        res.render("./adminDetail");
     } catch (error) {
         res.render("error");
     }
@@ -162,7 +162,7 @@ router.get("/adminDetail", (req, res, next) => {
 
 router.get("/login", (req, res, next) => {
     try {
-        res.render("login");
+        res.render("./login");
     } catch (error) {
         res.render("error");
     }

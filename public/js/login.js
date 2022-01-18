@@ -1,16 +1,16 @@
 function login() {
-    const id = $("#inputEmail").val();
-    const pw = $("#inputPassword").val();
+    const adminNickname = $("#inputEmail").val();
+    const password = $("#inputPassword").val();
 
     $.ajax({
         type: "POST",
         url: `/api/login`,
         data: {
-            adminNickname: id,
-            password: pw,
+            adminNickname,
+            password,
         },
         success: (res) => {
-            localStorage.setItem("token", res.token);
+            sessionStorage.setItem("token", res.token);
             location.href = "/";
         },
         error: (err) => {

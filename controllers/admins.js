@@ -139,10 +139,10 @@ async function deleteAdmin(req, res) {
         }
         await admins.deleteOne({ admin_id });
         res.status(204).send();
-    } catch {
+    } catch (err) {
         console.log(err);
         res.status(400).send({
-            errorMessage: "관리자 등록에 실패하였습니다!",
+            errorMessage: "관리자 삭제에 실패하였습니다!",
         });
     }
 }
