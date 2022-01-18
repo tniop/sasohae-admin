@@ -12,9 +12,55 @@ async function getBoards(req, res) {
     }
 }
 
+async function getPagingBoards(req, res) {
+    try {
+        const board_id = req.params.board_id;
+        const startNumber = Number(board_id) * 10;
+        const selectedBoards = await boards
+            .find({})
+            .limit(10)
+            .skip(startNumber)
+            .sort({ _id: -1 });
+        res.status(200).send(selectedBoards);
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "게시글 조회에 실패하였습니다!",
+        });
+    }
+}
+
+async function updateBoards(req, res) {
+    try {
+        const { board_id } = req.params;
+        const selectedComment = await boards.findOne({ board_id });
+        if (!selectedComment) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
+        const { comment } = req.body;
+        await boards.updateOne({ board_id }, { $set: { comment } });
+        res.status(200).send();
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "블라인드 처리에 실패하였습니다!",
+        });
+    }
+}
+
 async function deleteBoards(req, res) {
     try {
         const { board_id } = req.params;
+        const selectedComment = await boards.findOne({ board_id });
+        if (!selectedComment) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
         await boards.deleteOne({ board_id });
         res.status(204).send();
     } catch (err) {
@@ -38,4 +84,10 @@ async function createBoards(req, res) {
     }
 }
 
-module.exports = { getBoards, deleteBoards, createBoards };
+module.exports = {
+    getBoards,
+    getPagingBoards,
+    updateBoards,
+    deleteBoards,
+    createBoards,
+};

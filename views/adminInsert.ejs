@@ -15,6 +15,8 @@
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="../public/js/adminInsert.js"></script>
 
     <style>
         /* .card {
@@ -49,16 +51,6 @@
         }
     </style>
 
-    <script type="text/javascript">
-        function insertInfo() {
-            location.href = "adminList";
-        }
-
-        function goToList() {
-            location.href = "adminList";
-        }
-    </script>
-
 </head>
 
 <body class="sb-nav-fixed">
@@ -83,9 +75,9 @@
                                 <div class="admin-group">
                                     <div class="form-group">
                                         <label for="adminName" class="col-sm-2 control-label">직급 : </label>
-                                        <input type="radio" name="titleRadios" style="margin-right:10px;" value="senior" checked="checked">Senior
-                                        <input type="radio" name="titleRadios" style="margin-right:10px;" value="junior">Junior
-                                        <input type="radio" name="titleRadios" style="margin-right:10px;" value="guest">Guest
+                                        <input id="adminPosition-Senior" type="radio" name="titleRadios" style="margin-right:10px;" value="senior" >Senior
+                                        <input id="adminPosition-Junior" type="radio" name="titleRadios" style="margin-right:10px;" value="junior" >Junior
+                                        <input id="adminPosition-Guest" type="radio" name="titleRadios" style="margin-right:10px;" value="guest" >Guest
                                     </div>
                                     <div class="form-group">
                                         <label for="adminName" class="col-sm-2 control-label">이름 : </label>

@@ -15,6 +15,8 @@
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="../public/js/adminDetail.js"></script>
 
     <style>
         /* .card {
@@ -49,16 +51,6 @@
         }
     </style>
 
-    <script type="text/javascript">
-        function insertInfo() {
-            location.href = "adminList";
-        }
-
-        function goToList() {
-            location.href = "adminList";
-        }
-    </script>
-
 </head>
 
 <body class="sb-nav-fixed">
@@ -82,17 +74,17 @@
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label for="adminName" class="col-sm-2 control-label">직급 : </label>
-                                    <input type="radio" name="titleRadios" style="margin-right:10px;" value="senior"
-                                        checked="checked">Senior
+                                    <input type="radio" name="titleRadios" style="margin-right:10px;" value="senior" 
+                                        >Senior
                                     <input type="radio" name="titleRadios" style="margin-right:10px;"
-                                        value="junior">Junior
+                                        value="junior" >Junior
                                     <input type="radio" name="titleRadios" style="margin-right:10px;"
-                                        value="guest">Guest
+                                        value="guest" >Guest
                                 </div>
                                 <div class="form-group">
                                     <label for="adminName" class="col-sm-2 control-label">이름 : </label>
                                     <input type="input" class="form-control" id="adminName"
-                                        style="width: 400px; display:inline" placeholder="이름을 입력해주세요">
+                                        style="width: 400px; display:inline" placeholder="이름을 입력해주세요" disabled="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="adminNickname" class="col-sm-2 control-label">아이디 : </label>
@@ -112,7 +104,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <div>
-                                            <button type="button" class="btn btn-success" onclick="insertInfo()"
+                                            <button type="button" class="btn btn-success" onclick="updateAdmin()"
                                                 style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">수정하기</button>
                                             <button type="button" class="btn btn-warning" onclick="goToList()"
                                                 style="margin-top: 30px">취소하기</button>
