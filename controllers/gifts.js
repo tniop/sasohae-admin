@@ -34,7 +34,7 @@ async function getSelectedGift(req, res) {
 async function createGift(req, res) {
     try {
         const giftUrl = req.file.location;
-        const {
+        let {
             giftName,
             giftTarget,
             giftEvent,
@@ -44,9 +44,12 @@ async function createGift(req, res) {
             giftAnswerPersonality,
             giftAnswerEmotional,
             giftAnswerTrendy,
-            giftLikeCnt,
-            giftResultCnt,
         } = req.body;
+
+        giftTarget = JSON.parse(giftTarget);
+        giftEvent = JSON.parse(giftEvent);
+        age = JSON.parse(age);
+
         await gifts.create({
             giftName,
             giftUrl,
@@ -58,8 +61,6 @@ async function createGift(req, res) {
             giftAnswerPersonality,
             giftAnswerEmotional,
             giftAnswerTrendy,
-            giftLikeCnt,
-            giftResultCnt,
         });
         res.status(201).send();
     } catch (err) {
@@ -81,7 +82,6 @@ async function updateGift(req, res) {
             return;
         }
         const {
-            giftName,
             giftTarget,
             giftEvent,
             sex,
@@ -90,15 +90,11 @@ async function updateGift(req, res) {
             giftAnswerPersonality,
             giftAnswerEmotional,
             giftAnswerTrendy,
-            giftRecommendCnt,
-            giftLikeCnt,
-            giftResultCnt,
         } = req.body;
         await gifts.updateOne(
             { gift_id },
             {
                 $set: {
-                    giftName,
                     giftTarget,
                     giftEvent,
                     sex,
@@ -107,9 +103,6 @@ async function updateGift(req, res) {
                     giftAnswerPersonality,
                     giftAnswerEmotional,
                     giftAnswerTrendy,
-                    giftRecommendCnt,
-                    giftLikeCnt,
-                    giftResultCnt,
                 },
             }
         );

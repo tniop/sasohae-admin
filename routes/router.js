@@ -47,11 +47,13 @@ const {
     updateMoneyQuestion,
     deleteMoneyQuestion,
 } = require("../controllers/moneys");
+const { getUserAccessTime } = require("../controllers/userAccessTime");
 /* ==================================================*/
 
 /* ==================== middleware ====================*/
 const upload = require("../middleware/upload");
 const passportAutheticator = require("../middleware/authenticator");
+const paging = require("../middleware/pagination");
 /* ==================================================*/
 
 /* ==================== router ==================== */
@@ -75,12 +77,14 @@ router.put("/menus/:menu_id", updateMenu);
 router.delete("/menus/:menu_id", deleteMenu);
 
 router.get("/moneyQuestions", getAllMoneyQuestion);
-router.get("/moneyQuestions/:moneyQuestions_id", getMoneyQuestion);
+router.get("/moneyQuestions/:moneyQuestion_id", getMoneyQuestion);
 router.post("/moneyQuestions", createMoneyQuestions);
-router.put("/moneyQuestions/:moneyQuestions_id", updateMoneyQuestion);
-router.delete("/moneyQuestions/:moneyQuestions_id", deleteMoneyQuestion);
+router.put("/moneyQuestions/:moneyQuestion_id", updateMoneyQuestion);
+router.delete("/moneyQuestions/:moneyQuestion_id", deleteMoneyQuestion);
 
-router.get("/giftQuestions", getAllGiftQuestions);
+router.get("/user", getUserAccessTime);
+
+router.get("/giftQuestions/list/:page", getAllGiftQuestions, paging);
 router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);
 router.post("/giftQuestions", createGiftQuestion);
 router.put("/giftQuestions/:giftQuestion_id", updateGiftQuestion);

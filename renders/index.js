@@ -68,7 +68,7 @@ router.get("/giftInsert", (req, res, next) => {
     }
 });
 
-router.get("/giftDetail", (req, res, next) => {
+router.get("/gifts/:gift_id", (req, res, next) => {
     try {
         res.render("./giftDetail");
     } catch (error) {
@@ -118,7 +118,7 @@ router.get("/moneyQuestionsInsert", (req, res, next) => {
     }
 });
 
-router.get("/moneyQuestionsDetail", (req, res, next) => {
+router.get("/moneyQuestions/:moneyQuestion_id", (req, res, next) => {
     try {
         res.render("./moneyQuestionsDetail"); // res.render("./money/moneyQuestionsDetail");
     } catch (error) {
