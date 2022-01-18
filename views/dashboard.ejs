@@ -147,47 +147,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Example
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
                 </main>
                 <!-- footer start -->
@@ -237,13 +196,13 @@
 
                 function makeDayChart(data) {
                     let info = data;
-                    const firstMonth = info[0][1].slice(0, info[0][1].length - 1); // 일단 6개월정도 서비스예정이므로 연도는 고려 x
-                    const lastMonth = info[info.length - 1][1].slice(0, info[info.length - 1][1].length - 1);
-                    const firstDay = info[0][2].slice(0, info[0][2].length - 1);
-                    const lastDay = info[info.length - 1][2].slice(0, info[info.length - 1][2].length - 1);
+                    const firstMonth = parseInt(info[0][1].slice(0, info[0][1].length - 1)); // 일단 6개월정도 서비스예정이므로 연도는 고려 x
+                    const lastMonth = parseInt(info[info.length - 1][1].slice(0, info[info.length - 1][1].length - 1));
+                    const firstDay = parseInt(info[0][2].slice(0, info[0][2].length - 1));
+                    const lastDay = parseInt(info[info.length - 1][2].slice(0, info[info.length - 1][2].length - 1));
 
                     let dayCnt = [];
-                    
+
                     for (let i = 0; i <= lastMonth - firstMonth; i++) { // month
                         dayCnt[i] = [];
                         for (let j = 0; j < 31; j++) { // day
@@ -255,23 +214,40 @@
                         dayCnt[parseInt(info[i][1].slice(0, info[i][1].length - 1)) - 1][parseInt(info[i][2].slice(0, info[i][2].length - 1)) - 1]++;
                     }
 
-                    console.log(dayCnt)
+                    let serviceMonth = [];
                     let serviceDay = [];
+                    let serviceDate = [];
                     let visitorCnt = [];
-                    
-                    // for (let i = 0; i <) {
-                    // }
+
+                    if (firstMonth === lastMonth) {
+                        for (let i = firstDay; i <= lastDay; i++) {
+                            serviceMonth[i - firstDay] = firstMonth;
+                            serviceDay.push(i);
+                            serviceDate.push((serviceMonth[i - firstDay] + "/" + serviceDay[i - firstDay]));
+                            visitorCnt.push(dayCnt[firstMonth - 1][i - 1]);
+                        }
+                        
+                    } else {
+
+                    }
+
+
+                    console.log(serviceMonth)
+                    console.log(serviceDay)
+                    console.log(serviceDate)
+                    console.log(visitorCnt)
+
 
                     const ctx = document.getElementById("myBarChart");
                     const myLineChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: [],
+                            labels: serviceDate,
                             datasets: [{
                                 label: "접속자 수",
                                 backgroundColor: "rgba(2,117,216,1)",
                                 borderColor: "rgba(2,117,216,1)",
-                                data: [],
+                                data: visitorCnt,
                             }],
                         },
                         options: {
@@ -283,14 +259,14 @@
                                     gridLines: {
                                         display: false
                                     },
-                                    ticks: {
-                                        maxTicksLimit: 6
-                                    }
+                                    // ticks: { // 가로축 옵션 필요시 사용
+                                    //     maxTicksLimit: 6
+                                    // }
                                 }],
                                 yAxes: [{
                                     ticks: {
                                         min: 0,
-                                        max: Math.max(...dayCnt), // 최대값
+                                        max: Math.max(...visitorCnt), // 최대값
                                         maxTicksLimit: 5
                                     },
                                     gridLines: {
