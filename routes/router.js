@@ -44,6 +44,7 @@ const {
     updateMoneyQuestion,
     deleteMoneyQuestion,
 } = require("../controllers/moneys");
+const { getUserAccessTime } = require("../controllers/userAccessTime");
 /* ==================================================*/
 
 /* ==================== middleware ====================*/
@@ -74,6 +75,8 @@ router.get("/moneyQuestions/:moneyQuestion_id", getMoneyQuestion);
 router.post("/moneyQuestions", createMoneyQuestions);
 router.put("/moneyQuestions/:moneyQuestion_id", updateMoneyQuestion);
 router.delete("/moneyQuestions/:moneyQuestion_id", deleteMoneyQuestion);
+
+router.get("/user", getUserAccessTime);
 
 router.get("/giftQuestions/list/:page", getAllGiftQuestions, paging);
 router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);
