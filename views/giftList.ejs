@@ -46,55 +46,6 @@
         $(document).ready(function () {
             getGiftList()
         });
-
-        // 선물 리스트 가져옴
-        function getGiftList() {
-            $("#giftList").empty()
-            $.ajax({
-                type: "GET",
-                url: "/api/gifts",
-                data: {},
-                success: function (allGifts) {
-                    for (let i = 0; i < allGifts.length; i++) {
-                        let htmlTemp = `<tr>
-                                            <td>${i + 1}</td>
-                                            <td>${allGifts[i]["giftName"]}</td>
-                                            <td><img width="80px" src="${allGifts[i]["giftUrl"]}"></td> 
-                                            <td>${allGifts[i]["giftRecommendCnt"]}</td>
-                                            <td>${allGifts[i]["giftLikeCnt"]}</td>
-                                            <td style="cursor:pointer;"  onclick="location.href='/gifts/${allGifts[i]["gift_id"]}'">상세페이지 이동</td>
-                                            <td><input type="button" id="delete${allGifts[i]["gift_id"]}" onClick="deleteItem(this.id)"
-                                            class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>`
-                        $("#giftList").append(htmlTemp)                
-                    }
-                }
-            });
-        }
-
-        function moveToInsert() {
-            location.href = "/giftInsert";
-        }
-        
-        function deleteItem(id) {
-            const gift_id = id.split("delete")[1]
-            if (confirm("정말로 삭제하시겠습니까?") == true) {
-            } else {
-                return false;
-            }
-            $.ajax({
-                type: "DELETE",
-                url: `/api/gifts/${gift_id}`,
-                data: {},
-                success: function (response) {
-                    location.href = location.href
-                    history.go(0);
-                },
-                error: function (error) {
-                    alert(error.responseJSON.errorMessage)
-                },
-            });
-        }
     </script>
 
 </head>
@@ -124,13 +75,13 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>선물이름</th>
-                                            <th>선물 이미지</th>
-                                            <th>추천수</th>
-                                            <th>좋아요</th>
-                                            <th>상세</th>
-                                            <th>삭제</th>
+                                            <th width="5%">No</th>
+                                            <th width="20%">선물이름</th>
+                                            <th width="25%">선물 이미지</th>
+                                            <th width="10%">추천수</th>
+                                            <th width="10%">좋아요</th>
+                                            <th width="20%">상세</th>
+                                            <th width="10%">삭제</th>
                                         </tr>
                                     </thead>                                
                                     <tbody id="giftList">
@@ -139,18 +90,14 @@
                                 </table>
 
                                 <!-- 페이징 처리 추가 -->
-                                <!-- <div class="dataTable-bottom" id="tableBottom">
-                                    <div class="dataTable-info" id="tableInfo">Showing 1 to 10 of 19 entries</div>
-                                    <nav class="dataTable-pagination">
-                                        <ul class="dataTable-pagination-list">
-                                            <li class="active"><a href="#" data-page="1">1</a></li>
-                                            <li class=""><a href="#" data-page="2">2</a></li>
-                                            <li class="pager"><a href="#" data-page="2">›</a></li>
+                                <div class="dataTable-bottom" id="tableBottom">
+                                    <div class="dataTable-info" id="tableDataCntInfo"></div>
+                                    <nav class="dataTable-pagination" id="paginationNavTag">
+                                        <ul class="dataTable-pagination-list" id="paginationUlTag">
+                                            <!-- 페이징 처리 및 버튼 부분 -->
                                         </ul>
                                     </nav>
-                                </div> -->
-
-
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -164,6 +111,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="../public/js/scripts.js"></script>
+<script src="../public/js/gifts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="../public/assets/demo/chart-area-demo.js"></script>
 <script src="../public/assets/demo/chart-bar-demo.js"></script>
