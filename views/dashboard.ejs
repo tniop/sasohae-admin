@@ -1,42 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Dashboard - Sasohae Admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="../public/css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="../public/js/dashboard.js"></script>
-
-        <style>
-            body,
-            button,
-            input,
-            textarea {
-                font-family: 'Noto Sans KR', sans-serif;
-            }
-            td {
-                font-size: medium;
-            }
-            .dataTable-sorter {
-                text-align: center;
-                font-size: medium;
-            }
-        </style>
-    
-    </head>
-    <body class="sb-nav-fixed">
-        <%- include ('layoutHeader') %>
-            <!-- side bar start -->
-            <div id="layoutSidenav"></div>
-                <%- include ('layoutBody') %>
-                <!-- side bar end -->
-
 
 <head>
     <meta charset="utf-8" />
@@ -49,11 +12,9 @@
     <link href="../public/css/styles.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
-    <!--  jquery  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="../public/js/dashboard.js"></script>
+
     <style>
         body,
         button,
@@ -93,7 +54,8 @@
                                     <div class="card-body">선물목록 서비스 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +64,8 @@
                                     <div class="card-body">메뉴목록 서비스 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +74,8 @@
                                     <div class="card-body">축의금 서비스 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +84,8 @@
                                     <div class="card-body">게시판 서비스 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +97,7 @@
                                         <i class="fas fa-chart-bar me-1"></i>
                                         일별 방문자 수
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas>
+                                    <div class="card-body"><canvas id="dayChart" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +107,18 @@
                                         <i class="fas fa-chart-area me-1"></i>
                                         시간대별 방문자 수
                                     </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
+                                    <div class="card-body"><canvas id="timeChart" width="100%" height="40"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        기능별 사용자 수
+                                    </div>
+                                    <div class="card-body"><canvas id="statisticsChart" width="100%"
+                                            height="40"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +130,6 @@
                     <%- include ('layoutFooter') %>
                 </footer>
                 <!-- footer start -->
-            </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 crossorigin="anonymous"></script>
@@ -169,6 +144,7 @@
 
                 $(document).ready(function () {
                     getAcessTime();
+                    getStatistics();
                 });
 
                 function getAcessTime() {
@@ -195,7 +171,7 @@
                 }
 
                 function makeDayChart(data) {
-                    let info = data;
+                    const info = data;
                     const firstMonth = parseInt(info[0][1].slice(0, info[0][1].length - 1)); // 일단 6개월정도 서비스예정이므로 연도는 고려 x
                     const lastMonth = parseInt(info[info.length - 1][1].slice(0, info[info.length - 1][1].length - 1));
                     const firstDay = parseInt(info[0][2].slice(0, info[0][2].length - 1));
@@ -226,19 +202,17 @@
                             serviceDate.push((serviceMonth[i - firstDay] + "/" + serviceDay[i - firstDay]));
                             visitorCnt.push(dayCnt[firstMonth - 1][i - 1]);
                         }
-                        
+
                     } else {
 
                     }
-
 
                     console.log(serviceMonth)
                     console.log(serviceDay)
                     console.log(serviceDate)
                     console.log(visitorCnt)
 
-
-                    const ctx = document.getElementById("myBarChart");
+                    const ctx = document.getElementById("dayChart");
                     const myLineChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
@@ -266,7 +240,7 @@
                                 yAxes: [{
                                     ticks: {
                                         min: 0,
-                                        max: Math.max(...visitorCnt), // 최대값
+                                        max: Math.ceil(Math.max(...visitorCnt)/(Math.pow(10, (Math.max(...visitorCnt)).toString().length-1)))*(Math.pow(10, (Math.max(...visitorCnt)).toString().length-1)),
                                         maxTicksLimit: 5
                                     },
                                     gridLines: {
@@ -281,7 +255,8 @@
                     });
                 }
 
-                function makeTimeChart(info) {
+                function makeTimeChart(data) {
+                    const info = data;
                     let timeCnt = new Array(24).fill(0);
                     let tempTime = 0;
 
@@ -296,7 +271,7 @@
                         timeCnt[tempTime]++;
                     }
 
-                    const ctx = document.getElementById("myAreaChart");
+                    const ctx = document.getElementById("timeChart");
                     const myLineChart = new Chart(ctx, {
                         type: "line",
                         data: {
@@ -340,7 +315,7 @@
                                     {
                                         ticks: {
                                             min: 0,
-                                            max: Math.max(...timeCnt), // 최대값
+                                            max: Math.ceil(Math.max(...timeCnt)/(Math.pow(10, (Math.max(...timeCnt)).toString().length-1)))*(Math.pow(10, (Math.max(...timeCnt)).toString().length-1)),
                                             maxTicksLimit: 5,
                                         },
                                         gridLines: {
@@ -353,6 +328,70 @@
                                 display: false,
                             },
                         },
+                    });
+                }
+
+                function getStatistics() {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/statistics",
+                        data: {},
+                        success: function (response) {
+                            const temp = response[Object.keys(response)[0]]
+                            makeStatisticsChart(temp);
+                        }
+                    })
+                }
+
+                function makeStatisticsChart(data) {
+                    const info = data;
+                    const userCnt = [
+                        info.totVisitorCnt,
+                        info.giftSurveyUsersCnt,
+                        info.giftRandomUsersCnt,
+                        info.menuUsersCnt,
+                        info.moneyUsersCnt,
+                        info.boardUsersCnt,
+                        info.boardWriteUsersCnt,
+                    ];
+
+                    const ctx = document.getElementById("statisticsChart");
+                    const myLineChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['전체방문자', '선물추천사용자', '선물랜덤추천사용자', '메뉴추천사용자', '축의금추천사용자', '고민게시판방문자', '고민게시판작성자'],
+                            datasets: [{
+                                label: "인원 수",
+                                backgroundColor: "rgba(2,117,216,1)",
+                                borderColor: "rgba(2,117,216,1)",
+                                data: userCnt,
+                            }],
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        display: false
+                                    },
+                                    // ticks: { // 가로축 옵션 필요시 사용
+                                    //     maxTicksLimit: 6
+                                    // }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                        max: Math.ceil(Math.max(...userCnt)/(Math.pow(10, (Math.max(...userCnt)).toString().length-1)))*(Math.pow(10, (Math.max(...userCnt)).toString().length-1)), 
+                                        maxTicksLimit: 5
+                                    },
+                                    gridLines: {
+                                        display: true
+                                    }
+                                }],
+                            },
+                            legend: {
+                                display: false
+                            }
+                        }
                     });
                 }
 
