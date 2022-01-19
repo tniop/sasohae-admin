@@ -5,18 +5,17 @@ $(document).ready(() => {
 function getGiftList() {
     const datatablesSimple = document.getElementById("datatablesSimple");
     const dataTable = new simpleDatatables.DataTable(datatablesSimple);
-
     $.ajax({
         type: "GET",
         url: `/api/gifts/`,
         data: {},
-        success: function (response) {
-            const allGifts = response.giftsData;
+        success: (res) => {
+            const allGifts = res;
             let newRows = [];
 
             for (let i = 0; i < allGifts.length; i++) {
                 let tempRow = [];
-                tempRow.push(allGifts[i].gift_id.toString());
+                tempRow.push(`${i+1}`);
                 tempRow.push(allGifts[i].giftName);
                 tempRow.push(`<img width="80px" src="${allGifts[i].giftUrl}">`);
                 tempRow.push(allGifts[i].giftRecommendCnt.toString());
@@ -24,7 +23,7 @@ function getGiftList() {
                 tempRow.push(`<input type="button" id="${allGifts[i].gift_id}" onclick="location.href='/gifts/${allGifts[i].gift_id}'"
                 class="btn btn-outline-primary" value="상세페이지">`);
                 tempRow.push(
-                    `<img src="../public/assets/img/deleteBtn.png" id="delete${allGifts[i].gift_id}" onClick="deleteItem(this.id)" width="40px">`
+                    `<img src="../public/assets/img/deleteBtn.png" id="delete${allGifts[i].gift_id}" onClick="deleteItem(this.id)" width="40px" style="cursor:pointer;">`
                 );
 
                 newRows.push(tempRow);

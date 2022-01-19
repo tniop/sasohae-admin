@@ -1,43 +1,9 @@
 const giftQuestions = require("../models/giftQuestions");
-const paging = require("../middleware/pagination");
 
 async function getAllGiftQuestions(req, res) {
     try {
-        const { page } = req.params;
-        // 총 데이터 카운트
-        const totalInfo = await giftQuestions.countDocuments({});
-
-        if (!totalInfo) { 
-            throw Error();
-        }
-
-        let {
-            startPage,
-            currentPage,
-            endPage,
-            hideInfo,
-            maxInfo,
-            totalPage,
-        } = paging(page, totalInfo);
-
-        const giftsQuestionsData = await giftQuestions.find({}) 
-            .sort({ giftQuestion_id: 1 })
-            .skip(hideInfo)
-            .limit(maxInfo);
-
-        // console.log(startPage, currentPage, endPage, hideInfo, maxInfo, totalPage, totalInfo)
-        // const allGiftQuestions = await giftQuestions.find({}); // 모든 정보 가져옴
-        
-        res.status(200).send({
-            giftsQuestionsData: giftsQuestionsData,
-            startPage: startPage,
-            currentPage: currentPage,
-            endPage: endPage,
-            hideInfo: hideInfo,
-            maxInfo: maxInfo,
-            totalPage: totalPage,
-            totalInfo: totalInfo,
-        });
+        const allGiftQuestions = await giftQuestions.find({});
+        res.status(200).send(allGiftQuestions);
     } catch (err) {
         console.log(err);
         res.status(400).send({
@@ -45,19 +11,6 @@ async function getAllGiftQuestions(req, res) {
         });
     }
 }
-
-// 모든 질문 가져옴(페이징 처리 이전)
-// async function getAllGiftQuestions(req, res) {
-//     try {
-//         const allGiftQuestions = await giftQuestions.find({});
-//         res.status(200).send(allGiftQuestions);
-//     } catch (err) {
-//         console.log(err);
-//         res.status(400).send({
-//             errorMessage: "전체 선물질문 조회에 실패하였습니다!",
-//         });
-//     }
-// }
 
 async function getSelectedGiftQuestion(req, res) {
     try {
