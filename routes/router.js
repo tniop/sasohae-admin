@@ -46,6 +46,7 @@ const {
     updateMoneyQuestion,
     deleteMoneyQuestion,
 } = require("../controllers/moneys");
+const { getAllStatistics } = require("../controllers/statistics");
 const { getUserAccessTime } = require("../controllers/userAccessTime");
 /* ==================================================*/
 
@@ -78,6 +79,7 @@ router.post("/moneyQuestions", createMoneyQuestions);
 router.put("/moneyQuestions/:moneyQuestion_id", updateMoneyQuestion);
 router.delete("/moneyQuestions/:moneyQuestion_id", deleteMoneyQuestion);
 
+router.get("/statistics", getAllStatistics);
 router.get("/user", getUserAccessTime);
 
 router.get("/giftQuestions", getAllGiftQuestions);
