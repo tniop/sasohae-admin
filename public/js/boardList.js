@@ -16,13 +16,14 @@ function getBoardList() {
 
             for (let i = 0; i < allBoards.length; i++) {
                 let tempRow = [];
-                tempRow.push(allBoards[i].board_id.toString());
+                tempRow.push(`${i + 1}`);
                 tempRow.push(allBoards[i].comment);
                 tempRow.push(allBoards[i].createdAt);
                 tempRow.push(`<input type="button" id="${allBoards[i].board_id}" onClick="blindItem(this.id)"
                     class="btn btn-outline-primary" value="블라인드">`);
-                tempRow.push(`<input type="button" id="${allBoards[i].board_id}" onClick="deleteItem(this.id)"
-                    class="btn btn-outline-primary" value="삭제">`);
+                tempRow.push(
+                    `<img style="cursor:pointer;" src="../public/assets/img/deleteBtn.png" id="${allBoards[i].board_id}" onClick="deleteItem(this.id)" width="40px">`
+                );
 
                 newRows.push(tempRow);
             }

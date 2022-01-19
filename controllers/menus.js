@@ -31,24 +31,6 @@ async function getSelectedMenu(req, res) {
     }
 }
 
-async function getPagingMenus(req, res) {
-    try {
-        const menu_id = req.params.menu_id;
-        const startNumber = Number(menu_id) * 10;
-        const selectedMenus = await menus
-            .find({})
-            .limit(10)
-            .skip(startNumber)
-            .sort({ _id: 1 });
-        res.status(200).send(selectedMenus);
-    } catch (err) {
-        console.log(err);
-        res.status(400).send({
-            errorMessage: "메뉴 조회에 실패하였습니다!",
-        });
-    }
-}
-
 async function createMenu(req, res) {
     try {
         const menuUrl = req.file.location;
@@ -118,7 +100,6 @@ async function deleteMenu(req, res) {
 module.exports = {
     getAllMenus,
     getSelectedMenu,
-    getPagingMenus,
     createMenu,
     updateMenu,
     deleteMenu,

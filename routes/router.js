@@ -4,7 +4,6 @@ const passport = require("passport");
 /* ==================== controllers ==================== */
 const {
     getBoards,
-    getPagingBoards,
     updateBoards,
     deleteBoards,
     createBoards,
@@ -19,7 +18,6 @@ const {
 const {
     getAllMenus,
     getSelectedMenu,
-    getPagingMenus,
     createMenu,
     updateMenu,
     deleteMenu,
@@ -47,7 +45,6 @@ const {
     updateMoneyQuestion,
     deleteMoneyQuestion,
 } = require("../controllers/moneys");
-const { getAllStatistics } = require("../controllers/statistics");
 const { getUserAccessTime } = require("../controllers/userAccessTime");
 /* ==================================================*/
 
@@ -59,12 +56,11 @@ const paging = require("../middleware/pagination");
 
 /* ==================== router ==================== */
 router.get("/boards", getBoards);
-router.get("/boards/paging/:board_id", getPagingBoards);
 router.put("/boards/:board_id", updateBoards);
 router.delete("/boards/:board_id", deleteBoards);
 router.post("/boards", createBoards);
 
-router.get("/gifts/list/:page", getAllGifts, paging);
+router.get("/gifts", getAllGifts);
 router.get("/gifts/:gift_id", getSelectedGift);
 router.post("/gifts", upload.single("img"), createGift);
 router.put("/gifts/:gift_id", updateGift);
@@ -72,7 +68,6 @@ router.delete("/gifts/:gift_id", deleteGift);
 
 router.get("/menus", getAllMenus);
 router.get("/menus/:menu_id", getSelectedMenu);
-router.get("/menus/paging/:menu_id", getPagingMenus);
 router.post("/menus", upload.single("img"), createMenu);
 router.put("/menus/:menu_id", updateMenu);
 router.delete("/menus/:menu_id", deleteMenu);
@@ -83,7 +78,6 @@ router.post("/moneyQuestions", createMoneyQuestions);
 router.put("/moneyQuestions/:moneyQuestion_id", updateMoneyQuestion);
 router.delete("/moneyQuestions/:moneyQuestion_id", deleteMoneyQuestion);
 
-router.get("/statistics", getAllStatistics);
 router.get("/user", getUserAccessTime);
 
 router.get("/giftQuestions/list/:page", getAllGiftQuestions, paging);
