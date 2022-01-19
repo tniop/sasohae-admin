@@ -146,7 +146,7 @@
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-pie me-1"></i>
-                                        고민게시판 (미작성자 : 작성자)
+                                        고민게시판 방문자 중 게시글 작성자 비율
                                     </div>
                                     <div class="card-body"><canvas id="boardUserChart" width="100%"
                                             height="40"></canvas>
@@ -223,53 +223,66 @@
                     })
                 }
 
+                function getDatesStartToLast(startDate, lastDate) {
+                    var regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
+                    if (!(regex.test(startDate) && regex.test(lastDate))) return "Not Date Format";
+                    var result = [];
+                    var curDate = new Date(startDate);
+                    while (curDate <= new Date(lastDate)) {
+                        result.push(curDate.toISOString().split("T")[0]);
+                        curDate.setDate(curDate.getDate() + 1);
+                    }
+                    return result;
+                }
+
                 function makeDayChart(data) {
-                    const info = data;
-                    const firstMonth = parseInt(info[0][1].slice(0, info[0][1].length - 1)); // 일단 6개월정도 서비스예정이므로 연도는 고려 x
-                    const lastMonth = parseInt(info[info.length - 1][1].slice(0, info[info.length - 1][1].length - 1));
-                    const firstDay = parseInt(info[0][2].slice(0, info[0][2].length - 1));
-                    const lastDay = parseInt(info[info.length - 1][2].slice(0, info[info.length - 1][2].length - 1));
-
-                    let dayCnt = [];
-
-                    for (let i = 0; i <= lastMonth - firstMonth; i++) { // month
-                        dayCnt[i] = [];
-                        for (let j = 0; j < 31; j++) { // day
-                            dayCnt[i][j] = 0;
-                        }
+                    let info = []
+                    for (let i = 0; i < data.length; i++) {
+                        info[i] = data[i][0].slice(0, data[i][0].length - 1)
+                        if (data[i][1].slice(0, data[i][1].length - 1).length === 1)
+                            info[i] += '-0'
+                        else
+                            info[i] += '-'
+                        info[i] += data[i][1].slice(0, data[i][1].length - 1);
+                        if (data[i][2].slice(0, data[i][2].length - 1).length === 1)
+                            info[i] += '-0'
+                        else
+                            info[i] += '-'
+                        info[i] += data[i][2].slice(0, data[i][2].length - 1);
                     }
 
-                    for (let i = 0; i < info.length; i++) {
-                        dayCnt[parseInt(info[i][1].slice(0, info[i][1].length - 1)) - 1][parseInt(info[i][2].slice(0, info[i][2].length - 1)) - 1]++;
-                    }
+                    const firstDate = info[0]
+                    const lastDate = info[info.length - 1]
 
-                    let serviceMonth = [];
-                    let serviceDay = [];
-                    let serviceDate = [];
+                    const servicePeriod = getDatesStartToLast(firstDate, lastDate);
+
+                    var tempFirstDate = new Date(firstDate);
+                    var tempLastDate = new Date(lastDate);
+                    var dateDiffer = Math.ceil((tempLastDate.getTime() - tempFirstDate.getTime()) / (1000 * 3600 * 24));
+
+                    let tempDayData = [];
+                    for (let i = 0; i <= dateDiffer; i++)
+                        tempDayData[i] = {
+                            date: servicePeriod[i],
+                            count: 0,
+                        };
+
+                    for (let i = 0; i < info.length; i++)
+                        for (let j = 0; j < tempDayData.length; j++)
+                            if (tempDayData[j].date === info[i]) {
+                                tempDayData[j].count++;
+                                break;
+                            }
+
                     let visitorCnt = [];
-
-                    if (firstMonth === lastMonth) {
-                        for (let i = firstDay; i <= lastDay; i++) {
-                            serviceMonth[i - firstDay] = firstMonth;
-                            serviceDay.push(i);
-                            serviceDate.push((serviceMonth[i - firstDay] + "/" + serviceDay[i - firstDay]));
-                            visitorCnt.push(dayCnt[firstMonth - 1][i - 1]);
-                        }
-
-                    } else {
-
-                    }
-
-                    console.log(serviceMonth)
-                    console.log(serviceDay)
-                    console.log(serviceDate)
-                    console.log(visitorCnt)
+                    for (let i = 0; i <= dateDiffer; i++)
+                        visitorCnt.push(tempDayData[i].count);
 
                     const ctx = document.getElementById("dayChart");
                     const myLineChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: serviceDate,
+                            labels: servicePeriod,
                             datasets: [{
                                 label: "접속자 수",
                                 backgroundColor: "rgba(2,117,216,1)",
@@ -453,18 +466,12 @@
 
                 function makeUserChart(data) {
                     const info = data;
-                    let randomColor = [];
-
-                    for (let i = 0; i < 4; i++) {
-                        randomColor[i] = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-                    }
-
                     tempData = {
                         datasets: [{
-                            backgroundColor: randomColor,
+                            backgroundColor: ['#0C4377', '#2182B3', '#43D8F9', '#8EF9FD'],
                             data: [info.giftSurveyUsersCnt + info.giftRandomUsersCnt, info.menuUsersCnt, info.moneyUsersCnt, info.boardWriteUsersCnt]
                         }],
-                        labels: ['선물추천', '메뉴추천', '축의금추천', '고민게시판 작성자 수']
+                        labels: ['선물추천', '메뉴추천', '축의금추천', '고민게시판 작성자']
                     };
                     const ctx = document.getElementById("userChart");
                     const myPieChart = new Chart(ctx, {
@@ -476,15 +483,9 @@
 
                 function makeGiftUserChart(data) {
                     const info = data;
-                    let randomColor = [];
-
-                    for (let i = 0; i < 2; i++) {
-                        randomColor[i] = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-                    }
-
                     tempData = {
                         datasets: [{
-                            backgroundColor: randomColor,
+                            backgroundColor: ['#0C4377', '#30ABD6'],
                             data: [info.giftSurveyUsersCnt, info.giftRandomUsersCnt]
                         }],
                         labels: ['질문', '랜덤']
@@ -499,18 +500,12 @@
 
                 function makeBoardUserChart(data) {
                     const info = data;
-                    let randomColor = [];
-
-                    for (let i = 0; i < 2; i++) {
-                        randomColor[i] = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-                    }
-
                     tempData = {
                         datasets: [{
-                            backgroundColor: randomColor,
+                            backgroundColor: ['#0C4377', '#30ABD6'],
                             data: [info.boardUsersCnt - info.boardWriteUsersCnt, info.boardWriteUsersCnt]
                         }],
-                        labels: ['방문자 수', '작성자 수']
+                        labels: ['작성x', '작성o']
                     };
                     const ctx = document.getElementById("boardUserChart");
                     const myPieChart = new Chart(ctx, {
