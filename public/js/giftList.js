@@ -5,18 +5,17 @@ $(document).ready(() => {
 function getGiftList() {
     const datatablesSimple = document.getElementById("datatablesSimple");
     const dataTable = new simpleDatatables.DataTable(datatablesSimple);
-
     $.ajax({
         type: "GET",
         url: `/api/gifts/`,
         data: {},
-        success: function (response) {
-            const allGifts = response.giftsData;
+        success: (res) => {
+            const allGifts = res;
             let newRows = [];
 
             for (let i = 0; i < allGifts.length; i++) {
                 let tempRow = [];
-                tempRow.push(allGifts[i].gift_id.toString());
+                tempRow.push(`${i+1}`); // tempRow.push(allGifts[i].gift_id.toString());
                 tempRow.push(allGifts[i].giftName);
                 tempRow.push(`<img width="80px" src="${allGifts[i].giftUrl}">`);
                 tempRow.push(allGifts[i].giftRecommendCnt.toString());

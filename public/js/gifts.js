@@ -1,124 +1,3 @@
-/* giftList */
-
-// 선물 리스트
-function getGiftList() {
-    const param = document.location.href.split("=");
-    // 페이징처리 떄문에 uri에 /list 추가되어 아래와 같이 처리
-    let page = "";
-    if (param[1] == "list") {
-        page = param[2];
-    } else {
-        page = param[1];
-    }
-
-    $("#giftList").empty()
-    $.ajax({
-        type: "GET",
-        url: `/api/gifts/list/${page}`,
-        data: {},
-        success: function (response) {
-            let giftsData = response["giftsData"]
-            let startPage = response["startPage"] // 시작페이지
-            let currentPage = response["currentPage"] // 현재페이지
-            let endPage = response["endPage"] // 끝페이지
-            let totalPage = response["totalPage"] // 전체페이지 수
-            let maxInfo = response["maxInfo"] // 한 화면에 보여지는 글의 수 (10개)
-            let totalInfo = response["totalInfo"] // 총 데이터 수
-            let hideInfo = response["hideInfo"] // 가려지는 데이터 수
-
-            for (let i = 0; i < giftsData.length; i++) {
-                let htmlTemp = `<tr id="tr">
-                                            <td id="no"></td>
-                                            <td>${giftsData[i]["giftName"]}</td>
-                                            <td><img width="80px" src="${giftsData[i]["giftUrl"]}"></td> 
-                                            <td>${giftsData[i]["giftRecommendCnt"]}</td>
-                                            <td>${giftsData[i]["giftLikeCnt"]}</td>
-                                            <td style="cursor:pointer;"  onclick="location.href='/gifts/${giftsData[i]["gift_id"]}'">상세페이지 이동</td>
-                                            <td style="cursor:pointer;"><img src="../public/assets/img/deleteBtn.png" 
-                                                id="delete${giftsData[i]["gift_id"]}" onClick="deleteItem(this.id)" width="40px"></td>
-                                        </tr>`
-                $("#giftList").append(htmlTemp)
-            }
-        }
-    }).then(function pagination(response) {
-        startPage = response["startPage"]
-        currentPage = response["currentPage"]
-        endPage = response["endPage"]
-        totalPage = response["totalPage"]
-        maxInfo = response["maxInfo"]
-        totalInfo = response["totalInfo"]
-        hideInfo = response["hideInfo"]
-
-        // 테이블 데이터 카운트에 대한 정보
-        let showCnt = `<div class="dataTable-info" id="tableInfo">Showing ${currentPage} to ${endPage} of ${totalInfo} entries</div>`
-        $("#tableDataCntInfo").append(showCnt);
-
-        // 페이지 이전버튼
-        if (startPage == 1) {
-            $("#prevPage").css("display", "block");
-        } else {
-            prev = `<li class="pager" id="prevPage"><a href="/giftList?page=${startPage - 1}" data-page="${startPage - 1}">‹</a></li>`
-            $("#paginationNavTag").append(prev);
-        }
-        // 페이지 숫자버튼
-        for (let i = startPage; i <= endPage; i++) {
-            if (i < startPage) {
-                i == startPage;
-            } else {
-                let pageHtmlTemp = `<li class="" id="clickedPage${i}"><a href="/giftList?page=${i}" data-page="${i}">${i}</a></li>`
-                $("#paginationNavTag").append(pageHtmlTemp);
-            }
-        }
-        // 페이지 다음버튼
-        if (endPage < totalPage) {
-            next = `<li class="pager" id="nextPage"><a href="/giftList?page=${endPage + 1}" data-page="${endPage + 1}">›</a></li>`
-            $("#paginationNavTag").append(next);
-        } else {
-            $("#nextPage").css("display", "block");
-        }
-
-        // 페이지에 따른 No 처리
-        for (let i = 0; i <= totalInfo; i++) {
-            if (currentPage == 1) {
-                console.log("currentPage: " + currentPage)
-                let tdNumbering = document.getElementById("giftList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1}`;
-            } else {
-                console.log("다음")
-                for (let j = 1; j <= currentPage; j++) {
-                    let startNo = (currentPage - 1) * 10
-                    tdNumbering = document.getElementById("giftList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1 + startNo}`;
-                }
-            }
-        }
-    });
-}
-// 선물 등록 페이지 이동
-function moveToInsert() {
-    location.href = "/giftInsert";
-}
-// 선물 삭제
-function deleteItem(id) {
-    const gift_id = id.split("delete")[1]
-    if (confirm("정말로 삭제하시겠습니까?") == true) {
-    } else {
-        return false;
-    }
-    $.ajax({
-        type: "DELETE",
-        url: `/api/gifts/${gift_id}`,
-        data: {},
-        success: function (response) {
-            location.href = location.href
-            history.go(0);
-        },
-        error: function (error) {
-            alert(error.responseJSON.errorMessage)
-        },
-    });
-}
-
-
-
 /* giftDetail */
 
 // 선물 상세
@@ -202,6 +81,7 @@ function getSelectedGift(gift_id) {
                     }
                 }
             }
+            /*
             // 설문에 대한 답변 부분
             const surveryAnswerList = ["expensive", "personality", "emotional", "trendy"]
             for (let i = 0; i < surveryAnswerList.length; i++) {
@@ -212,7 +92,44 @@ function getSelectedGift(gift_id) {
                 } else if (surveryAnswerList[i] == "F") {
                     $("#" + surveryAnswerList[i]).val("F", true);
                 }
+                console.log($("#" + surveryAnswerList[i]).val());
             }
+            본 코드에 문제 있어서 아래 처럼 일단 수정해둠
+            */
+            
+            // Expensive
+            if (expensive == "*") {
+                $("#expensive").val("*", true);
+            } else if (expensive == "T") {
+                $("#expensive").val("T", true);
+            } else if (expensive == "F") {
+                $("#expensive").val("F", true);
+            }
+            // Personality
+            if (personality == "*") {
+                $("#personality").val("*", true);
+            } else if (personality == "T") {
+                $("#personality").val("T", true);
+            } else if (personality == "F") {
+                $("#personality").val("F", true);
+            }
+            // Emotional
+            if (emotional == "*") {
+                $("#emotional").val("*", true);
+            } else if (emotional == "T") {
+                $("#emotional").val("T", true);
+            } else if (emotional == "F") {
+                $("#emotional").val("F", true);
+            }
+            // Trendy
+            if (trendy == "*") {
+                $("#trendy").val("*", true);
+            } else if (trendy == "T") {
+                $("#trendy").val("T", true);
+            } else if (trendy == "F") {
+                $("#trendy").val("F", true);
+            }
+            
 
         }
     });
@@ -370,11 +287,6 @@ function reviseInfo() {
             alert(error.responseJSON.errorMessage)
         },
     });
-}
-
-function backToList() {
-    location.href = location.href
-    history.go(-1);
 }
 
 
@@ -555,9 +467,7 @@ function insertInfo() {
         contentType: false,
         success: function (response) {
             alert("선물 등록에 성공하였습니다!")
-            // location.href = "/giftList"
-            location.href = location.href
-            history.go(-1);
+            location.href = "/giftList";
         },
         error: function (error) {
             alert(error.responseJSON.errorMessage)
@@ -567,6 +477,103 @@ function insertInfo() {
 }
 
 function backToList() {
-    location.href = location.href
-    history.go(-1);
+    location.href = "/giftList";
 }
+
+
+
+/* giftList 
+
+// 선물 리스트
+function getGiftList() {
+    const param = document.location.href.split("=");
+    // 페이징처리 떄문에 uri에 /list 추가되어 아래와 같이 처리
+    let page = "";
+    if (param[1] == "list") {
+        page = param[2];
+    } else {
+        page = param[1];
+    }
+
+    $("#giftList").empty()
+    $.ajax({
+        type: "GET",
+        url: `/api/gifts/list/${page}`,
+        data: {},
+        success: function (response) {
+            let giftsData = response["giftsData"]
+            let startPage = response["startPage"] // 시작페이지
+            let currentPage = response["currentPage"] // 현재페이지
+            let endPage = response["endPage"] // 끝페이지
+            let totalPage = response["totalPage"] // 전체페이지 수
+            let maxInfo = response["maxInfo"] // 한 화면에 보여지는 글의 수 (10개)
+            let totalInfo = response["totalInfo"] // 총 데이터 수
+            let hideInfo = response["hideInfo"] // 가려지는 데이터 수
+
+            for (let i = 0; i < giftsData.length; i++) {
+                let htmlTemp = `<tr id="tr">
+                                            <td id="no"></td>
+                                            <td>${giftsData[i]["giftName"]}</td>
+                                            <td><img width="80px" src="${giftsData[i]["giftUrl"]}"></td> 
+                                            <td>${giftsData[i]["giftRecommendCnt"]}</td>
+                                            <td>${giftsData[i]["giftLikeCnt"]}</td>
+                                            <td style="cursor:pointer;"  onclick="location.href='/gifts/${giftsData[i]["gift_id"]}'">상세페이지 이동</td>
+                                            <td style="cursor:pointer;"><img src="../public/assets/img/deleteBtn.png" 
+                                                id="delete${giftsData[i]["gift_id"]}" onClick="deleteItem(this.id)" width="40px"></td>
+                                        </tr>`
+                $("#giftList").append(htmlTemp)
+            }
+        }
+    }).then(function pagination(response) {
+        startPage = response["startPage"]
+        currentPage = response["currentPage"]
+        endPage = response["endPage"]
+        totalPage = response["totalPage"]
+        maxInfo = response["maxInfo"]
+        totalInfo = response["totalInfo"]
+        hideInfo = response["hideInfo"]
+
+        // 테이블 데이터 카운트에 대한 정보
+        let showCnt = `<div class="dataTable-info" id="tableInfo">Showing ${currentPage} to ${endPage} of ${totalInfo} entries</div>`
+        $("#tableDataCntInfo").append(showCnt);
+
+        // 페이지 이전버튼
+        if (startPage == 1) {
+            $("#prevPage").css("display", "block");
+        } else {
+            prev = `<li class="pager" id="prevPage"><a href="/giftList?page=${startPage - 1}" data-page="${startPage - 1}">‹</a></li>`
+            $("#paginationNavTag").append(prev);
+        }
+        // 페이지 숫자버튼
+        for (let i = startPage; i <= endPage; i++) {
+            if (i < startPage) {
+                i == startPage;
+            } else {
+                let pageHtmlTemp = `<li class="" id="clickedPage${i}"><a href="/giftList?page=${i}" data-page="${i}">${i}</a></li>`
+                $("#paginationNavTag").append(pageHtmlTemp);
+            }
+        }
+        // 페이지 다음버튼
+        if (endPage < totalPage) {
+            next = `<li class="pager" id="nextPage"><a href="/giftList?page=${endPage + 1}" data-page="${endPage + 1}">›</a></li>`
+            $("#paginationNavTag").append(next);
+        } else {
+            $("#nextPage").css("display", "block");
+        }
+
+        // 페이지에 따른 No 처리
+        for (let i = 0; i <= totalInfo; i++) {
+            if (currentPage == 1) {
+                console.log("currentPage: " + currentPage)
+                let tdNumbering = document.getElementById("giftList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1}`;
+            } else {
+                console.log("다음")
+                for (let j = 1; j <= currentPage; j++) {
+                    let startNo = (currentPage - 1) * 10
+                    tdNumbering = document.getElementById("giftList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1 + startNo}`;
+                }
+            }
+        }
+    });
+}
+*/
