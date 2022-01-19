@@ -5,6 +5,7 @@ $(document).ready(() => {
 function insertInfo() {
     let params = window.location.href.split("/");
     const menu_id = params[4];
+
     $.ajax({
         type: "get",
         url: `/api/menus/${menu_id}`,

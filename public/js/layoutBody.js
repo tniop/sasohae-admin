@@ -14,6 +14,7 @@ function auth() {
         success: (res) => {
             const decodedToken = res;
             const position = decodedToken.position;
+            sessionStorage.setItem("_id", decodedToken.admin_id);
 
             const tempHtml = `<div class="sb-sidenav-menu-heading">Admin</div>
                                 <a class="nav-link" href="/adminList">
