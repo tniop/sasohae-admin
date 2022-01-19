@@ -51,7 +51,6 @@ const { getUserAccessTime } = require("../controllers/userAccessTime");
 /* ==================== middleware ====================*/
 const upload = require("../middleware/upload");
 const passportAutheticator = require("../middleware/authenticator");
-const paging = require("../middleware/pagination");
 /* ==================================================*/
 
 /* ==================== router ==================== */
@@ -60,7 +59,7 @@ router.put("/boards/:board_id", updateBoards);
 router.delete("/boards/:board_id", deleteBoards);
 router.post("/boards", createBoards);
 
-router.get("/gifts", getAllGifts);
+router.get("/gifts/", getAllGifts);
 router.get("/gifts/:gift_id", getSelectedGift);
 router.post("/gifts", upload.single("img"), createGift);
 router.put("/gifts/:gift_id", updateGift);
@@ -80,7 +79,7 @@ router.delete("/moneyQuestions/:moneyQuestion_id", deleteMoneyQuestion);
 
 router.get("/user", getUserAccessTime);
 
-router.get("/giftQuestions/list/:page", getAllGiftQuestions, paging);
+router.get("/giftQuestions", getAllGiftQuestions);
 router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);
 router.post("/giftQuestions", createGiftQuestion);
 router.put("/giftQuestions/:giftQuestion_id", updateGiftQuestion);

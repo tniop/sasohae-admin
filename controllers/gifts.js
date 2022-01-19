@@ -1,41 +1,9 @@
 const gifts = require("../models/gifts");
-const paging = require("../middleware/pagination");
 
 async function getAllGifts(req, res) {
     try {
-        const { page } = req.params;
-        // 총 데이터 카운트
-        const totalInfo = await gifts.countDocuments({});
-
-        if (!totalInfo) {
-            throw Error();
-        }
-
-        let {
-            startPage,
-            currentPage,
-            endPage,
-            hideInfo,
-            maxInfo,
-            totalPage,
-        } = paging(page, totalInfo);
-
-        const giftsData = await gifts.find({})
-            .sort({ gifts_id: 1 })
-            .skip(hideInfo)
-            .limit(maxInfo);
-        // console.log(startPage, currentPage, endPage, hideInfo, maxInfo, totalPage, totalInfo)
-        // const allGifts = await gifts.find({});
-        res.status(200).send({
-            giftsData: giftsData,
-            startPage: startPage,
-            currentPage: currentPage,
-            endPage: endPage,
-            hideInfo: hideInfo,
-            maxInfo: maxInfo,
-            totalPage: totalPage,
-            totalInfo: totalInfo,
-        });
+        const allGifts = await gifts.find({});
+        res.status(200).send(allGifts);
     } catch (err) {
         console.log(err);
         res.status(400).send({
@@ -43,19 +11,6 @@ async function getAllGifts(req, res) {
         });
     }
 }
-
-
-// async function getAllGifts(req, res) {
-//     try {
-//         const allGifts = await gifts.find({});
-//         res.status(200).send(allGifts);
-//     } catch (err) {
-//         console.log(err);
-//         res.status(400).send({
-//             errorMessage: "전체 선물 조회에 실패하였습니다!",
-//         });
-//     }
-// }
 
 async function getSelectedGift(req, res) {
     try {
