@@ -168,4 +168,22 @@ router.get("/login", (req, res, next) => {
     }
 });
 
+router.get("/password", (req, res, next) => {
+    try {
+        res.render("./initializePassword");
+    } catch (error) {
+        res.render("error");
+    }
+});
+
+/* my page */
+
+router.get("/mypage/:admin_id", (req, res, next) => {
+    try {
+        res.render("./myPage");
+    } catch (error) {
+        res.render("error");
+    }
+});
+
 module.exports = router;

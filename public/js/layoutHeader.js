@@ -4,3 +4,8 @@ function logOut() {
         location.href = "/login";
     }
 }
+
+function moveMyPage() {
+    const admin_id = sessionStorage.getItem("_id");
+    location.href = `/mypage/${admin_id}`;
+}

@@ -118,7 +118,43 @@ async function updateAdmin(req, res) {
                 },
             }
         );
-        res.status(201).send();
+        res.status(200).send();
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "관리자 등록에 실패하였습니다!",
+        });
+    }
+}
+
+async function initializePassword(req, res) {
+    try {
+        const { adminPosition, adminName, adminNickname } = req.body;
+        const adminInfo = await admins.findOne({ adminNickname });
+        if (!adminInfo) {
+            res.status(400).send({
+                errorMessage: "존재하지 않는 정보입니다!",
+            });
+            return;
+        }
+        if (
+            adminPosition != adminInfo.adminPosition ||
+            adminName != adminInfo.adminName
+        ) {
+            res.status(400).send({
+                errorMessage: "정보가 일치하지 않습니다!",
+            });
+            return;
+        }
+        const password = "1q2w3e4r";
+        const encryptPW = await bcrypt.hash(password, 13);
+        await admins.updateOne(
+            { adminNickname },
+            { $set: { password: encryptPW } }
+        );
+        res.status(200).send({
+            successMessage: `비밀번호를 ${password} 로 초기화 했습니다!`,
+        });
     } catch (err) {
         console.log(err);
         res.status(400).send({
@@ -154,4 +190,5 @@ module.exports = {
     loginAdmin,
     updateAdmin,
     deleteAdmin,
+    initializePassword,
 };

@@ -19,3 +19,17 @@ function login() {
         },
     });
 }
+
+function forgetPassword() {
+    const popupOpneX = window.screen.width / 2 - 537 / 2;
+    const popupOpneY = window.screen.height / 2 - 537 / 2;
+
+    window.open(
+        "/password",
+        "",
+        "status=no, height=537, width=537, left=" +
+            popupOpneX +
+            ", top=" +
+            popupOpneY
+    );
+}
