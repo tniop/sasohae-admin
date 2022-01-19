@@ -158,7 +158,7 @@ async function initializePassword(req, res) {
     } catch (err) {
         console.log(err);
         res.status(400).send({
-            errorMessage: "관리자 등록에 실패하였습니다!",
+            errorMessage: "비밀번호 초기화에 실패하였습니다!",
         });
     }
 }

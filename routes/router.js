@@ -92,7 +92,7 @@ router.post("/sign-up", createAdmin);
 router.post("/login", loginAdmin);
 router.put("/admin/:admin_id", updateAdmin);
 router.delete("/admin/:admin_id", deleteAdmin);
-router.put("/admin/initialize", initializePassword);
+router.put("/admin/password/initialize", initializePassword);
 
 router.get("/auth", passportAutheticator(), adminAuth);
 /* ==================================================*/
