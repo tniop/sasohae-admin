@@ -28,24 +28,13 @@ function getQuestionsList() {
 
             for (let i = 0; i < giftsQuestionsData.length; i++) {
                 let htmlTemp = `<tr id="tr">
-                                    <td id="no"></td>
-                                    <td>${giftsQuestionsData[i]["giftQuestionType"]}</td>
-                                    <td>${giftsQuestionsData[i]["giftQuestion"]}</td>
-                                    <td style="cursor:pointer;"  onclick="location.href='/giftQuestions/${giftsQuestionsData[i]["giftQuestion_id"]}'">상세페이지 이동</td>
-                                    <td style="cursor:pointer;"><img src="../public/assets/img/deleteBtn.png" id="delete${giftsQuestionsData[i]["giftQuestion_id"]}" onClick="deleteItem(this.id)" width="40px"></td>
-                                </tr>`
+                                <td id="no"></td>
+                                <td>${giftsQuestionsData[i]["giftQuestionType"]}</td>
+                                <td>${giftsQuestionsData[i]["giftQuestion"]}</td>
+                                <td style="cursor:pointer;"  onclick="location.href='/giftQuestions/${giftsQuestionsData[i]["giftQuestion_id"]}'">상세페이지 이동</td>
+                                <td style="cursor:pointer;"><img src="../public/assets/img/deleteBtn.png" id="delete${giftsQuestionsData[i]["giftQuestion_id"]}" onClick="deleteItem(this.id)" width="40px"></td>
+                            </tr>`
                 $("#giftQuestionsList").append(htmlTemp)
-            }
-            // 페이지에 따른 No 처리
-            for (let i = 0; i <= totalPage; i++) {
-                if (currentPage == 1) {
-                    let tdNumbering = document.getElementById("giftQuestionsList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1}`;
-                } else {
-                    for (let j = 1; j <= currentPage; j++) {
-                        let startNo = (currentPage - 1) * 10
-                        tdNumbering = document.getElementById("giftQuestionsList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1 + startNo}`;
-                    }
-                }
             }
         }
     }).then(function pagination(response) {
@@ -83,6 +72,20 @@ function getQuestionsList() {
             $("#paginationNavTag").append(next);
         } else {
             $("#nextPage").css("display", "block");
+        }
+
+        // 페이지에 따른 No 처리
+        for (let i = 0; i <= totalInfo; i++) { 
+            if (currentPage == 1) {
+                console.log("currentPage: " + currentPage)
+                let tdNumbering = document.getElementById("giftQuestionsList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1}`;
+            } else {
+                console.log("다음")
+                for (let j = 1; j <= currentPage; j++) {
+                    let startNo = (currentPage - 1) * 10
+                    tdNumbering = document.getElementById("giftQuestionsList").getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML = `${i + 1 + startNo}`;
+                }
+            }
         }
     });
 }
