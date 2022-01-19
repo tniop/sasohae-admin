@@ -1,27 +1,38 @@
 $(document).ready(() => {
-    makeTable();
+    getAdminList();
 });
 
-function makeTable() {
+function getAdminList() {
+    const datatablesSimple = document.getElementById("datatablesSimple");
+    const dataTable = new simpleDatatables.DataTable(datatablesSimple);
+
     $.ajax({
         type: "get",
         url: `/api/admin`,
         data: {},
         success: (res) => {
-            const alladmins = res;
-            for (let i = 0; i < alladmins.length; i++) {
-                if (alladmins[i].adminPosition != "master") {
-                    let tempTableList = `<tr>
-                                        <td>${alladmins[i].admin_id}</td>
-                                        <td>${alladmins[i].adminPosition}</td>
-                                        <td>${alladmins[i].adminNickname}</td>
-                                        <td>${alladmins[i].adminName}</td>
-                                        <td id="${alladmins[i].admin_id}" style="cursor:pointer;" onClick="moveToDetail(this.id)">상세페이지</td>
-                                        <td><input type="button" id="${alladmins[i].admin_id}" onClick="deleteItem(this.id)" class="btn btn-outline-primary" value="삭제"></td>
-                                    </tr>`;
-                    $("#adminTable").append(tempTableList);
+            const allAdmins = res;
+            let newRows = [];
+
+            let count = 0;
+            for (let i = 0; i < allAdmins.length; i++) {
+                let tempRow = [];
+                if (allAdmins[i].adminPosition != "master") {
+                    tempRow.push(`${count + 1}`);
+                    tempRow.push(allAdmins[i].adminPosition);
+                    tempRow.push(allAdmins[i].adminNickname);
+                    tempRow.push(allAdmins[i].adminName);
+                    tempRow.push(`<input type="button" id="${allAdmins[i].admin_id}" onClick="moveToDetail(this.id)"
+                    class="btn btn-outline-primary" value="상세페이지">`);
+                    tempRow.push(
+                        `<img style="cursor:pointer;" src="../public/assets/img/deleteBtn.png" id="${allAdmins[i].admin_id}" onClick="deleteItem(this.id)" width="40px">`
+                    );
+
+                    newRows.push(tempRow);
+                    count++;
                 }
             }
+            dataTable.rows().add(newRows);
         },
         error: (err) => {
             alert(err.responseJSON.errorMessage);
