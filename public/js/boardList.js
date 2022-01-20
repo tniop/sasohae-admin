@@ -38,7 +38,7 @@ function getBoardList() {
 
 function blindItem(Idx) {
     const board_id = Idx;
-    const blindString = "(관리자에 의해 블라인드 처리된 게시글입니다)";
+    const blindString = "(관리자에 의해 블라인드 처리된 게시글입니다.)";
 
     if (window.confirm("블라인드 처리 하시겠습니까?")) {
         $.ajax({

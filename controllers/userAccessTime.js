@@ -8,7 +8,10 @@ async function getUserAccessTime(req, res) {
         );
         res.status(200).send(allUserAccessTime);
     } catch (err) {
-        res.status(400).send(err);
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "전체 사용자방문시간 조회에 실패하였습니다!",
+        });
     }
 }
 

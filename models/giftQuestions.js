@@ -5,8 +5,8 @@ autoIncrement.initialize(mongoose.connection);
 const giftQuestions = new mongoose.Schema({
     giftQuestion_id: {
         type: Number,
-        required: true,
         unique: true,
+        required: true,
         default: 0,
     },
     giftQuestion: {

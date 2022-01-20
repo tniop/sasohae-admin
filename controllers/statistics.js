@@ -8,7 +8,10 @@ async function getAllStatistics(req, res) {
         );
         res.status(200).send(allStatistics);
     } catch (err) {
-        res.status(400).send(err);
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "전체 통계 조회에 실패하였습니다!",
+        });
     }
 }
 

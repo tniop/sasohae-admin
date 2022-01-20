@@ -5,42 +5,52 @@ autoIncrement.initialize(mongoose.connection);
 const gifts = new mongoose.Schema({
     gift_id: {
         type: Number,
-        required: true,
         unique: true,
+        required: true,
         default: 0,
     },
     giftName: {
         type: String,
+        required: true,
     },
     giftUrl: {
         type: String,
+        required: true,
     },
     giftTarget: {
         type: Array,
+        required: true,
         default: [],
     },
     giftEvent: {
         type: Array,
+        required: true,
         default: [],
     },
     sex: {
         type: String,
+        required: true,
     },
     age: {
         type: Array,
+        required: true,
         default: [],
     },
     giftAnswerExpensive: {
         type: String,
+        required: true,
     },
     giftAnswerPersonality: {
         type: String,
+        required: true,
     },
     giftAnswerEmotional: {
         type: String,
+        required: true,
     },
     giftAnswerTrendy: {
         type: String,
+        required: true,
     },
     giftRecommendCnt: {
         type: Number,
