@@ -44,7 +44,7 @@ function updateAdmin() {
 
     $.ajax({
         type: "put",
-        url: `/api/admin/${admin_id}`,
+        url: `/api/admin/password/change/${admin_id}`,
         data: {
             password,
         },

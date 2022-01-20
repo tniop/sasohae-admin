@@ -27,6 +27,7 @@ function insertInfo() {
 function updateAdmin() {
     let params = window.location.href.split("/");
     const admin_id = params[4];
+    const master_id = sessionStorage.getItem("_id");
 
     const positionList = document.getElementsByName("titleRadios");
     let adminPosition = "";
@@ -65,6 +66,7 @@ function updateAdmin() {
             adminPosition,
             adminName,
             password,
+            master_id,
         },
         success: (res) => {
             alert("관리자 수정에 성공하였습니다!");

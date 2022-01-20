@@ -17,7 +17,7 @@ function initializePassword() {
 
     $.ajax({
         type: "put",
-        url: `/api/admin/initialize`,
+        url: `/api/admin/password/initialize`,
         data: {
             adminPosition,
             adminName,
