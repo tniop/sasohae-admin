@@ -29,13 +29,16 @@ async function getMoneyQuestion(req, res) {
 
 async function createMoneyQuestions(req, res) {
     try {
-        const {
+        let {
             moneyQuestion_id,
             moneyQuestion,
             positiveAnswerQuestion,
             negativeAnswerQuestion,
             positiveChangeValue,
         } = req.body;
+        moneyQuestion_id = Number(moneyQuestion_id);
+        positiveChangeValue = Number(positiveChangeValue);
+
         await moneyQuestions.create({
             moneyQuestion_id,
             moneyQuestion,
