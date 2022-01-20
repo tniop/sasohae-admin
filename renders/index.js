@@ -43,7 +43,7 @@ router.get("/giftQuestionsInsert", (req, res, next) => {
     }
 });
 
-router.get("/giftQuestionsDetail", (req, res, next) => {
+router.get("/giftQuestions/:giftQuestion_id", (req, res, next) => {
     try {
         res.render("./giftQuestionsDetail"); // res.render("./gifts/giftQuestionsList"); -> gifts 폴더 내부 파일
     } catch (error) {
@@ -68,7 +68,7 @@ router.get("/giftInsert", (req, res, next) => {
     }
 });
 
-router.get("/giftDetail", (req, res, next) => {
+router.get("/gifts/:gift_id", (req, res, next) => {
     try {
         res.render("./giftDetail");
     } catch (error) {
@@ -93,7 +93,7 @@ router.get("/menuInsert", (req, res, next) => {
     }
 });
 
-router.get("/menuDetail", (req, res, next) => {
+router.get("/menuDetail/:menu_id", (req, res, next) => {
     try {
         res.render("./menuDetail"); // res.render("./menus/menuDetail");
     } catch (error) {
@@ -118,7 +118,7 @@ router.get("/moneyQuestionsInsert", (req, res, next) => {
     }
 });
 
-router.get("/moneyQuestionsDetail", (req, res, next) => {
+router.get("/moneyQuestions/:moneyQuestion_id", (req, res, next) => {
     try {
         res.render("./moneyQuestionsDetail"); // res.render("./money/moneyQuestionsDetail");
     } catch (error) {
@@ -138,7 +138,7 @@ router.get("/boardList", (req, res, next) => {
 /* admin management */
 router.get("/adminList", (req, res, next) => {
     try {
-        res.render("adminList");
+        res.render("./adminList");
     } catch (error) {
         res.render("error");
     }
@@ -146,15 +146,15 @@ router.get("/adminList", (req, res, next) => {
 
 router.get("/adminInsert", (req, res, next) => {
     try {
-        res.render("adminInsert");
+        res.render("./adminInsert");
     } catch (error) {
         res.render("error");
     }
 });
 
-router.get("/adminDetail", (req, res, next) => {
+router.get("/adminDetail/:admin_id", (req, res, next) => {
     try {
-        res.render("adminDetail");
+        res.render("./adminDetail");
     } catch (error) {
         res.render("error");
     }
@@ -162,7 +162,25 @@ router.get("/adminDetail", (req, res, next) => {
 
 router.get("/login", (req, res, next) => {
     try {
-        res.render("login");
+        res.render("./login");
+    } catch (error) {
+        res.render("error");
+    }
+});
+
+router.get("/password", (req, res, next) => {
+    try {
+        res.render("./initializePassword");
+    } catch (error) {
+        res.render("error");
+    }
+});
+
+/* my page */
+
+router.get("/mypage/:admin_id", (req, res, next) => {
+    try {
+        res.render("./myPage");
     } catch (error) {
         res.render("error");
     }

@@ -10,32 +10,20 @@
     <title>GiftQuestions - Sasohae Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="../public/css/styles.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap"
-        rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+    <!-- FileSaver savaAs 이용 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
 
     <style>
-        body,
-        button,
-        input,
-        textarea {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        td {
-            font-size: medium;
-        }
-
-        .add {
-            color: green !important;
-        }
-
-        .delete {
-            color: red !important;
-        }
-
+        body, button, input, textarea { font-family: 'Noto Sans KR', sans-serif; }
+        td { font-size: medium; }
+        .add {  color: green !important; }
+        .delete { color: red !important; }
         .button.add {
             background-color: green;
             border-color: transparent;
@@ -47,36 +35,22 @@
             width: 200px;
             border-radius: inherit;
         }
-
+        .listPageBtn {
+            text-align: right;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
         .button.add.is-outlined {
             background-color: transparent;
             border-color: orange;
             color: orange !important;
         }
-
-        .card-body {
-            text-align: center;
-        }
-
+        .card-body {  text-align: center; }
         .dataTable-sorter {
             text-align: center;
             font-size: medium;
         }
     </style>
-
-    <script type="text/javascript">
-        function moveTogiftQuestionsInsert() {
-            location.href = "giftQuestionsInsert";
-        }
-
-        function moveToDetail() {
-            location.href = "giftQuestionsDetail";
-        }
-
-        function deleteItem() {
-            alert("정말로 삭제하시겠습니까?")
-        }
-    </script>
 
 </head>
 
@@ -84,94 +58,63 @@
     <%- include('layoutHeader') %>
         <!-- side bar start -->
         <div id="layoutSidenav"></div>
-        <%- include ('layoutBody') %>
+            <%- include ('layoutBody') %>
             <!-- side bar end -->
 
             <!-- 페이지에 알맞게 수정 필요 시작 -->
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">선물 질문 관리 페이지</h1>
+                        <h1 class="mt-4">선물 질문 관리페이지</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">SASOHAE GIFTS QUESTIONS</li>
                         </ol>
+                        <div class="listPageBtn">
+                            <button class="level-item button add" onclick="moveToInsert()"
+                                style="background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
+                            <button class="level-item button add" onclick="exportExcel()" id="downloadCsv"
+                                style="background-color: rgb(240, 187, 14);border-color: rgb(240, 187, 14);">CSV로 저장하기</button>
+                        </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 선물 질문 리스트
                             </div>
-                            <button class="level-item button add" onclick="moveTogiftQuestionsInsert()"
-                                style="background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
+                        
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>카테고리</th>
-                                            <th>질문</th>
-                                            <th>상세</th>
-                                            <th>삭제</th>
+                                            <th width="5%">No</th>
+                                            <th width="20%">카테고리</th>
+                                            <th width="40%">질문</th>
+                                            <th width="20%">상세</th>
+                                            <th width="15%">삭제</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>카테고리</th>
-                                            <th>질문</th>
-                                            <th>상세</th>
-                                            <th>삭제</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>personality</td>
-                                            <td>외향적인가요?</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>emotionality</td>
-                                            <td>말보다 행동파이신가요?</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>trendy</td>
-                                            <td>트렌드에 민감한가요?</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()"
-                                                    class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
+                                    <tbody id="giftQuestionsList">
+                                        <!-- 선물 리스트 db data -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </main>
-
                 <!-- 페이지에 알맞게 수정 필요 끝 -->
-
 </body>
 
 <footer>
-
     <%- include ('layoutFooter') %>
-
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="../public/js/scripts.js"></script>
+<script src="../public/js/giftQuestionsList.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="../public/assets/demo/chart-area-demo.js"></script>
 <script src="../public/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="../public/js/datatables-simple-demo.js"></script>
+
 
 </html>

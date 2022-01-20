@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="../public/js/adminDetail.js"></script>
+    <script src="../public/js/myPage.js"></script>
 
     <style>
         /* .card {
@@ -65,7 +65,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">관리자 상세</h1>
+                        <h1 class="mt-4">마이 페이지</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">SASOHAE MANAGER</li>
                         </ol>
@@ -74,12 +74,14 @@
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label for="adminName" class="col-sm-2 control-label">직급 : </label>
-                                    <input type="radio" name="titleRadios" style="margin-right:10px;" value="senior" 
+                                    <input type="radio" name="titleRadios" style="margin-right:10px;" value="master" disabled="true"
+                                        >Master
+                                    <input type="radio" name="titleRadios" style="margin-right:10px;" value="senior" disabled="true"
                                         >Senior
                                     <input type="radio" name="titleRadios" style="margin-right:10px;"
-                                        value="junior" >Junior
+                                        value="junior" disabled="true">Junior
                                     <input type="radio" name="titleRadios" style="margin-right:10px;"
-                                        value="guest" >Guest
+                                        value="guest" disabled="true">Guest
                                 </div>
                                 <div class="form-group">
                                     <label for="adminName" class="col-sm-2 control-label">이름 : </label>
@@ -106,7 +108,7 @@
                                         <div>
                                             <button type="button" class="btn btn-success" onclick="updateAdmin()"
                                                 style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">수정하기</button>
-                                            <button type="button" class="btn btn-warning" onclick="goToList()"
+                                            <button type="button" class="btn btn-warning" onclick="goToMain()"
                                                 style="margin-top: 30px">취소하기</button>
                                         </div>
                                     </div>

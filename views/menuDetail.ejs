@@ -16,6 +16,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="../public/js/menuDetail.js"></script>
+    
     <style>
         label {
             font-family: 'Noto Sans KR', sans-serif;
@@ -45,16 +53,6 @@
         }
     </style>
 
-    <script type="text/javascript">
-        function insertInfo() {
-            location.href = "menuList";
-        }
-
-        function goToList() {
-            location.href = "menuList";
-        }
-    </script>
-
 </head>
 
 <body class="sb-nav-fixed">
@@ -80,26 +78,28 @@
                                     <div class="form-group">
                                         <label for="menuName" class="col-sm-2 control-label">메뉴이름 : </label>
                                         <input type="input" class="form-control" id="menuName"
-                                            style="width: 400px; display:inline" placeholder="메뉴이름">
+                                            style="width: 400px; display:inline" placeholder="메뉴이름" disabled>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="imgFile" class="col-sm-2 control-label">이미지 파일 : </label>
-                                            <label for="exampleInputFile">파일 업로드</label>
-                                            <input type="file" id="imgFile">
+                                            <img id="menuUrl">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="menuType" class="col-sm-2 control-label">Menu Type : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuTypeCheckbox1" value="1"> 식사
+                                            <input type="checkbox" name="menuType" id="menuTypeCheckboxAll" value="*" onclick="IsMenuTypeCheckAllChecked()"> 전체
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuTypeCheckbox2" value="2"> 요리
+                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox1" value="1" onclick="chkboxAllChecked()"> 식사
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuTypeCheckbox3" value="3"> 간식
+                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox2" value="2" onclick="chkboxAllChecked()"> 요리
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox3" value="3" onclick="chkboxAllChecked()"> 간식
                                         </label>
                                     </div>
                                     <div class="form-group">
@@ -118,22 +118,22 @@
                                     <div class="form-group">
                                         <label for="menuWith" class="col-sm-2 control-label">Menu With : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuWithCheckboxAll" value="*"> 전체
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckboxAll" value="*" onclick="IsMenuWithCheckboxAllChecked()"> 전체
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuWithCheckbox1" value="1"> 혼밥
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox1" value="1" onclick="chkboxAllChecked()"> 혼밥
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuWithCheckbox2" value="2"> 친구
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox2" value="2" onclick="chkboxAllChecked()"> 친구
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuWithCheckbox3" value="3"> 연인
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox3" value="3" onclick="chkboxAllChecked()"> 연인
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuWithCheckbox4" value="4"> 가족
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox4" value="4" onclick="chkboxAllChecked()"> 가족
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="menuWithCheckbox5" value="5"> 모임
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox5" value="5" onclick="chkboxAllChecked()"> 모임
                                         </label>
                                     </div>
 
@@ -141,7 +141,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <div>
-                                                <button type="button" class="btn btn-success" onclick="insertInfo()"
+                                                <button type="button" class="btn btn-success" onclick="updateMenu()"
                                                     style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">수정하기</button>
                                                 <button type="button" class="btn btn-warning" onclick="goToList()"
                                                     style="margin-top: 30px">취소하기</button>

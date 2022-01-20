@@ -34,7 +34,9 @@ async function getSelectedMenu(req, res) {
 async function createMenu(req, res) {
     try {
         const menuUrl = req.file.location;
-        const { menuName, menuType, menuStyle, menuWith } = req.body;
+        let { menuName, menuType, menuStyle, menuWith } = req.body;
+        menuType = JSON.parse(menuType);
+        menuWith = JSON.parse(menuWith);
         await menus.create({
             menuName,
             menuUrl,
@@ -61,11 +63,10 @@ async function updateMenu(req, res) {
             });
             return;
         }
-        const menuUrl = req.file.location;
-        const { menuName, menuType, menuStyle, menuWith } = req.body;
+        const { menuType, menuStyle, menuWith } = req.body;
         await menus.updateOne(
             { menu_id },
-            { $set: { menuName, menuUrl, menuType, menuStyle, menuWith } }
+            { $set: { menuType, menuStyle, menuWith } }
         );
         res.status(200).send();
     } catch (err) {

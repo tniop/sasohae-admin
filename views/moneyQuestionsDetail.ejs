@@ -16,6 +16,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 
+
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
     <style>
         /* .card {
             display: grid;
@@ -52,12 +60,59 @@
     </style>
 
     <script type="text/javascript">
+        const param = document.location.href.split("/");
+        console.log(param)
+        const moneyQuestion_id = param[4];
+        
+        
+        $(document).ready(function () {
+            console.log("test")
+            console.log(moneyQuestion_id)
+            setQuestion();
+        });
+
+        function setQuestion() {
+            $.ajax({
+                type: "GET",
+                url: `/api/moneyQuestions/${moneyQuestion_id}`,
+                data: {},
+                success: function (response) {
+                    console.log(response)
+                    $('#moneyQuestion').val(response["moneyQuestion"]);
+                    $('#positiveAnswerQuestion').val(response["positiveAnswerQuestion"]);
+                    $('#negativeAnswerQuestion').val(response["negativeAnswerQuestion"]);
+                    $('#positiveChangeValue').val(response["positiveChangeValue"]);
+                }
+            });
+        }
+
         function reviseInfo() {
-            location.href = "moneyQuestionsList";
+            if (($('#moneyQuestion').val() != "") && 
+            ($('#positiveAnswerQuestion').val() != "") &&
+            ($('#negativeAnswerQuestion').val() != "") && 
+            ($('#positiveChangeValue').val() != "")) {
+                $.ajax({
+                    type: "PUT",
+                    url: `/api/moneyQuestions/${moneyQuestion_id}`,
+                    data: {
+                        moneyQuestion: $('#moneyQuestion').val(),
+                        positiveAnswerQuestion: $('#positiveAnswerQuestion').val(),
+                        negativeAnswerQuestion: $('#negativeAnswerQuestion').val(),
+                        positiveChangeValue: $('#positiveChangeValue').val()
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        alert("저장되었습니다.");
+                        location.href = "/moneyQuestionsList";  
+                    }
+                });
+            } else {
+                alert("입력칸을 모두 채워주세요.");
+            }
         }
 
         function goToList() {
-            location.href = "moneyQuestionsList";
+            location.href = "/moneyQuestionsList";
         }
     </script>
 
@@ -84,25 +139,25 @@
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label for="moneyQuestion " class="col-sm-2 control-label">질문내용: </label>
-                                    <input type="input" class="form-control" id="moneyQuestion "
+                                    <input type="input" class="form-control" id="moneyQuestion"
                                         style="width: 400px; display:inline" placeholder="질문을 입력해주세요">
                                 </div>
                                 <div class="form-group">
                                     <label for="positiveAnswerQuestion  " class="col-sm-2 control-label">긍정 답변시 다음 번호:
                                     </label>
-                                    <input type="input" class="form-control" id="positiveAnswerQuestion  "
+                                    <input type="input" class="form-control" id="positiveAnswerQuestion"
                                         style="width: 400px; display:inline" placeholder="긍정 답변시 다음 번호">
                                 </div>
                                 <div class="form-group">
                                     <label for="negativeAnswerQuestion  " class="col-sm-2 control-label">부정 답변시 다음 번호:
                                     </label>
-                                    <input type="input" class="form-control" id="negativeAnswerQuestion  "
+                                    <input type="input" class="form-control" id="negativeAnswerQuestion"
                                         style="width: 400px; display:inline" placeholder="부정 답변시 다음 번호">
                                 </div>
                                 <div class="form-group">
                                     <label for="positiveChangeValue  " class="col-sm-2 control-label">긍정 답변시 변화량:
                                     </label>
-                                    <input type="input" class="form-control" id="positiveChangeValue  "
+                                    <input type="input" class="form-control" id="positiveChangeValue"
                                         style="width: 400px; display:inline" placeholder="긍정 답변시 변화량">
                                 </div>
 

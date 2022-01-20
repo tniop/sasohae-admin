@@ -4,6 +4,7 @@ const passport = require("passport");
 /* ==================== controllers ==================== */
 const {
     getBoards,
+    updateBoards,
     deleteBoards,
     createBoards,
 } = require("../controllers/boards");
@@ -35,9 +36,19 @@ const {
     loginAdmin,
     updateAdmin,
     deleteAdmin,
+    initializePassword,
+    updateMyPassword,
 } = require("../controllers/admins");
 const adminAuth = require("../controllers/auth");
-const { createMoneyQuestions } = require("../controllers/moneys");
+const {
+    getAllMoneyQuestion,
+    getMoneyQuestion,
+    createMoneyQuestions,
+    updateMoneyQuestion,
+    deleteMoneyQuestion,
+} = require("../controllers/moneys");
+const { getAllStatistics } = require("../controllers/statistics");
+const { getUserAccessTime } = require("../controllers/userAccessTime");
 /* ==================================================*/
 
 /* ==================== middleware ====================*/
@@ -47,22 +58,30 @@ const passportAutheticator = require("../middleware/authenticator");
 
 /* ==================== router ==================== */
 router.get("/boards", getBoards);
+router.put("/boards/:board_id", updateBoards);
 router.delete("/boards/:board_id", deleteBoards);
 router.post("/boards", createBoards);
 
-router.get("/gifts", getAllGifts);
+router.get("/gifts/", getAllGifts);
 router.get("/gifts/:gift_id", getSelectedGift);
 router.post("/gifts", upload.single("img"), createGift);
-router.put("/gifts/:gift_id", upload.single("img"), updateGift);
+router.put("/gifts/:gift_id", updateGift);
 router.delete("/gifts/:gift_id", deleteGift);
 
 router.get("/menus", getAllMenus);
 router.get("/menus/:menu_id", getSelectedMenu);
 router.post("/menus", upload.single("img"), createMenu);
-router.put("/menus/:menu_id", upload.single("img"), updateMenu);
+router.put("/menus/:menu_id", updateMenu);
 router.delete("/menus/:menu_id", deleteMenu);
 
+router.get("/moneyQuestions", getAllMoneyQuestion);
+router.get("/moneyQuestions/:moneyQuestion_id", getMoneyQuestion);
 router.post("/moneyQuestions", createMoneyQuestions);
+router.put("/moneyQuestions/:moneyQuestion_id", updateMoneyQuestion);
+router.delete("/moneyQuestions/:moneyQuestion_id", deleteMoneyQuestion);
+
+router.get("/statistics", getAllStatistics);
+router.get("/user", getUserAccessTime);
 
 router.get("/giftQuestions", getAllGiftQuestions);
 router.get("/giftQuestions/:giftQuestion_id", getSelectedGiftQuestion);
@@ -76,6 +95,8 @@ router.post("/sign-up", createAdmin);
 router.post("/login", loginAdmin);
 router.put("/admin/:admin_id", updateAdmin);
 router.delete("/admin/:admin_id", deleteAdmin);
+router.put("/admin/password/initialize", initializePassword);
+router.put("/admin/password/change/:admin_id", updateMyPassword);
 
 router.get("/auth", passportAutheticator(), adminAuth);
 /* ==================================================*/

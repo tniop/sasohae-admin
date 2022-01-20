@@ -10,28 +10,15 @@
     <title>Gifts - Sasohae Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="../public/css/styles.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap"
-        rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
-        body,
-        button,
-        input,
-        textarea {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-        td {
-            font-size: medium;
-        }
-        .add {
-            color: green !important;
-        }
-        .delete {
-            color: red !important;
-        }
+        body, button, input, textarea { font-family: 'Noto Sans KR', sans-serif; }
+        td { font-size: medium; }
+        .add { color: green !important; }
+        .delete { color: red !important; }
         .button.add {
             background-color: green;
             border-color: transparent;
@@ -48,28 +35,12 @@
             border-color: orange;
             color: orange !important;
         }
-        .card-body {
-            text-align: center;
-        }
+        .card-body { text-align: center; }
         .dataTable-sorter {
             text-align: center;
             font-size: medium;
         }
     </style>
-
-    <script type="text/javascript">
-        function moveTogiftInsert() {
-            location.href = "giftInsert";
-        }
-
-        function moveToDetail() {
-            location.href = "giftDetail";
-        }
-
-        function deleteItem() {
-            alert("정말로 삭제하시겠습니까?")
-        }
-    </script>
 
 </head>
 
@@ -81,11 +52,10 @@
             <!-- side bar end -->
 
             <!-- 페이지에 알맞게 수정 필요 시작 -->
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">선물 관리 페이지</h1>
+                        <h1 class="mt-4">선물 관리페이지</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">SASOHAE GIFTS</li>
                         </ol>
@@ -94,83 +64,41 @@
                                 <i class="fas fa-table me-1"></i>
                                 선물 리스트
                             </div>
-                            <button class="level-item button add" onclick="moveTogiftInsert()" style="background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
+                            <button class="level-item button add" onclick="moveToInsert()" style="background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>선물이름</th>
-                                            <th>선물 이미지</th>
-                                            <th>추천수</th>
-                                            <th>좋아요</th>
-                                            <th>상세</th>
-                                            <th>삭제</th>
+                                            <th width="5%">No</th>
+                                            <th width="20%">선물이름</th>
+                                            <th width="25%">선물 이미지</th>
+                                            <th width="10%">추천수</th>
+                                            <th width="10%">좋아요</th>
+                                            <th width="20%">상세</th>
+                                            <th width="10%">삭제</th>
                                         </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>선물이름</th>
-                                            <th>선물 이미지</th>
-                                            <th>추천수</th>
-                                            <th>좋아요</th>
-                                            <th>상세</th>
-                                            <th>삭제</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>케이크</td>
-                                            <td>케이크 이미지</td>
-                                            <td>20</td>
-                                            <td>10</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()" class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>벨트</td>
-                                            <td>벨트 이미지</td>
-                                            <td>15</td>
-                                            <td>5</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()" class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>공기청정기</td>
-                                            <td>공기청정기 이미지</td>
-                                            <td>10</td>
-                                            <td>2</td>
-                                            <td style="cursor:pointer;" onClick="moveToDetail()">상세페이지</td>
-                                            <td><input type="button" id="delete" onClick="deleteItem()" class="btn btn-outline-primary" value="삭제"></td>
-                                        </tr>
+                                    </thead>                                
+                                    <tbody id="giftList">
+                                        <!-- 선물 리스트 db data -->
                                     </tbody>
-                                </table>
+                                </table>                             
                             </div>
                         </div>
                     </div>
                 </main>
-
                 <!-- 페이지에 알맞게 수정 필요 끝 -->
-
 </body>
 
 <footer>
-
     <%- include ('layoutFooter') %>
-
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="../public/js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="../public/assets/demo/chart-area-demo.js"></script>
 <script src="../public/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="../public/js/datatables-simple-demo.js"></script>
+<script src="../public/js/giftList.js"></script>
 
 </html>
