@@ -57,14 +57,15 @@ function deleteItem(id) {
 }
 
 
-let selectedColum = [];
 let columData = [];
 function exportExcel() {
+    let selectedColum = [];
   
     // 데이터인 newRows만큼 추출
     for (let i = 0; i < newRows.length; i++) {
         // 필요한 컬럼의 데이터만 추출해서 배열로 만듬
         for (let j = 0; j < 3; j++) {
+            // 처음에 th(컬럼명) 부분 먼저 추출
             if (i == 0 && j == 0) {
                 selectedColum.push(document.getElementsByTagName('th')[0].innerText);
                 selectedColum.push(document.getElementsByTagName('th')[1].innerText);
@@ -73,29 +74,30 @@ function exportExcel() {
             selectedColum.push(newRows[i][j])
         }
     }
-    // row 마다 하나의 배열에 담음 (배열 안에 3개씩 담긴 배열을 만듬)
+
+    // 각 행의 데이터를 하나의 배열에 각각 담음 (행의 길이 만큼 배열 생성)
     for (i = 0; i < selectedColum.length; i += 3) {
         columData.push(selectedColum.slice(i, i + 3));
     }
     
-    // step 1. workbook 생성
+    // workbook 생성
     const wb = XLSX.utils.book_new();
-    // step 2. 시트 만들기 
+    // 시트 만들기 
     const newWorksheet = excelHandler.getWorksheet();
-    // step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.  
+    // workbook에 새로만든 워크시트에 이름을 주고 붙인다.  
     XLSX.utils.book_append_sheet(wb, newWorksheet, excelHandler.getSheetName());
-    // step 4. 엑셀 파일 만들기 
+    // 엑셀 파일 만들기 
     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-    // step 5. 엑셀 파일 내보내기 
+    // 엑셀 파일 내보내기 
     saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), excelHandler.getExcelFileName());
 }
 
 const excelHandler = {
     getExcelFileName: function () {
-        return 'sasohae-data.xlsx';
+        return 'sasohae-giftQuestions-data.xlsx';
     },
     getSheetName: function () {
-        return 'sasohae Sheet';
+        return 'giftQuestionsList Sheet';
     },
     getExcelData: function () {
         return columData;
