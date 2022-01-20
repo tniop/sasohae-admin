@@ -61,20 +61,14 @@ let selectedColum = [];
 let columData = [];
 function exportExcel() {
   
-    categoryName = [];
-    for (let i = 0; i < 3; i++) { 
-        categoryName.push(document.getElementsByTagName('th')[i].innerText)
-    }
-    console.log(categoryName)
-  
     // 데이터인 newRows만큼 추출
     for (let i = 0; i < newRows.length; i++) {
         // 필요한 컬럼의 데이터만 추출해서 배열로 만듬
         for (let j = 0; j < 3; j++) {
-            if (i == 0) { // 이 부분 수정중
-                for (let z = 0; z < 1; z++) { 
-                    selectedColum.push(document.getElementsByTagName('th')[j].innerText)
-                }
+            if (i == 0 && j == 0) {
+                selectedColum.push(document.getElementsByTagName('th')[0].innerText);
+                selectedColum.push(document.getElementsByTagName('th')[1].innerText);
+                selectedColum.push(document.getElementsByTagName('th')[2].innerText);             
             }
             selectedColum.push(newRows[i][j])
         }
