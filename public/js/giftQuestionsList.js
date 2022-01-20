@@ -1,6 +1,5 @@
 $(document).ready(() => {
     getQuestionsList();
-    checkCsv();
     
 });
 
@@ -57,43 +56,64 @@ function deleteItem(id) {
     });
 }
 
-function checkCsv() { 
-    console.log("checkCsv 함수 들어옴")
-    //다운로드 하이퍼링크에 클릭 이벤트 발생시 saveCSV 함수를 호출하도록 이벤트 리스너를 추가
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("downloadCsv").addEventListener("click", function () {
-            saveCSV("data.csv"); // CSV파일 다운로드 함수 호출
-            return false;
-        })
-    });
+
+let selectedColum = [];
+let columData = [];
+function exportExcel() {
+  
+    categoryName = [];
+    for (let i = 0; i < 3; i++) { 
+        categoryName.push(document.getElementsByTagName('th')[i].innerText)
+    }
+    console.log(categoryName)
+  
+    // 데이터인 newRows만큼 추출
+    for (let i = 0; i < newRows.length; i++) {
+        // 필요한 컬럼의 데이터만 추출해서 배열로 만듬
+        for (let j = 0; j < 3; j++) {
+            if (i == 0) { // 이 부분 수정중
+                for (let z = 0; z < 1; z++) { 
+                    selectedColum.push(document.getElementsByTagName('th')[j].innerText)
+                }
+            }
+            selectedColum.push(newRows[i][j])
+        }
+    }
+    // row 마다 하나의 배열에 담음 (배열 안에 3개씩 담긴 배열을 만듬)
+    for (i = 0; i < selectedColum.length; i += 3) {
+        columData.push(selectedColum.slice(i, i + 3));
+    }
+    
+    // step 1. workbook 생성
+    const wb = XLSX.utils.book_new();
+    // step 2. 시트 만들기 
+    const newWorksheet = excelHandler.getWorksheet();
+    // step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.  
+    XLSX.utils.book_append_sheet(wb, newWorksheet, excelHandler.getSheetName());
+    // step 4. 엑셀 파일 만들기 
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+    // step 5. 엑셀 파일 내보내기 
+    saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), excelHandler.getExcelFileName());
 }
 
-
-//CSV 생성 함수
-function saveCsv(fileName) {
-    let selectedColum = [];
-    
-    //CSV 문자열 생성
-    let downLink = document.getElementById("downloadCsv");
-    let csv = ""; //CSV최종 문자열을 저장하는 변수
-
-    // 필요한 컬럼(앞에서 3개)만 데이터 추출하여 selectedColum에 담음
-    for (let i = 0; i < newRows.length; i++) {
-        for (var j = 0; j < 3; j++) {
-            //console.log(newRows[j][i])
-            selectedColum.push(newRows[i][j])
-        } 
-       
+const excelHandler = {
+    getExcelFileName: function () {
+        return 'sasohae-data.xlsx';
+    },
+    getSheetName: function () {
+        return 'sasohae Sheet';
+    },
+    getExcelData: function () {
+        return columData;
+    },
+    getWorksheet: function () {
+        return XLSX.utils.aoa_to_sheet(this.getExcelData());
     }
-    csv += selectedColum.join(',') + (j == 2 ? '\n' : ''); // 배열을 문자열+줄바꿈으로 변환
+}
 
-
-    const korean = "\uFEFF";
-    csv = korean + csv;
-
-    // CSV 파일 저장
-    csvFile = new Blob([csv], { type: "text/csv;" }); // 생성한 CSV 문자열을 Blob 데이터로 생성
-    downLink.href = window.URL.createObjectURL(csvFile); // Blob 데이터를 URL 객체로 감싸 다운로드 하이퍼링크에 붙임.
-    downLink.download = fileName; // 인자로 받은 다운로드 파일명을 지정
-    window.open(downLink.href); // 별도 추가함
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+    const view = new Uint8Array(buf);  //create uint8array as viewer
+    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    return buf;
 }
