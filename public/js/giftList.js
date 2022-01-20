@@ -2,6 +2,7 @@ $(document).ready(() => {
     getGiftList();
 });
 
+let newRows = [];
 function getGiftList() {
     const datatablesSimple = document.getElementById("datatablesSimple");
     const dataTable = new simpleDatatables.DataTable(datatablesSimple);
@@ -11,7 +12,6 @@ function getGiftList() {
         data: {},
         success: (res) => {
             const allGifts = res;
-            let newRows = [];
 
             for (let i = 0; i < allGifts.length; i++) {
                 let tempRow = [];
@@ -56,4 +56,63 @@ function deleteItem(id) {
             alert(error.responseJSON.errorMessage);
         },
     });
+}
+
+let columData = [];
+function exportExcel() {
+    let selectedColum = [];
+
+    // 데이터인 newRows만큼 추출
+    for (let i = 0; i < newRows.length; i++) {
+        // 필요한 컬럼의 데이터만 추출해서 배열로 만듬
+        for (let j = 0; j < 5; j++) {
+            // 처음에 th(컬럼명) 부분 먼저 추출
+            if (i == 0 && j == 0) { 
+                selectedColum.push(document.getElementsByTagName('th')[0].innerText);
+                selectedColum.push(document.getElementsByTagName('th')[1].innerText);
+                selectedColum.push(document.getElementsByTagName('th')[2].innerText);
+                selectedColum.push(document.getElementsByTagName('th')[3].innerText);
+                selectedColum.push(document.getElementsByTagName('th')[4].innerText);
+            }
+            // url 컬럼일 때 
+            if (j == 2) { 
+                // img url 에서 src 내부 url만 추출
+                selectedColum.push((newRows[i][j]).split('"')[3]);
+            } else {
+                selectedColum.push(newRows[i][j]);    
+            }        
+        }
+    }
+    // 각 행의 데이터를 하나의 배열에 각각 담음 (행의 길이 만큼 배열 생성)
+    for (i = 0; i < selectedColum.length; i += 5) {
+        columData.push(selectedColum.slice(i, i + 5));
+    }
+
+    const wb = XLSX.utils.book_new();
+    const newWorksheet = excelHandler.getWorksheet();
+    XLSX.utils.book_append_sheet(wb, newWorksheet, excelHandler.getSheetName());
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+    saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), excelHandler.getExcelFileName());
+}
+
+const excelHandler = {
+    getExcelFileName: function () {
+        return 'sasohae-gift-data.xlsx';
+    },
+    getSheetName: function () {
+        return 'giftList Sheet';
+    },
+    getExcelData: function () {
+        return columData;
+    },
+    getWorksheet: function () {
+        return XLSX.utils.aoa_to_sheet(this.getExcelData());
+    }
+}
+
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length); 
+    const view = new Uint8Array(buf);  
+    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
 }
