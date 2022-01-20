@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const statistics = new mongoose.Schema({
     statistic_id: {
         type: Number,
-        required: true,
         unique: true,
+        required: true,
         default: 1,
     },
     totVisitorCnt: {

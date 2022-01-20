@@ -2,6 +2,7 @@ const admins = require("../models/admins");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 async function getAllAdmins(req, res) {
     try {
@@ -37,7 +38,7 @@ async function getSelectedAdmin(req, res) {
 async function createAdmin(req, res) {
     try {
         const { adminPosition, adminName, adminNickname } = req.body;
-        const password = "test";
+        const password = process.env.ADMIN_DEFAULT_PASSWORD;
         const existUser = await admins.findOne({ adminNickname });
         if (existUser) {
             res.status(400).send({
@@ -45,7 +46,10 @@ async function createAdmin(req, res) {
             });
             return;
         }
-        const encryptPW = await bcrypt.hash(password, 13);
+        const encryptPW = await bcrypt.hash(
+            password,
+            process.env.BCRYPT_HASH_CODE
+        );
         await admins.create({
             adminPosition,
             adminName,
@@ -166,8 +170,11 @@ async function initializePassword(req, res) {
             });
             return;
         }
-        const password = "1q2w3e4r";
-        const encryptPW = await bcrypt.hash(password, 13);
+        const password = process.env.ADMIN_DEFAULT_PASSWORD;
+        const encryptPW = await bcrypt.hash(
+            password,
+            process.env.BCRYPT_HASH_CODE
+        );
         await admins.updateOne(
             { adminNickname },
             { $set: { password: encryptPW } }
@@ -207,7 +214,10 @@ async function updateMyPassword(req, res) {
     try {
         const { admin_id } = req.params;
         const { password } = req.body;
-        const encryptPW = await bcrypt.hash(password, 13);
+        const encryptPW = await bcrypt.hash(
+            password,
+            process.env.BCRYPT_HASH_CODE
+        );
 
         await admins.updateOne({ admin_id }, { $set: { password: encryptPW } });
 
@@ -226,7 +236,7 @@ module.exports = {
     createAdmin,
     loginAdmin,
     updateAdmin,
-    deleteAdmin,
     initializePassword,
+    deleteAdmin,
     updateMyPassword,
 };

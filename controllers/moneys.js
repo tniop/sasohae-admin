@@ -5,7 +5,10 @@ async function getAllMoneyQuestion(req, res) {
         const allMoneyQuestion = await moneyQuestions.find({});
         res.status(200).send(allMoneyQuestion);
     } catch (err) {
-        res.status(400).send(err);
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "전체 축의금질문 조회에 실패하였습니다!",
+        });
     }
 }
 
@@ -17,13 +20,16 @@ async function getMoneyQuestion(req, res) {
         });
         if (!selectedMoneyQuestion) {
             res.status(400).send({
-                errorMessage: "존재하지 않는 정보입니다",
+                errorMessage: "존재하지 않는 정보입니다!",
             });
             return;
         }
         res.status(200).send(selectedMoneyQuestion);
     } catch (err) {
-        res.status(400).send(err);
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "개별 축의금질문 조회에 실패하였습니다!",
+        });
     }
 }
 
@@ -48,7 +54,10 @@ async function createMoneyQuestions(req, res) {
         });
         res.status(201).send();
     } catch (err) {
-        res.status(400).send(err);
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "개별 축의금질문 등록에 실패하였습니다!",
+        });
     }
 }
 
@@ -83,7 +92,10 @@ async function updateMoneyQuestion(req, res) {
         );
         res.status(200).send();
     } catch (err) {
-        res.status(400).send(err);
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "개별 축의금질문 갱신에 실패하였습니다!",
+        });
     }
 }
 
@@ -103,7 +115,10 @@ async function deleteMoneyQuestion(req, res) {
         await moneyQuestions.deleteOne({ moneyQuestion_id });
         res.status(204).send();
     } catch (err) {
-        res.status(400).send(err);
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "개별 축의금질문 삭제에 실패하였습니다!",
+        });
     }
 }
 

@@ -53,22 +53,8 @@ async function deleteBoards(req, res) {
     }
 }
 
-async function createBoards(req, res) {
-    try {
-        const { comment } = req.body;
-        await boards.create({ comment });
-        res.status(201).send();
-    } catch (err) {
-        console.log(err);
-        res.status(400).send({
-            errorMessage: "게시글 등록에 실패하였습니다!",
-        });
-    }
-}
-
 module.exports = {
     getBoards,
     updateBoards,
     deleteBoards,
-    createBoards,
 };
