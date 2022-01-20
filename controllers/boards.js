@@ -2,7 +2,7 @@ const boards = require("../models/boards");
 
 async function getBoards(req, res) {
     try {
-        const allBoards = await boards.find({});
+        const allBoards = await boards.find({}).sort({ _id: -1 });
         res.status(200).send(allBoards);
     } catch (err) {
         console.log(err);

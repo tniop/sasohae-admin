@@ -21,6 +21,7 @@
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="../public/js/moneyQuestionsInsert.js"></script>
         
 
     <style>
@@ -62,16 +63,6 @@
         }
     </style>
 
-    <script type="text/javascript">
-        function insertInfo() {
-            location.href = "moneyQuestionsList";
-        }
-
-        function moveToList() {
-            location.href = "moneyQuestionsList";
-        }
-    </script>
-
 </head>
 
 <body class="sb-nav-fixed">
@@ -95,23 +86,28 @@
                             <form class="form-horizontal">
                                 <div class="moneyQuestions-group">
                                     <div class="form-group">
+                                        <label for="moneyQuestion " class="col-sm-2 control-label">질문번호: </label>
+                                        <input type="input" class="form-control" id="moneyQuestion_id"
+                                            style="width: 400px; display:inline" placeholder="질문번호를 입력해주세요">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="moneyQuestion " class="col-sm-2 control-label">질문내용: </label>
-                                        <input type="input" class="form-control" id="moneyQuestion "
+                                        <input type="input" class="form-control" id="moneyQuestion"
                                             style="width: 400px; display:inline" placeholder="질문을 입력해주세요">
                                     </div>
                                     <div class="form-group">
                                         <label for="positiveAnswerQuestion  " class="col-sm-2 control-label">긍정 답변시 다음 번호: </label>
-                                        <input type="input" class="form-control" id="positiveAnswerQuestion  " style="width: 400px; display:inline"
+                                        <input type="input" class="form-control" id="positiveAnswerQuestion" style="width: 400px; display:inline"
                                             placeholder="긍정 답변시 다음 번호">
                                     </div>
                                     <div class="form-group">
                                         <label for="negativeAnswerQuestion  " class="col-sm-2 control-label">부정 답변시 다음 번호: </label>
-                                        <input type="input" class="form-control" id="negativeAnswerQuestion  " style="width: 400px; display:inline"
+                                        <input type="input" class="form-control" id="negativeAnswerQuestion" style="width: 400px; display:inline"
                                             placeholder="부정 답변시 다음 번호">
                                     </div>
                                     <div class="form-group">
                                         <label for="positiveChangeValue  " class="col-sm-2 control-label">긍정 답변시 변화량: </label>
-                                        <input type="input" class="form-control" id="positiveChangeValue  " style="width: 400px; display:inline"
+                                        <input type="input" class="form-control" id="positiveChangeValue" style="width: 400px; display:inline"
                                             placeholder="긍정 답변시 변화량">
                                     </div>
                                     
