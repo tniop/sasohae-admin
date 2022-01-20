@@ -449,7 +449,7 @@
                                 id: 'bgColor',
                                 beforeDraw: (chart, options) => {
                                     const { ctx, width, height } = chart;
-                                    ctx.fillStyle = 'white';
+                                    ctx.fillStyle = options.backgroundColor;
                                     ctx.fillRect(0, 0, width, height);
                                     ctx.restore();
                                 }
