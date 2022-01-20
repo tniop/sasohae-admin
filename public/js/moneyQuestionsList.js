@@ -93,10 +93,10 @@ function exportExcel() {
 
 const excelHandler = {
     getExcelFileName: function () {
-        return 'sasohae-gift-data.xlsx';
+        return 'sasohae-moneyQuestions-data.xlsx';
     },
     getSheetName: function () {
-        return 'giftList Sheet';
+        return 'moneyQuestionsList Sheet';
     },
     getExcelData: function () {
         return columData;
