@@ -10,20 +10,6 @@ async function insertInfo() {
 
     const adminName = $("#adminName").val();
     const adminNickname = $("#adminNickname").val();
-    const password = $("#password").val();
-    const passwordChk = $("#passwordConfirm").val();
-
-    if (!password || !passwordChk) {
-        alert("비밀번호를 입력 해주세요!");
-        return;
-    }
-
-    if (password != passwordChk) {
-        alert("비밀번호를 확인 해주세요!");
-        document.querySelector("#password").value = "";
-        document.querySelector("#passwordConfirm").value = "";
-        return;
-    }
 
     $.ajax({
         type: "post",
@@ -32,7 +18,6 @@ async function insertInfo() {
             adminPosition,
             adminName,
             adminNickname,
-            password,
         },
         success: (res) => {
             alert("관리자 등록에 성공하였습니다!");
