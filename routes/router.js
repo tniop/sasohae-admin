@@ -37,6 +37,7 @@ const {
     updateAdmin,
     deleteAdmin,
     initializePassword,
+    updateMyPassword,
 } = require("../controllers/admins");
 const adminAuth = require("../controllers/auth");
 const {
@@ -95,6 +96,7 @@ router.post("/login", loginAdmin);
 router.put("/admin/:admin_id", updateAdmin);
 router.delete("/admin/:admin_id", deleteAdmin);
 router.put("/admin/password/initialize", initializePassword);
+router.put("/admin/password/change/:admin_id", updateMyPassword);
 
 router.get("/auth", passportAutheticator(), adminAuth);
 /* ==================================================*/

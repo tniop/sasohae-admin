@@ -36,7 +36,8 @@ async function getSelectedAdmin(req, res) {
 
 async function createAdmin(req, res) {
     try {
-        const { adminPosition, adminName, adminNickname, password } = req.body;
+        const { adminPosition, adminName, adminNickname } = req.body;
+        const password = "test";
         const existUser = await admins.findOne({ adminNickname });
         if (existUser) {
             res.status(400).send({
@@ -97,15 +98,35 @@ async function loginAdmin(req, res) {
 async function updateAdmin(req, res) {
     try {
         const { admin_id } = req.params;
-        const selectedAdmin = await admins.findOne({ admin_id });
-        if (!selectedAdmin) {
+        const changedAdminInfo = await admins.findOne({ admin_id });
+        if (!changedAdminInfo) {
             res.status(400).send({
                 errorMessage: "존재하지 않는 정보입니다!",
             });
             return;
         }
-        const { adminPosition, adminName, adminNickname, password } = req.body;
-        const encryptPW = await bcrypt.hash(password, 13);
+
+        const { adminPosition, adminName, adminNickname, master_id, password } =
+            req.body;
+
+        const masterAdminInfo = await admins.findOne({ admin_id: master_id });
+        if (masterAdminInfo.adminPosition != "master") {
+            res.status(403).send({
+                errorMessage: "변경 권한이 없습니다!",
+            });
+            return;
+        }
+
+        const comparePassword = await bcrypt.compare(
+            password,
+            masterAdminInfo.password
+        );
+        if (!comparePassword) {
+            res.status(403).send({
+                errorMessage: "비밀번호가 일치하지 않습니다!",
+            });
+            return;
+        }
 
         await admins.updateOne(
             { admin_id },
@@ -114,7 +135,6 @@ async function updateAdmin(req, res) {
                     adminPosition,
                     adminName,
                     adminNickname,
-                    password: encryptPW,
                 },
             }
         );
@@ -183,6 +203,23 @@ async function deleteAdmin(req, res) {
     }
 }
 
+async function updateMyPassword(req, res) {
+    try {
+        const { admin_id } = req.params;
+        const { password } = req.body;
+        const encryptPW = await bcrypt.hash(password, 13);
+
+        await admins.updateOne({ admin_id }, { $set: { password: encryptPW } });
+
+        res.status(200).send();
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({
+            errorMessage: "비밀번호 변경에 실패하였습니다!",
+        });
+    }
+}
+
 module.exports = {
     getAllAdmins,
     getSelectedAdmin,
@@ -191,4 +228,5 @@ module.exports = {
     updateAdmin,
     deleteAdmin,
     initializePassword,
+    updateMyPassword,
 };
