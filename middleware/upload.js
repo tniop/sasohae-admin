@@ -4,7 +4,6 @@ const multer = require("multer");
 const AWS = require("aws-sdk");
 require("dotenv").config();
 
-// AWS S3 사용하기 위한 config
 AWS.config.update({
     accessKeyId: process.env.AWSAccessKeyId,
     secretAccessKey: process.env.AWSSecretKey,

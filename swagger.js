@@ -5,7 +5,7 @@ const doc = {
         title: "sasohae-admin",
         description: "Description",
     },
-    host: "localhost:3000",
+    host: "sasohae-admin.site",
     schemes: ["https"],
 };
 
