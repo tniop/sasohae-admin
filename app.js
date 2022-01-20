@@ -16,7 +16,7 @@ const https = require("https");
 require("dotenv").config();
 passportConfig();
 
-app.use( //test cors
+app.use(
     cors({
         origin: true,
         credentials: true,
