@@ -30,6 +30,11 @@
             width: 200px;
             border-radius: inherit;
         }
+        .listPageBtn {
+            text-align: right;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
         .button.add.is-outlined {
             background-color: transparent;
             border-color: orange;
@@ -59,12 +64,18 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">SASOHAE GIFTS QUESTIONS</li>
                         </ol>
+                        <div class="listPageBtn">
+                            <button class="level-item button add" onclick="moveToInsert()"
+                                style="background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
+                            <button class="level-item button add" onclick="saveCsv()" id="downloadCsv"
+                                style="background-color: rgb(240, 187, 14);border-color: rgb(240, 187, 14);">CSV로 저장하기</button>
+                        </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 선물 질문 리스트
                             </div>
-                            <button class="level-item button add" onclick="moveToInsert()" style="background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
+                        
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
