@@ -362,11 +362,6 @@
 
                 function downloadPDF(chartId) {
                     const canvas = document.getElementById(chartId);
-                    // const chartText = document.getElementById(chartTextId);
-                    // const tempText = chartText.innerHTML;
-                    // const canvasHeight = $(`canvas`).innerHeight();
-                    // const canvasWidth = $(`canvas`).innerWidth();
-                    // console.log(canvasHeight)
                     const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
 
                     let pdf = new jsPDF('landscape');
