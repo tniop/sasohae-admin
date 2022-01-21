@@ -1,7 +1,5 @@
-// 선물 상세
-function getSelectedGift(gift_id) {
-    const param = document.location.href.split("/");
-    gift_id = param[4];
+function getSelectedGift() {
+    const gift_id = document.location.href.split("/")[4];
     $("#giftList").empty()
 
     $.ajax({

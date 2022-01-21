@@ -3,8 +3,7 @@ $(document).ready(() => {
 });
 
 function insertInfo() {
-    let params = window.location.href.split("/");
-    const admin_id = params[4];
+    const admin_id = window.location.href.split("/")[4];
 
     $.ajax({
         type: "get",
@@ -25,8 +24,7 @@ function insertInfo() {
 }
 
 function updateAdmin() {
-    let params = window.location.href.split("/");
-    const admin_id = params[4];
+    const admin_id = window.location.href.split("/")[4];
     const master_id = sessionStorage.getItem("_id");
 
     const positionList = document.getElementsByName("titleRadios");

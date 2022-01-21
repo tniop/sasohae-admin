@@ -5,6 +5,7 @@ function initializePassword() {
     positionList.forEach((node) => {
         if (node.checked) {
             adminPosition = node.value;
+            return;
         }
     });
     const adminName = $("#adminName").val();

@@ -3,8 +3,7 @@ $(document).ready(() => {
 });
 
 function insertInfo() {
-    let params = window.location.href.split("/");
-    const menu_id = params[4];
+    const menu_id = window.location.href.split("/")[4];
 
     $.ajax({
         type: "get",
@@ -17,9 +16,10 @@ function insertInfo() {
             const menuWith = menuInfo.menuWith;
             document.querySelector("#menuName").value = menuInfo.menuName;
             document.querySelector("#menuUrl").src = menuInfo.menuUrl;
+            let valueArray;
 
             for (let i = 0; i < menuType.length; i++) {
-                let valueArray = ["1", "2", "3"];
+                valueArray = ["1", "2", "3"];
                 if (menuType[i] == "*") {
                     $("#menuTypeCheckboxAll").prop("checked", true);
                     IsMenuTypeCheckAllChecked();
@@ -36,7 +36,7 @@ function insertInfo() {
             }
 
             for (let i = 0; i < menuWith.length; i++) {
-                let valueArray = ["1", "2", "3", "4", "5"];
+                valueArray = ["1", "2", "3", "4", "5"];
                 if (menuWith[i] == "*") {
                     $("#menuWithCheckboxAll").prop("checked", true);
                     IsMenuWithCheckboxAllChecked();
@@ -61,8 +61,8 @@ function insertInfo() {
 }
 
 function updateMenu() {
-    let params = window.location.href.split("/");
-    const menu_id = params[4];
+    const menu_id = window.location.href.split("/")[4];
+    
     const menuType = [];
     const menuStyle = document.querySelector("#menuStyle").value;
     const menuWith = [];

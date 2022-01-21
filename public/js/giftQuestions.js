@@ -1,10 +1,5 @@
-/* giftQuestionsDetail */
-
-// 선물 질문 상세
-function getSelectedQuestion(giftQuestion_id) {
-    // giftQuestion_id 가져옴
-    const param = document.location.href.split("/");
-    giftQuestion_id = param[4];
+function getSelectedQuestion() {
+    const giftQuestion_id = document.location.href.split("/")[4];
     $("#giftQuestionsList").empty()
 
     $.ajax({
@@ -19,18 +14,16 @@ function getSelectedQuestion(giftQuestion_id) {
             history.go(-1);
         },
         success: function (selectedGiftQuestions) {
-            // 질문 타입 radio 입력
             const type = selectedGiftQuestions.giftQuestionType;
             const question = selectedGiftQuestions.giftQuestion;
 
-            if (type == "personality") {
+            if (type == "personality") { // 질문 타입 radio 입력
                 $("#personality").prop("checked", true);
             } else if (type == "emotional") {
                 $("#emotional").prop("checked", true);
             } else if (type == "trendy") {
                 $("#trendy").prop("checked", true);
             }
-
             $("#giftQuestion").val(question);
         }
     });
@@ -56,12 +49,6 @@ function activateInput() {
 function reviseInfo() {
     activateInput() // 버튼, input 활성화
 
-    const radioLength = document.getElementsByName("giftQuestionType").length;
-    for (let i = 0; i < radioLength; i++) {
-        if (document.getElementsByName("giftQuestionType")[i].checked == true) {
-            (document.getElementsByName("giftQuestionType")[i].value);
-        }
-    }
     if ($("#giftQuestion").val() == "") {
         alert("공백 없이 입력해주세요!");
         $("#giftQuestion").focus();
@@ -72,16 +59,22 @@ function reviseInfo() {
     });
 }
 
-function reviseBtnClickAgain() {
-    const param = document.location.href.split("/");
-    let giftQuestion_id = param[4];
+function buttonClick(name) {
+    let tempChkType = "";
 
-    const radioLength = document.getElementsByName("giftQuestionType").length;
-    for (let i = 0; i < radioLength; i++) {
-        if (document.getElementsByName("giftQuestionType")[i].checked == true) {
-            chkType = (document.getElementsByName("giftQuestionType")[i].value);
+    const tempLength = document.getElementsByName(name).length;
+    for (let i = 0; i < tempLength; i++) {
+        if (document.getElementsByName(name)[i].checked == true) {
+            tempChkType = document.getElementsByName(name)[i].value;
         }
     }
+    return tempChkType;
+}
+
+function reviseBtnClickAgain() {
+    const giftQuestion_id = document.location.href.split("/")[4];
+    const chkType = buttonClick("giftQuestionType");
+    
     $.ajax({
         type: "PUT",
         url: `/api/giftQuestions/${giftQuestion_id}`,
@@ -99,18 +92,8 @@ function reviseBtnClickAgain() {
     });
 }
 
-
-/* giftQuestionsInsert */
-
-// 선물 질문 등록
 function insertInfo(checkedRadio) {
-    // 체크된 라디오 버튼 확인   
-    const radio_length = document.getElementsByName("giftQuestionType").length;
-    for (let i = 0; i < radio_length; i++) {
-        if (document.getElementsByName("giftQuestionType")[i].checked == true) {
-            chkType = (document.getElementsByName("giftQuestionType")[i].value);
-        }
-    }
+    const chkType = buttonClick("giftQuestionType");
     if ($("#giftQuestion").val() == "") {
         alert("공백 없이 입력해주세요!");
         return;

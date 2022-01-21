@@ -3,22 +3,11 @@ function insertInfo() {
     const menuName = $("#menuName").val();
     const img = $("#image")[0].files[0];
     const menuStyle = document.querySelector("#menuStyle").value;
-    const menuWith = [];
-    const menuType = [];
+    let menuWith = [];
+    let menuType = [];
 
-    const menuWithList = document.getElementsByName("menuWith");
-    menuWithList.forEach((node) => {
-        if (node.checked) {
-            menuWith.push(node.value);
-        }
-    });
-
-    const menuTypeList = document.getElementsByName("menuType");
-    menuTypeList.forEach((node) => {
-        if (node.checked) {
-            menuType.push(node.value);
-        }
-    });
+    menuList(menuWith, "menuWith");
+    menuList(menuType, "menuType");
 
     if ($("#image")[0] == 0) {
         alert("이미지 파일을 첨부해 주세요!");
@@ -55,8 +44,17 @@ function insertInfo() {
     }
 }
 
-function IsMenuTypeCheckAllChecked() {
-    const menuType = document.getElementsByName("menuType");
+function menuList(arr, name) {
+    const menuList = document.getElementsByName(name);
+    menuList.forEach((node) => {
+        if (node.checked) {
+            arr.push(node.value);
+        }
+    });
+}
+
+function IsCheckAllChecked(name) {
+    const menuType = document.getElementsByName(name);
 
     if (menuType[0].checked) {
         for (let i = 1; i < menuType.length; i++) {
@@ -70,28 +68,13 @@ function IsMenuTypeCheckAllChecked() {
     }
 }
 
-function IsMenuWithCheckboxAllChecked() {
-    const menuWith = document.getElementsByName("menuWith");
-
-    if (menuWith[0].checked) {
-        for (let i = 1; i < menuWith.length; i++) {
-            menuWith[i].checked = false;
-            menuWith[i].disabled = true;
-        }
-    } else {
-        for (let i = 1; i < menuWith.length; i++) {
-            menuWith[i].disabled = false;
-        }
-    }
-}
-
-function chkboxAllChecked() {
+function chkboxAllChecked(name) {
     const menuType = document.getElementsByName("menuType");
     const menuWith = document.getElementsByName("menuWith");
 
     if (menuType[1].checked && menuType[2].checked && menuType[3].checked) {
         menuType[0].checked = true;
-        IsMenuTypeCheckAllChecked();
+        IsCheckAllChecked(name)
     }
 
     if (
@@ -102,7 +85,7 @@ function chkboxAllChecked() {
         menuWith[5].checked
     ) {
         menuWith[0].checked = true;
-        IsMenuWithCheckboxAllChecked();
+        IsCheckAllChecked(name)
     }
 }
 

@@ -1,6 +1,5 @@
 $(document).ready(() => {
     getQuestionsList();
-    
 });
 
 let newRows = [];

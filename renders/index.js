@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 /* statistics */
 router.get("/giftStatistics", (req, res, next) => {
     try {
-        res.render("./giftStatistics"); // res.render("./statistics/giftStatistics");
+        res.render("./giftStatistics");
     } catch (error) {
         res.render("error");
     }
@@ -20,7 +20,7 @@ router.get("/giftStatistics", (req, res, next) => {
 
 router.get("/menuStatistics", (req, res, next) => {
     try {
-        res.render("./menuStatistics"); // res.render("./statistics/menuStatistics");
+        res.render("./menuStatistics");
     } catch (error) {
         res.render("error");
     }
@@ -29,7 +29,7 @@ router.get("/menuStatistics", (req, res, next) => {
 /* giftQuestions */
 router.get("/giftQuestionsList", (req, res, next) => {
     try {
-        res.render("./giftQuestionsList"); // res.render("./gifts/giftQuestionsList"); -> gifts 폴더 내부 파일
+        res.render("./giftQuestionsList");
     } catch (error) {
         res.render("error");
     }
@@ -37,7 +37,7 @@ router.get("/giftQuestionsList", (req, res, next) => {
 
 router.get("/giftQuestionsInsert", (req, res, next) => {
     try {
-        res.render("./giftQuestionsInsert"); // res.render("./gifts/giftQuestionsList"); -> gifts 폴더 내부 파일
+        res.render("./giftQuestionsInsert");
     } catch (error) {
         res.render("error");
     }
@@ -45,7 +45,7 @@ router.get("/giftQuestionsInsert", (req, res, next) => {
 
 router.get("/giftQuestions/:giftQuestion_id", (req, res, next) => {
     try {
-        res.render("./giftQuestionsDetail"); // res.render("./gifts/giftQuestionsList"); -> gifts 폴더 내부 파일
+        res.render("./giftQuestionsDetail");
     } catch (error) {
         res.render("error");
     }
@@ -54,7 +54,7 @@ router.get("/giftQuestions/:giftQuestion_id", (req, res, next) => {
 /* gift */
 router.get("/giftList", (req, res, next) => {
     try {
-        res.render("./giftList"); // res.render("./gifts/giftList");
+        res.render("./giftList");
     } catch (error) {
         res.render("error");
     }
@@ -79,7 +79,7 @@ router.get("/gifts/:gift_id", (req, res, next) => {
 /* menus */
 router.get("/menuList", (req, res, next) => {
     try {
-        res.render("./menuList"); // res.render("./menus/menuList");
+        res.render("./menuList");
     } catch (error) {
         res.render("error");
     }
@@ -87,7 +87,7 @@ router.get("/menuList", (req, res, next) => {
 
 router.get("/menuInsert", (req, res, next) => {
     try {
-        res.render("./menuInsert"); // res.render("./menus/menuInsert");
+        res.render("./menuInsert");
     } catch (error) {
         res.render("error");
     }
@@ -95,7 +95,7 @@ router.get("/menuInsert", (req, res, next) => {
 
 router.get("/menuDetail/:menu_id", (req, res, next) => {
     try {
-        res.render("./menuDetail"); // res.render("./menus/menuDetail");
+        res.render("./menuDetail");
     } catch (error) {
         res.render("error");
     }
@@ -104,7 +104,7 @@ router.get("/menuDetail/:menu_id", (req, res, next) => {
 /* moneyQuestions */
 router.get("/moneyQuestionsList", (req, res, next) => {
     try {
-        res.render("./moneyQuestionsList"); // res.render("./money/moneyQuestionsList");
+        res.render("./moneyQuestionsList");
     } catch (error) {
         res.render("error");
     }
@@ -112,7 +112,7 @@ router.get("/moneyQuestionsList", (req, res, next) => {
 
 router.get("/moneyQuestionsInsert", (req, res, next) => {
     try {
-        res.render("./moneyQuestionsInsert"); // res.render("./money/moneyQuestionsInsert");
+        res.render("./moneyQuestionsInsert");
     } catch (error) {
         res.render("error");
     }
@@ -120,7 +120,7 @@ router.get("/moneyQuestionsInsert", (req, res, next) => {
 
 router.get("/moneyQuestions/:moneyQuestion_id", (req, res, next) => {
     try {
-        res.render("./moneyQuestionsDetail"); // res.render("./money/moneyQuestionsDetail");
+        res.render("./moneyQuestionsDetail");
     } catch (error) {
         res.render("error");
     }
@@ -129,7 +129,7 @@ router.get("/moneyQuestions/:moneyQuestion_id", (req, res, next) => {
 /* boards */
 router.get("/boardList", (req, res, next) => {
     try {
-        res.render("./boardList"); // res.render("./boards/boardList");
+        res.render("./boardList");
     } catch (error) {
         res.render("error");
     }
@@ -177,7 +177,6 @@ router.get("/password", (req, res, next) => {
 });
 
 /* my page */
-
 router.get("/mypage/:admin_id", (req, res, next) => {
     try {
         res.render("./myPage");
