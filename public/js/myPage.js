@@ -28,8 +28,6 @@ function updateAdmin() {
     const password = $("#password").val();
     const passwordChk = $("#passwordConfirm").val();
 
-    console.log(password, passwordChk);
-
     if (!password || !passwordChk) {
         alert("비밀번호를 입력 해주세요!");
         return;
