@@ -1,9 +1,6 @@
-/* giftDetail */
-
 // 선물 상세
 function getSelectedGift(gift_id) {
     const param = document.location.href.split("/");
-    // console.log("param: " + param) // http:,,localhost:3000,gifts,16
     gift_id = param[4];
     $("#giftList").empty()
 
@@ -40,10 +37,10 @@ function getSelectedGift(gift_id) {
                                     </div>`
             $("#imgFile").append(htmlTemp)
 
-            // 선물타겟 체크박스 (*제외 후 항목 8개)
+            // 선물타겟 체크박스
             for (let i = 0; i < target.length; i++) {
                 const value = ["1", "2", "3", "4", "5", "6", "7", "8"]
-                for (let j = 0; j < 8; j++) {
+                for (let j = 0; j < value.length; j++) {
                     if (target[i] == value[j]) {
                         $("#giftTargetCheckbox" + target[i]).prop("checked", true);
                     } else if (target[i] == "*") {
@@ -51,10 +48,10 @@ function getSelectedGift(gift_id) {
                     }
                 }
             }
-            // 선물목적 체크박스 (*제외 후 항목 9개)
+            // 선물목적 체크박스
             for (let i = 0; i < event.length; i++) {
                 const value = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-                for (let j = 0; j < 9; j++) {
+                for (let j = 0; j < value.length; j++) {
                     if (event[i] == value[j]) {
                         $("#giftEventCheckbox" + event[i]).prop("checked", true);
                     } else if (event[i] == "*") {
@@ -70,10 +67,10 @@ function getSelectedGift(gift_id) {
             } else if (sex == "W") {
                 $("#sexRadios2").prop("checked", true);
             }
-            // 연령대 (*제외 항목 5개)
+            // 연령대
             for (let i = 0; i < age.length; i++) {
                 const value = ["20", "30", "40", "50", "60"]
-                for (let j = 0; j < 5; j++) {
+                for (let j = 0; j < value.length; j++) {
                     if (age[i] == value[j]) {
                         $("#ageCheckbox" + String(Number(age[i].split("")[0]) - 1)).prop("checked", true);
                     } else if (age[i] == "*") {
@@ -81,22 +78,23 @@ function getSelectedGift(gift_id) {
                     }
                 }
             }
-            /*
-            // 설문에 대한 답변 부분
-            const surveryAnswerList = ["expensive", "personality", "emotional", "trendy"]
-            for (let i = 0; i < surveryAnswerList.length; i++) {
-                if (surveryAnswerList[i] == "*") {
-                    $("#" + surveryAnswerList[i]).val("*", true);
-                } else if (surveryAnswerList[i] == "T") {
-                    $("#" + surveryAnswerList[i]).val("T", true);
-                } else if (surveryAnswerList[i] == "F") {
-                    $("#" + surveryAnswerList[i]).val("F", true);
-                }
-                console.log($("#" + surveryAnswerList[i]).val());
-            }
-            본 코드에 문제 있어서 아래 처럼 일단 수정해둠
-            */
             
+            /*
+          // 설문에 대한 답변 부분
+          const surveryAnswerList = ["expensive", "personality", "emotional", "trendy"]
+          for (let i = 0; i < surveryAnswerList.length; i++) {
+              if (surveryAnswerList[i] == "*") {
+                  $("#" + surveryAnswerList[i]).val("*", true);
+              } else if (surveryAnswerList[i] == "T") {
+                  $("#" + surveryAnswerList[i]).val("T", true);
+              } else if (surveryAnswerList[i] == "F") {
+                  $("#" + surveryAnswerList[i]).val("F", true);
+              }
+              console.log($("#" + surveryAnswerList[i]).val());
+          }
+          본 코드에 문제 있어서 아래 처럼 일단 수정해둠
+          */
+
             // Expensive
             if (expensive == "*") {
                 $("#expensive").val("*", true);
@@ -130,54 +128,8 @@ function getSelectedGift(gift_id) {
                 $("#trendy").val("F", true);
             }
             
-
         }
     });
-}
-// 선물타겟 체크박스 전체 선택 시 
-function targetAllChkClicked() {
-    $("#giftTargetCheckboxAll").click(function () {
-        if ($("#giftTargetCheckboxAll").is(":checked", true)) {
-            for (let i = 0; i < 9; i++) {
-                $("#giftTargetCheckbox" + i).prop("checked", false)
-                $("#giftTargetCheckbox" + i).prop("disabled", true);
-            }
-        } else {
-            for (let i = 0; i < 9; i++) {
-                $("#giftTargetCheckbox" + i).prop("disabled", false);
-            }
-        }
-    });
-}
-// 선물목적 체크박스 전체 선택 시 
-function eventAllChkClicked() {
-    $("#giftEventCheckboxAll").click(function () {
-        if ($("#giftEventCheckboxAll").is(":checked", true)) {
-            for (let i = 0; i < 10; i++) {
-                $("#giftEventCheckbox" + i).prop("checked", false)
-                $("#giftEventCheckbox" + i).prop("disabled", true);
-            }
-        } else {
-            for (let i = 0; i < 10; i++) {
-                $("#giftEventCheckbox" + i).prop("disabled", false);
-            }
-        }
-    });
-}
-// 연령대 체크박스 전체 선택 시 
-function ageAllChkClicked() {
-    $("#ageCheckboxAll").click(function () {
-        if ($("#ageCheckboxAll").is(":checked", true)) {
-            for (let i = 0; i < 10; i++) {
-                $("#ageCheckbox" + i).prop("checked", false);
-                $("#ageCheckbox" + i).prop("disabled", true);
-            }
-        } else {
-            for (let i = 0; i < 10; i++) {
-                $("#ageCheckbox" + i).prop("disabled", false);
-            }
-        }
-    })
 }
 
 function reviseInfo() {
@@ -291,53 +243,6 @@ function reviseInfo() {
 
 
 /* giftInsert */
-
-// 선물타겟 체크박스를 전체선택한 경우
-function targetAllChkClicked() {
-    $("#giftTargetCheckboxAll").click(function () {
-        if ($("#giftTargetCheckboxAll").is(":checked", true)) {
-            for (let i = 0; i < 9; i++) {
-                $("#giftTargetCheckbox" + i).prop("checked", false)
-                $("#giftTargetCheckbox" + i).prop("disabled", true);
-            }
-        } else {
-            for (let i = 0; i < 9; i++) {
-                $("#giftTargetCheckbox" + i).prop("disabled", false);
-            }
-        }
-    });
-}
-// 선물목적 체크박스를 전체선택한 경우
-function eventAllChkClicked() {
-    $("#giftEventCheckboxAll").click(function () {
-        if ($("#giftEventCheckboxAll").is(":checked", true)) {
-            for (let i = 0; i < 10; i++) {
-                $("#giftEventCheckbox" + i).prop("checked", false)
-                $("#giftEventCheckbox" + i).prop("disabled", true);
-            }
-        } else {
-            for (let i = 0; i < 10; i++) {
-                $("#giftEventCheckbox" + i).prop("disabled", false);
-            }
-        }
-    });
-}
-// 연령대 체크박스를 전체선택한 경우
-function ageAllChkClicked() {
-    $("#ageCheckboxAll").click(function () {
-        if ($("#ageCheckboxAll").is(":checked", true)) {
-            for (let i = 0; i < 10; i++) {
-                $("#ageCheckbox" + i).prop("checked", false);
-                $("#ageCheckbox" + i).prop("disabled", true);
-            }
-        } else {
-            for (let i = 0; i < 10; i++) {
-                $("#ageCheckbox" + i).prop("disabled", false);
-            }
-        }
-    });
-}
-
 function insertInfo() {
     if (confirm("등록하시겠습니까?") == true) {
     } else {
@@ -355,7 +260,7 @@ function insertInfo() {
         alert("이미지 파일을 첨부해 주세요!");
         return;
     }
-
+  
     // 선물타겟 value 확인 및 체크박스 미선택에 대한 알림
     const giftTarget = [];
     let targetChkCnt = 0;
@@ -480,3 +385,54 @@ function backToList() {
     location.href = "/giftList";
 }
 
+
+
+// /* insert, detail 페이지 공통 사용 */
+// 선물타겟 체크박스를 전체선택한 경우
+function targetAllChkClicked() {
+    $("#giftTargetCheckboxAll").click(function () {
+        const length = $(".targetChk").size();
+        if ($("#giftTargetCheckboxAll").is(":checked", true)) {
+            for (let i = 0; i < length; i++) {
+                $("#giftTargetCheckbox" + i).prop("checked", false)
+                $("#giftTargetCheckbox" + i).prop("disabled", true);
+            }
+        } else {
+            for (let i = 0; i < length; i++) {
+                $("#giftTargetCheckbox" + i).prop("disabled", false);
+            }
+        }
+    });
+}
+// // 선물목적 체크박스를 전체선택한 경우
+function eventAllChkClicked() {
+    $("#giftEventCheckboxAll").click(function () {
+        const length = $(".eventChk").size();
+        if ($("#giftEventCheckboxAll").is(":checked", true)) {
+            for (let i = 0; i < length; i++) {
+                $("#giftEventCheckbox" + i).prop("checked", false)
+                $("#giftEventCheckbox" + i).prop("disabled", true);
+            }
+        } else {
+            for (let i = 0; i < length; i++) {
+                $("#giftEventCheckbox" + i).prop("disabled", false);
+            }
+        }
+    });
+}
+// // 연령대 체크박스를 전체선택한 경우
+function ageAllChkClicked() {
+    $("#ageCheckboxAll").click(function () {
+        const length = $(".ageChk").size();
+        if ($("#ageCheckboxAll").is(":checked", true)) {
+            for (let i = 0; i < length; i++) {
+                $("#ageCheckbox" + i).prop("checked", false);
+                $("#ageCheckbox" + i).prop("disabled", true);
+            }
+        } else {
+            for (let i = 0; i < length; i++) {
+                $("#ageCheckbox" + i).prop("disabled", false);
+            }
+        }
+    });
+}
