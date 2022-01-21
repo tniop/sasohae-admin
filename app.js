@@ -48,5 +48,5 @@ const options = {
     key: fs.readFileSync(process.env.HTTPS_KEY),
     cert: fs.readFileSync(process.env.HTTPS_CERT),
 };
-http.createServer(app).listen(3000);
+http.createServer(app).listen(port);
 https.createServer(options, app).listen(443);
