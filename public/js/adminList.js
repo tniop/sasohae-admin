@@ -8,7 +8,7 @@ function getAdminList() {
 
     $.ajax({
         type: "get",
-        url: `/api/admin`,
+        url: `/api/admins`,
         data: {},
         success: (res) => {
             const allAdmins = res;
@@ -55,7 +55,7 @@ function deleteItem(Idx) {
     if (window.confirm("정말로 삭제하시겠습니까?")) {
         $.ajax({
             type: "delete",
-            url: `/api/admin/${admin_id}`,
+            url: `/api/admins/${admin_id}`,
             data: {},
             success: (res) => {
                 alert("관리자 정보가 삭제되었습니다!");
