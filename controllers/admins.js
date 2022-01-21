@@ -46,10 +46,7 @@ async function createAdmin(req, res) {
             });
             return;
         }
-        const encryptPW = await bcrypt.hash(
-            password,
-            process.env.BCRYPT_HASH_CODE
-        );
+        const encryptPW = await bcrypt.hash(password, 13);
         await admins.create({
             adminPosition,
             adminName,
@@ -171,10 +168,7 @@ async function initializePassword(req, res) {
             return;
         }
         const password = process.env.ADMIN_DEFAULT_PASSWORD;
-        const encryptPW = await bcrypt.hash(
-            password,
-            process.env.BCRYPT_HASH_CODE
-        );
+        const encryptPW = await bcrypt.hash(password, 13);
         await admins.updateOne(
             { adminNickname },
             { $set: { password: encryptPW } }
@@ -214,10 +208,7 @@ async function updateMyPassword(req, res) {
     try {
         const { admin_id } = req.params;
         const { password } = req.body;
-        const encryptPW = await bcrypt.hash(
-            password,
-            process.env.BCRYPT_HASH_CODE
-        );
+        const encryptPW = await bcrypt.hash(password, 13);
 
         await admins.updateOne({ admin_id }, { $set: { password: encryptPW } });
 
