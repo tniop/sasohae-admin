@@ -8,7 +8,7 @@ function insertInfo() {
 
     $.ajax({
         type: "get",
-        url: `/api/admin/${admin_id}`,
+        url: `/api/admins/${admin_id}`,
         data: {},
         success: (res) => {
             const adminInfo = res;
@@ -61,7 +61,7 @@ function updateAdmin() {
 
     $.ajax({
         type: "put",
-        url: `/api/admin/${admin_id}`,
+        url: `/api/admins/${admin_id}`,
         data: {
             adminPosition,
             adminName,
