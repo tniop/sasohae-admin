@@ -5,8 +5,8 @@ autoIncrement.initialize(mongoose.connection);
 const menus = new mongoose.Schema({
     menu_id: {
         type: Number,
-        required: true,
         unique: true,
+        required: true,
         default: 0,
     },
     menuName: {

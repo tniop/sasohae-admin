@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const moneyQuestions = new mongoose.Schema({
     moneyQuestion_id: {
         type: Number,
-        required: true,
         unique: true,
+        required: true,
     },
     moneyQuestion: {
         type: String,
