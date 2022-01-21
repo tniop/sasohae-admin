@@ -8,8 +8,7 @@
 // 
 
 window.addEventListener('DOMContentLoaded', event => {
-
-    // Toggle the side navigation
+     // navigation var 상단에 토글버튼
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
     if (sidebarToggle) {
         // Uncomment Below to persist sidebar toggle between refreshes
