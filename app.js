@@ -43,10 +43,13 @@ app.use((error, req, res, next) => {
     res.sendStatus(500);
 });
 
-const options = {
-    ca: fs.readFileSync(process.env.HTTPS_CA),
-    key: fs.readFileSync(process.env.HTTPS_KEY),
-    cert: fs.readFileSync(process.env.HTTPS_CERT),
-};
-http.createServer(app).listen(port);
-https.createServer(options, app).listen(443);
+// const options = {
+//     ca: fs.readFileSync(process.env.HTTPS_CA),
+//     key: fs.readFileSync(process.env.HTTPS_KEY),
+//     cert: fs.readFileSync(process.env.HTTPS_CERT),
+// };
+// http.createServer(app).listen(port);
+// https.createServer(options, app).listen(443);
+app.listen(port, () => {
+    console.log(`listening at http://localhost:${port}`)
+  })
