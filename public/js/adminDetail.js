@@ -3,12 +3,11 @@ $(document).ready(() => {
 });
 
 function insertInfo() {
-    let params = window.location.href.split("/");
-    const admin_id = params[4];
+    const admin_id = window.location.href.split("/")[4];
 
     $.ajax({
         type: "get",
-        url: `/api/admin/${admin_id}`,
+        url: `/api/admins/${admin_id}`,
         data: {},
         success: (res) => {
             const adminInfo = res;
@@ -25,8 +24,7 @@ function insertInfo() {
 }
 
 function updateAdmin() {
-    let params = window.location.href.split("/");
-    const admin_id = params[4];
+    const admin_id = window.location.href.split("/")[4];
     const master_id = sessionStorage.getItem("_id");
 
     const positionList = document.getElementsByName("titleRadios");
@@ -61,7 +59,7 @@ function updateAdmin() {
 
     $.ajax({
         type: "put",
-        url: `/api/admin/${admin_id}`,
+        url: `/api/admins/${admin_id}`,
         data: {
             adminPosition,
             adminName,

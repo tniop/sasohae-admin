@@ -77,14 +77,14 @@ router.post("/giftQuestions", createGiftQuestion);
 router.put("/giftQuestions/:giftQuestion_id", updateGiftQuestion);
 router.delete("/giftQuestions/:giftQuestion_id", deleteGiftQuestion);
 
-router.get("/admin", getAllAdmins);
-router.get("/admin/:admin_id", getSelectedAdmin);
+router.get("/admins", getAllAdmins);
+router.get("/admins/:admin_id", getSelectedAdmin);
 router.post("/sign-up", createAdmin);
 router.post("/login", loginAdmin);
-router.put("/admin/:admin_id", updateAdmin);
-router.put("/admin/password/initialize", initializePassword);
-router.delete("/admin/:admin_id", deleteAdmin);
-router.put("/admin/password/change/:admin_id", updateMyPassword);
+router.put("/admins/:admin_id", updateAdmin);
+router.put("/admins/password/initialize", initializePassword);
+router.delete("/admins/:admin_id", deleteAdmin);
+router.put("/admins/password/change/:admin_id", updateMyPassword);
 
 router.get("/auth", passportAutheticator(), adminAuth);
 
