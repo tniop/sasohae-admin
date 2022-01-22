@@ -2,40 +2,47 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>GiftQuestions - Sasohae Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="../public/css/styles.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    <style>
-        label { font-family: 'Noto Sans KR', sans-serif; }
-        .btn { font-weight: 600; }
-        .form-horizontal {
-            display: block;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            margin-left: 50px;
-        }
-        .form-group { margin-bottom: 20px; }
-        .checkbox-inline { margin-right: 20px; }
-        .col-sm-2 { font-weight: bold; }
-    </style>
+    <%- include ('common') %>
+        <title>GiftQuestions - Sasohae Admin</title>
+        <script src="../public/js/gifts.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+        <style>
+            label {
+                font-family: 'Noto Sans KR', sans-serif;
+            }
+
+            .btn {
+                font-weight: 600;
+            }
+
+            .form-horizontal {
+                display: block;
+                margin-top: 50px;
+                margin-bottom: 50px;
+                margin-left: 50px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .checkbox-inline {
+                margin-right: 20px;
+            }
+
+            .col-sm-2 {
+                font-weight: bold;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
                 getSelectedGift();
                 targetAllChkClicked();
                 eventAllChkClicked();
-                ageAllChkClicked();  
-        });
-    </script>
+                ageAllChkClicked();
+            });
+        </script>
 
 </head>
 
@@ -43,10 +50,8 @@
     <%- include('layoutHeader') %>
         <!-- side bar start -->
         <div id="layoutSidenav"></div>
-            <%- include ('layoutBody') %>
+        <%- include ('layoutBody') %>
             <!-- side bar end -->
-
-            <!-- 페이지에 알맞게 수정 필요 시작 -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -55,7 +60,6 @@
                             <li class="breadcrumb-item active">SASOHAE Gifts</li>
                         </ol>
                         <div class="card mb-4">
-                            <!-- 내부 폼-->
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label for="giftName" class="col-sm-2 control-label">선물이름 : </label>
@@ -66,43 +70,46 @@
                                     <div class="form-group" id="imgFile">
                                         <label for="file" class="col-sm-2 control-label">이미지 파일 : </label>
                                         <!-- 이미지 파일 -->
-                                    </div> 
+                                    </div>
                                 </div>
                                 <div class="form-group" id="targetArea">
                                     <label for="giftTarget" class="col-sm-2 control-label">선물타겟 : </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckboxAll" value="*"> 전체
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckbox1" value="1"> 부모님
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckbox2" value="2"> 친구
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckbox3" value="3"> 연인
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckbox4" value="4"> 선생님
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckbox5" value="5"> 교수님
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckbox6" value="6"> 직장선배
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckbox7" value="7"> 선후배
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" id="giftTargetCheckbox8" value="8"> 구연인
-                                        </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckboxAll" value="*">
+                                        전체
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckbox1" value="1"> 부모님
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckbox2" value="2"> 친구
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckbox3" value="3"> 연인
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckbox4" value="4"> 선생님
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckbox5" value="5"> 교수님
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckbox6" value="6">
+                                        직장선배
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckbox7" value="7"> 선후배
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="targetChk" id="giftTargetCheckbox8" value="8"> 구연인
+                                    </label>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="giftEvent" class="col-sm-2 control-label">선물목적 : </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" class="eventChk" id="giftEventCheckboxAll" value="*"> 전체 (하찮은 선물 X)
+                                        <input type="checkbox" class="eventChk" id="giftEventCheckboxAll" value="*"> 전체
+                                        (하찮은 선물 X)
                                     </label>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="eventChk" id="giftEventCheckbox1" value="1"> 생일
@@ -129,8 +136,9 @@
                                         <input type="checkbox" class="eventChk" id="giftEventCheckbox8" value="8"> 명절
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" class="eventChk" id="giftEventCheckbox9" value="9"> 하찮은 선물
-                                    </label>              
+                                        <input type="checkbox" class="eventChk" id="giftEventCheckbox9" value="9"> 하찮은
+                                        선물
+                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <div class="radio">
@@ -168,7 +176,7 @@
                                     </label>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="ageChk" id="ageCheckbox5" value="60"> 60대
-                                    </label>                  
+                                    </label>
                                 </div>
 
                                 <div class="form-group">
@@ -226,16 +234,7 @@
                         </div>
                     </div>
                 </main>
-                <!-- 페이지에 알맞게 수정 필요 끝 -->
 </body>
-
-<footer>
-    <%- include ('layoutFooter') %>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="../public/js/scripts.js"></script>
-<script src="../public/js/gifts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<%- include ('layoutFooter') %>
 
 </html>

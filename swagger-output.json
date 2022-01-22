@@ -475,7 +475,7 @@
         }
       }
     },
-    "/api/admin": {
+    "/api/admins": {
       "get": {
         "description": "",
         "parameters": [],
@@ -489,7 +489,7 @@
         }
       }
     },
-    "/api/admin/{admin_id}": {
+    "/api/admins/{admin_id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -622,7 +622,7 @@
         }
       }
     },
-    "/api/admin/password/initialize": {
+    "/api/admins/password/initialize": {
       "put": {
         "description": "",
         "parameters": [
@@ -655,7 +655,7 @@
         }
       }
     },
-    "/api/admin/password/change/{admin_id}": {
+    "/api/admins/password/change/{admin_id}": {
       "put": {
         "description": "",
         "parameters": [

@@ -2,39 +2,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Gifts - Sasohae Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="../public/css/styles.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    <style>   
-        label { font-family: 'Noto Sans KR', sans-serif; }
-        .btn { font-weight: 600; }
-        .form-horizontal {
-            display: block;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            margin-left: 50px;
-        }
-        .form-group { margin-bottom: 20px; }
-        .checkbox-inline { margin-right: 20px; }
-        .col-sm-2 { font-weight: bold; }
-    </style>
+    <%- include ('common') %>
+        <title>Gifts - Sasohae Admin</title>
+        <script src="../public/js/gifts.js"></script>
+        <style>
+            label {
+                font-family: 'Noto Sans KR', sans-serif;
+            }
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+            .btn {
+                font-weight: 600;
+            }
+
+            .form-horizontal {
+                display: block;
+                margin-top: 50px;
+                margin-bottom: 50px;
+                margin-left: 50px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .checkbox-inline {
+                margin-right: 20px;
+            }
+
+            .col-sm-2 {
+                font-weight: bold;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
                 targetAllChkClicked();
                 eventAllChkClicked();
                 ageAllChkClicked();
-        });
-    </script>
+            });
+        </script>
 
 </head>
 
@@ -42,10 +48,8 @@
     <%- include('layoutHeader') %>
         <!-- side bar start -->
         <div id="layoutSidenav"></div>
-            <%- include ('layoutBody') %>
+        <%- include ('layoutBody') %>
             <!-- side bar end -->
-
-            <!-- 페이지에 알맞게 수정 필요 시작 -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -54,95 +58,117 @@
                             <li class="breadcrumb-item active">SASOHAE GIFTS</li>
                         </ol>
                         <div class="card mb-4">
-                            <!-- 내부 폼-->
                             <form class="form-horizontal" id="formId">
                                 <div class="gift-group">
-                                    <div class="form-group">                                 
-                                            <label for="giftName" class="col-sm-2 control-label">선물이름 : </label>
-                                            <input type="input" class="form-control" id="giftName" style="width: 400px; display:inline" placeholder="선물이름">
+                                    <div class="form-group">
+                                        <label for="giftName" class="col-sm-2 control-label">선물이름 : </label>
+                                        <input type="input" class="form-control" id="giftName"
+                                            style="width: 400px; display:inline" placeholder="선물이름">
                                     </div>
-                                    <div class="form-group">                                   
+                                    <div class="form-group">
                                         <div class="form-group">
                                             <label for="imgFile" class="col-sm-2 control-label">이미지 파일 : </label>
                                             <label for="exampleInputFile">파일 업로드</label>
                                             <input type="file" id="imgFile">
                                         </div>
-                                    </div>                              
+                                    </div>
                                     <div class="form-group" id="targetArea">
                                         <label for="giftTarget" class="col-sm-2 control-label">선물타겟 : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckboxAll" value="*"> 전체
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckboxAll" value="*"> 전체
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox1" value="1"> 부모님
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckbox1" value="1"> 부모님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox2" value="2"> 친구
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckbox2" value="2"> 친구
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox3" value="3"> 연인
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckbox3" value="3"> 연인
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox4" value="4"> 선생님
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckbox4" value="4"> 선생님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox5" value="5"> 교수님
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckbox5" value="5"> 교수님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox6" value="6"> 직장선배
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckbox6" value="6"> 직장선배
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox7" value="7"> 선후배
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckbox7" value="7"> 선후배
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName" id="giftTargetCheckbox8" value="8"> 구연인
+                                            <input type="checkbox" class="targetChk" name="targetChkName"
+                                                id="giftTargetCheckbox8" value="8"> 구연인
                                         </label>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="giftEvent" class="col-sm-2 control-label">선물목적 : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckboxAll" value="*"> 전체 (하찮은 선물 X)
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckboxAll" value="*">
+                                            전체 (하찮은 선물 X)
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox1" value="1"> 생일
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox1" value="1">
+                                            생일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox2" value="2"> 연인기념일
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox2" value="2">
+                                            연인기념일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox3" value="3"> 결혼기념일
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox3" value="3">
+                                            결혼기념일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox4" value="4"> 합격
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox4" value="4">
+                                            합격
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox5" value="5"> 입학
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox5" value="5">
+                                            입학
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox6" value="6"> 졸업
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox6" value="6">
+                                            졸업
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox7" value="7"> 집들이
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox7" value="7">
+                                            집들이
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox8" value="8"> 명절
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox8" value="8">
+                                            명절
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox9" value="9"> 하찮은 선물
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox9" value="9">
+                                            하찮은 선물
                                         </label>
                                     </div>
                                     <div class="form-group">
                                         <div class="radio">
                                             <label for="sex" class="col-sm-2 control-label">성별 : </label>
                                             <label>
-                                                <input type="radio" name="sexRadios" id="sexRadiosAll" style="margin-right:5px;" value="*" checked> 전체
+                                                <input type="radio" name="sexRadios" id="sexRadiosAll"
+                                                    style="margin-right:5px;" value="*" checked> 전체
                                             </label>
                                             <label>
-                                                <input type="radio" name="sexRadios" id="sexRadios1" style="margin-right:5px;" value="M"> 남
+                                                <input type="radio" name="sexRadios" id="sexRadios1"
+                                                    style="margin-right:5px;" value="M"> 남
                                             </label>
                                             <label>
-                                                <input type="radio" name="sexRadios" id="sexRadios2" style="margin-right:5px;" value="W"> 여
+                                                <input type="radio" name="sexRadios" id="sexRadios2"
+                                                    style="margin-right:5px;" value="W"> 여
                                             </label>
                                         </div>
                                     </div>
@@ -208,30 +234,23 @@
                                             </select>
                                         </div>
                                     </div>
-                                                        
+
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <div>
-                                                <button type="button" class="btn btn-success" onclick="insertInfo()"  style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
-                                                <button type="button" class="btn btn-warning" onclick="backToList()" style="margin-top: 30px">취소하기</button>
+                                                <button type="button" class="btn btn-success" onclick="insertInfo()"
+                                                    style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">등록하기</button>
+                                                <button type="button" class="btn btn-warning" onclick="backToList()"
+                                                    style="margin-top: 30px">취소하기</button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>    
+                                </div>
                             </form>
                         </div>
                     </div>
                 </main>
-                <!-- 페이지에 알맞게 수정 필요 끝 -->
 </body>
-
-<footer>
-    <%- include ('layoutFooter') %>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="../public/js/scripts.js"></script>
-<script src="../public/js/gifts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<%- include ('layoutFooter') %>
 
 </html>
