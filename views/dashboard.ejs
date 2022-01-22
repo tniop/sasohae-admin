@@ -1,45 +1,33 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Dashboard - Sasohae Admin</title>
-    <link href="../public/assets/img/UI_brand_fivicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="../public/css/styles.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-        crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-    <script src="../public/js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"
-        integrity="sha512-qa1o08MA0596eSNsnkRv5vuGloSKUhY09O31MY2OJpODjUVlaL0GOJJcyt7J7Z61FiEgHMgBkH04ZJ+vcuLs/w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
-    
-    <style>
-        body,
-        button,
-        input,
-        textarea {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
+    <%- include ('common') %>
+        <title>Dashboard - Sasohae Admin</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"
+            integrity="sha512-qa1o08MA0596eSNsnkRv5vuGloSKUhY09O31MY2OJpODjUVlaL0GOJJcyt7J7Z61FiEgHMgBkH04ZJ+vcuLs/w=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+        <script src="../public/js/chart.js"></script>
+        <style>
+            body,
+            button,
+            input,
+            textarea {
+                font-family: 'Noto Sans KR', sans-serif;
+            }
 
-        td {
-            font-size: medium;
-        }
+            td {
+                font-size: medium;
+            }
 
-        .dataTable-sorter {
-            text-align: center;
-            font-size: medium;
-        }
-    </style>
+            .dataTable-sorter {
+                text-align: center;
+                font-size: medium;
+            }
+        </style>
 
 </head>
 
@@ -81,7 +69,8 @@
                                 <div class="card bg-success text-white mb-4">
                                     <div class="card-body">축의금 서비스 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/moneyQuestionsList">View Details</a>
+                                        <a class="small text-white stretched-link" href="/moneyQuestionsList">View
+                                            Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i>
                                         </div>
                                     </div>
@@ -107,8 +96,8 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="dayChart" width="100%" height="40"></canvas>
-                                        <!-- <button onclick="downloadPDF('dayChart')">Export PDF</button> -->
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('dayChart')" width="50px" style="cursor:pointer;">
+                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('dayChart')"
+                                            width="50px" style="cursor:pointer;">
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +109,8 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="timeChart" width="100%" height="40"></canvas>
-                                        <!-- <button onclick="downloadPDF('timeChart')">Export PDF</button> -->
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('timeChart')" width="50px" style="cursor:pointer;">
+                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('timeChart')"
+                                            width="50px" style="cursor:pointer;">
                                     </div>
                                 </div>
                             </div>
@@ -133,8 +122,9 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="statisticsChart" width="100%" height="40"></canvas>
-                                        <!-- <button onclick="downloadPDF('statisticsChart')">Export PDF</button> -->
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('statisticsChart')" width="50px" style="cursor:pointer;">
+                                        <img src="../public/assets/img/pdfBtn.png"
+                                            onclick="downloadPDF('statisticsChart')" width="50px"
+                                            style="cursor:pointer;">
                                     </div>
                                 </div>
                             </div>
@@ -146,8 +136,8 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="userChart" width="100%" height="40"></canvas>
-                                        <!-- <button onclick="downloadPDF('userChart')">Export PDF</button> -->
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('userChart')" width="50px" style="cursor:pointer;">
+                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('userChart')"
+                                            width="50px" style="cursor:pointer;">
                                     </div>
                                 </div>
                             </div>
@@ -159,8 +149,8 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="giftUserChart" width="100%" height="40"></canvas>
-                                        <!-- <button onclick="downloadPDF('giftUserChart')">Export PDF</button> -->
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('giftUserChart')" width="50px" style="cursor:pointer;">
+                                        <img src="../public/assets/img/pdfBtn.png"
+                                            onclick="downloadPDF('giftUserChart')" width="50px" style="cursor:pointer;">
                                     </div>
                                 </div>
                             </div>
@@ -172,8 +162,9 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="boardUserChart" width="100%" height="40"></canvas>
-                                        <!-- <button onclick="downloadPDF('boardUserChart')">Export PDF</button> -->
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('boardUserChart')" width="50px" style="cursor:pointer;">
+                                        <img src="../public/assets/img/pdfBtn.png"
+                                            onclick="downloadPDF('boardUserChart')" width="50px"
+                                            style="cursor:pointer;">
                                     </div>
                                 </div>
                             </div>
@@ -185,8 +176,8 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="giftChart" width="100%" height="40"></canvas>
-                                        <!-- <button onclick="downloadPDF('giftChart')">Export PDF</button> -->
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('giftChart')" width="50px" style="cursor:pointer;">
+                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('giftChart')"
+                                            width="50px" style="cursor:pointer;">
                                     </div>
                                 </div>
                             </div>
@@ -198,21 +189,16 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="menuChart" width="100%" height="40"></canvas>
-                                        <!-- <button onclick="downloadPDF('menuChart')">Export PDF</button> -->
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('menuChart')" width="50px" style="cursor:pointer;">
+                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('menuChart')"
+                                            width="50px" style="cursor:pointer;">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </main>
-                <!-- footer start -->
-                <footer>
-                    <%- include ('layoutFooter') %>
-                </footer>
-                <!-- footer start -->
             </div>
-            <script src="../public/js/chart.js"></script>
 </body>
+<%- include ('layoutFooter') %>
 
 </html>

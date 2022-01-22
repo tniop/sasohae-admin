@@ -2,55 +2,43 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Menus - Sasohae Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="../public/css/styles.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap"
-        rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-        crossorigin="anonymous"></script>
+    <%- include ('common') %>
+        <title>Menus - Sasohae Admin</title>
+        <script src="../public/js/menuInsert.js"></script>
+        <style>
+            label {
+                font-family: 'Noto Sans KR', sans-serif;
+            }
 
-    <!--  jquery  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <script src="../public/js/menuInsert.js"></script>
-    
-    <style>
-        label {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-        .btn {
-            font-weight: 600;
-        }
-        .form-horizontal {
-            display: block;
-            margin: auto;
-        }
-        .form-group {
-            margin-bottom: 20px;
-            width: 700px;
-        }
-        .menu-group {
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-        .checkbox-inline {
-            margin-right: 20px;
-        }
-        .col-sm-2 {
-            font-weight: bold;
-            white-space: nowrap;
-            margin: 10px 30px 0px 0px;
-        }
-    </style>
+            .btn {
+                font-weight: 600;
+            }
+
+            .form-horizontal {
+                display: block;
+                margin: auto;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+                width: 700px;
+            }
+
+            .menu-group {
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+
+            .checkbox-inline {
+                margin-right: 20px;
+            }
+
+            .col-sm-2 {
+                font-weight: bold;
+                white-space: nowrap;
+                margin: 10px 30px 0px 0px;
+            }
+        </style>
 
 </head>
 
@@ -60,9 +48,6 @@
         <div id="layoutSidenav"></div>
         <%- include ('layoutBody') %>
             <!-- side bar end -->
-
-            <!-- 페이지에 알맞게 수정 필요 시작 -->
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -71,7 +56,6 @@
                             <li class="breadcrumb-item active">SASOHAE MENUS</li>
                         </ol>
                         <div class="card mb-4">
-                            <!-- 내부 폼-->
                             <form class="form-horizontal" id="uploadForm">
                                 <div class="menu-group">
                                     <div class="form-group">
@@ -86,20 +70,24 @@
                                             <input type="file" id="image">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="menuType" class="col-sm-2 control-label">Menu Type : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" name="menuType" id="menuTypeCheckAll" onclick="IsCheckAllChecked(this.name)" value="*"> 전체
+                                            <input type="checkbox" name="menuType" id="menuTypeCheckAll"
+                                                onclick="IsCheckAllChecked(this.name)" value="*"> 전체
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox1" value="1" onclick="chkboxAllChecked(this.name)"> 식사
+                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox1" value="1"
+                                                onclick="chkboxAllChecked(this.name)"> 식사
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox2" value="2" onclick="chkboxAllChecked(this.name)"> 요리
+                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox2" value="2"
+                                                onclick="chkboxAllChecked(this.name)"> 요리
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox3" value="3" onclick="chkboxAllChecked(this.name)"> 간식
+                                            <input type="checkbox" name="menuType" id="menuTypeCheckbox3" value="3"
+                                                onclick="chkboxAllChecked(this.name)"> 간식
                                         </label>
                                     </div>
                                     <div class="form-group">
@@ -117,29 +105,35 @@
                                     </div>
                                     <div class="form-group">
 
-                                            <label for="menuWith" class="col-sm-2 control-label">Menu With : </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="menuWith" id="menuWithCheckboxAll" value="*" onclick="IsCheckAllChecked(this.name)"> 전체
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="menuWith" id="menuWithCheckbox1" value="1" onclick="chkboxAllChecked(this.name)"> 혼밥
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="menuWith" id="menuWithCheckbox2" value="2" onclick="chkboxAllChecked(this.name)"> 친구
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="menuWith" id="menuWithCheckbox3" value="3" onclick="chkboxAllChecked(this.name)"> 연인
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="menuWith" id="menuWithCheckbox4" value="4" onclick="chkboxAllChecked(this.name)"> 가족
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="menuWith" id="menuWithCheckbox5" value="5" onclick="chkboxAllChecked(this.name)"> 모임
-                                            </label>  
-                                                                    
+                                        <label for="menuWith" class="col-sm-2 control-label">Menu With : </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckboxAll" value="*"
+                                                onclick="IsCheckAllChecked(this.name)"> 전체
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox1" value="1"
+                                                onclick="chkboxAllChecked(this.name)"> 혼밥
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox2" value="2"
+                                                onclick="chkboxAllChecked(this.name)"> 친구
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox3" value="3"
+                                                onclick="chkboxAllChecked(this.name)"> 연인
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox4" value="4"
+                                                onclick="chkboxAllChecked(this.name)"> 가족
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="menuWith" id="menuWithCheckbox5" value="5"
+                                                onclick="chkboxAllChecked(this.name)"> 모임
+                                        </label>
+
                                     </div>
 
-                                
+
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <div>
@@ -155,20 +149,7 @@
                         </div>
                     </div>
                 </main>
-
-                <!-- 페이지에 알맞게 수정 필요 끝 -->
-
 </body>
-
-<footer>
-
-    <%- include ('layoutFooter') %>
-
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    crossorigin="anonymous"></script>
-<script src="../public/js/scripts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<%- include ('layoutFooter') %>
 
 </html>

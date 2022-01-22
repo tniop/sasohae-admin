@@ -36,11 +36,20 @@ app.use(express.static("public"));
 app.use(passport.initialize());
 
 app.use((req, res, next) => {
-    res.sendStatus(404);
+    try {
+        console.error(error);
+        res.sendStatus(404);
+    } catch (error) {
+        res.render("404");
+    }
 });
 app.use((error, req, res, next) => {
-    console.error(error);
-    res.sendStatus(500);
+    try {
+        console.error(error);
+        res.sendStatus(500);
+    } catch (error) {
+        res.render("500");
+    }
 });
 
 const options = {

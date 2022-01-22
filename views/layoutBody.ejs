@@ -8,6 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="../public/js/layoutBody.js"></script>
 </head>
 
@@ -18,16 +19,15 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="text-center mt-4">
-                            <img class="mb-4 img-error" style="width:130px;" ; src="../public/assets/img/UI_brand.png" />
+                            <img class="mb-4 img-error" style="width:130px;" ;
+                                src="../public/assets/img/UI_brand.png" />
                         </div>
-
                         <!-- Core -->
                         <div class="sb-sidenav-menu-heading">Core</div>
                         <a class="nav-link" href="/">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             대시보드
                         </a>
-                        
                         <!-- Services -->
                         <div class="sb-sidenav-menu-heading">Services</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseGifts"
@@ -40,7 +40,6 @@
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="/giftQuestionsList">선물질문 관리</a>
-
                             </nav>
                         </div>
                         <div class="collapse" id="collapseGifts" aria-labelledby="headingTwo"
@@ -61,8 +60,8 @@
                                 <a class="nav-link" href="/menuList">메뉴 관리</a>
                             </nav>
                         </div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseGiftMoney"
-                            aria-expanded="false" aria-controls="collapseGiftMoney">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseGiftMoney" aria-expanded="false" aria-controls="collapseGiftMoney">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             축의금 추천 서비스
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -73,8 +72,8 @@
                                 <a class="nav-link" href="/moneyQuestionsList">축의금 질문 관리</a>
                             </nav>
                         </div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBoards"
-                            aria-expanded="false" aria-controls="collapseBoards">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseBoards" aria-expanded="false" aria-controls="collapseBoards">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             게시판 서비스
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -85,29 +84,18 @@
                                 <a class="nav-link" href="/boardList">게시판 관리</a>
                             </nav>
                         </div>
-
-                        <!-- ADMIN -->
                         <div id="admin">
-                                <!-- <div class="sb-sidenav-menu-heading">Admin</div>
-                            <a class="nav-link" href="/adminList">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                관리자
-                            </a> -->
+
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    Sasohae Admin
                 </div>
             </nav>
         </div>
-
-
 </body>
 
 </html>
-
-
-
