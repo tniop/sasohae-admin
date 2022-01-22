@@ -42,7 +42,6 @@ function moveToInsert() {
 
 function deleteItem(id) {
     let moneyQuestion_id = id;
-    console.log(moneyQuestion_id);
     if (confirm("정말로 삭제하시겠습니까?") == true) {
     } else {
         return false;
