@@ -9,7 +9,6 @@ function setQuestion() {
         url: `/api/moneyQuestions/${moneyQuestion_id}`,
         data: {},
         success: function (response) {
-            console.log(response);
             $("#moneyQuestion").val(response["moneyQuestion"]);
             $("#positiveAnswerQuestion").val(
                 response["positiveAnswerQuestion"]
@@ -40,7 +39,6 @@ function reviseInfo() {
                 positiveChangeValue: $("#positiveChangeValue").val(),
             },
             success: function (response) {
-                console.log(response);
                 alert("저장되었습니다.");
                 location.href = "/moneyQuestionsList";
             },
