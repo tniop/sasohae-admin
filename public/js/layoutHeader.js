@@ -23,7 +23,7 @@ function getToTalVisitorCnt() {
         data: {},
         success: (res) => {
             const totVisitorCnt = res[0].totVisitorCnt;
-            selector.innerText = `누적방문자수: ${totVisitorCnt}명`;
+            selector.innerText = `누적 방문자: ${totVisitorCnt}명`;
         },
         error: (err) => {
             alert("방문자수 조회에 실패하였니다!");
