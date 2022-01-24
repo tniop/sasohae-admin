@@ -18,7 +18,7 @@ function getBoardList() {
                 let tempRow = [];
                 tempRow.push(`${i + 1}`);
                 tempRow.push(allBoards[i].comment);
-                tempRow.push(allBoards[i].createdAt);
+                tempRow.push(allBoards[i].createdAt.replace("T"," ").split(".")[0]);
                 tempRow.push(`<input type="button" id="${allBoards[i].board_id}" onClick="blindItem(this.id)"
                     class="btn btn-outline-primary" value="블라인드">`);
                 tempRow.push(
