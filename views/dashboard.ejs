@@ -11,6 +11,34 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
         <script src="../public/js/chart.js"></script>
+        <script type="text/javascript"> // 그래프에 값 표시하는 모듈
+            Chart.plugins.register({
+                afterDatasetsDraw: function (chart) {
+                    const ctx = chart.ctx;
+                    chart.data.datasets.forEach(function (dataset, i) {
+                        const meta = chart.getDatasetMeta(i);
+                        if (!meta.hidden) {
+                            meta.data.forEach(function (element, index) {
+                                // Draw the text in black, with the specified font
+                                ctx.fillStyle = 'black';
+                                const fontSize = 15;
+                                const fontStyle = 'normal';
+                                const fontFamily = 'Helvetica Neue';
+                                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+                                // Just naively convert to string for now
+                                const dataString = dataset.data[index].toString();
+                                // Make sure alignment settings are correct
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'middle';
+                                const padding = 5;
+                                const position = element.tooltipPosition();
+                                ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+                            });
+                        }
+                    });
+                }
+            });
+        </script>
         <style>
             body,
             button,
@@ -104,8 +132,9 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="dayChart" width="100%" height="40"></canvas>
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('dayChart', '일별 방문자 수')"
-                                            width="50px" style="cursor: pointer" />
+                                        <img src="../public/assets/img/pdfBtn.png"
+                                            onclick="downloadPDF('dayChart', '일별 방문자 수')" width="50px"
+                                            style="cursor: pointer" />
                                     </div>
                                 </div>
                             </div>
@@ -117,8 +146,9 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="timeChart" width="100%" height="40"></canvas>
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('timeChart', '시간대별 방문자 수')"
-                                            width="50px" style="cursor: pointer" />
+                                        <img src="../public/assets/img/pdfBtn.png"
+                                            onclick="downloadPDF('timeChart', '시간대별 방문자 수')" width="50px"
+                                            style="cursor: pointer" />
                                     </div>
                                 </div>
                             </div>
@@ -144,8 +174,9 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="userChart" width="100%" height="40"></canvas>
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('userChart', '주요 4가지 기능별 사용자 수')"
-                                            width="50px" style="cursor: pointer" />
+                                        <img src="../public/assets/img/pdfBtn.png"
+                                            onclick="downloadPDF('userChart', '주요 4가지 기능별 사용자 수')" width="50px"
+                                            style="cursor: pointer" />
                                     </div>
                                 </div>
                             </div>
@@ -158,8 +189,8 @@
                                     <div class="card-body">
                                         <canvas id="giftUserChart" width="100%" height="40"></canvas>
                                         <img src="../public/assets/img/pdfBtn.png"
-                                            onclick="downloadPDF('giftUserChart', '선물추천기능 사용자 비교 (설문 : 랜덤)')" width="50px"
-                                            style="cursor: pointer" />
+                                            onclick="downloadPDF('giftUserChart', '선물추천기능 사용자 비교 (설문 : 랜덤)')"
+                                            width="50px" style="cursor: pointer" />
                                     </div>
                                 </div>
                             </div>
@@ -172,8 +203,8 @@
                                     <div class="card-body">
                                         <canvas id="boardUserChart" width="100%" height="40"></canvas>
                                         <img src="../public/assets/img/pdfBtn.png"
-                                            onclick="downloadPDF('boardUserChart', '고민게시판 방문자 중 게시글 작성자 비율')" width="50px"
-                                            style="cursor: pointer" />
+                                            onclick="downloadPDF('boardUserChart', '고민게시판 방문자 중 게시글 작성자 비율')"
+                                            width="50px" style="cursor: pointer" />
                                     </div>
                                 </div>
                             </div>
@@ -185,8 +216,9 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="giftChart" width="100%" height="40"></canvas>
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('giftChart', '선물추천 수 top 20')"
-                                            width="50px" style="cursor: pointer" />
+                                        <img src="../public/assets/img/pdfBtn.png"
+                                            onclick="downloadPDF('giftChart', '선물추천 수 top 20')" width="50px"
+                                            style="cursor: pointer" />
                                     </div>
                                 </div>
                             </div>
@@ -198,8 +230,9 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="menuChart" width="100%" height="40"></canvas>
-                                        <img src="../public/assets/img/pdfBtn.png" onclick="downloadPDF('menuChart', '메뉴추천 수 top 20')"
-                                            width="50px" style="cursor: pointer" />
+                                        <img src="../public/assets/img/pdfBtn.png"
+                                            onclick="downloadPDF('menuChart', '메뉴추천 수 top 20')" width="50px"
+                                            style="cursor: pointer" />
                                     </div>
                                 </div>
                             </div>
