@@ -1,5 +1,5 @@
 function getSelectedGift() {
-    const gift_id = document.location.href.split("/")[4];
+    const gift_id = window.location.href.split("/")[4];
     $("#giftList").empty()
 
     $.ajax({
@@ -131,73 +131,40 @@ function getSelectedGift() {
 }
 
 function reviseInfo() {
-    // gift_id 가져옴
-    const param = document.location.href.split("/");
-    const gift_id = param[4];
+    const gift_id = window.location.href.split("/")[4];
 
     if (confirm("수정하시겠습니까?") == true) {
     } else {
         return false;
     }
 
-    // 선물타겟 value 확인 및 체크박스 미선택에 대한 알림
-    const targetChkArr = [];
-    let targetChkCnt = 0;
-    const targetChkBox = $(".targetChk");
-    for (let i = 1; i <= targetChkBox.length; i++) { // 1부터->전체(*) 제외하고 들어감
-        if ($("#giftTargetCheckbox" + i).is(":checked", true)) {
-            result = String($("#giftTargetCheckbox" + i).val());
-            targetChkArr.push(result);
-            targetChkCnt++;
-        } else if ($("#giftTargetCheckboxAll").is(":checked", true)) {
-            targetChkArr.push("*");
-            targetChkCnt++;
-            break;
+    const giftTarget = [];
+    const giftTargetList = document.getElementsByName("giftTarget");
+    giftTargetList.forEach((node) => {
+        if (node.checked) {
+            giftTarget.push(node.value);
         }
-    }
-    if (targetChkCnt == 0) {
-        alert("선물타겟을 체크해 주세요!")
-        return false;
-    }
+    });
 
-    // 선물목적 value 확인 및 체크박스 미선택에 대한 알림
-    const eventChkArr = [];
-    let eventChkCnt = 0;
-    const eventChkBox = $(".eventChk");
-    for (let i = 1; i <= eventChkBox.length; i++) {
-        if ($("#giftEventCheckbox" + i).is(":checked", true)) {
-            result = String($("#giftEventCheckbox" + i).val());
-            eventChkArr.push(result);
-            eventChkCnt++;
-        } else if ($("#giftEventCheckboxAll").is(":checked", true)) {
-            eventChkArr.push("*");
-            eventChkCnt++;
-            break;
+    const giftEvent = [];
+    const giftEventList = document.getElementsByName("giftEvent");
+    giftEventList.forEach((node) => {
+        if (node.checked) {
+            giftEvent.push(node.value);
         }
-    }
-    if (eventChkCnt == 0) {
-        alert("선물목적을 체크해 주세요!")
-        return false;
-    }
+    });
 
-    // 연령대 value 확인 및 체크박스 미선택에 대한 알림
-    const ageChkArr = [];
-    let ageChkCnt = 0;
-    const ageChkBox = $(".ageChk");
-    for (let i = 1; i <= ageChkBox.length; i++) {
-        if ($("#ageCheckbox" + i).is(":checked", true)) {
-            result = String($("#ageCheckbox" + i).val());
-            ageChkArr.push(result);
-            ageChkCnt++;
-        } else if ($("#ageCheckboxAll").is(":checked", true)) {
-            ageChkArr.push("*");
-            ageChkCnt++;
-            break;
+    const age = [];
+    const ageList = document.getElementsByName("age");
+    ageList.forEach((node) => {
+        if (node.checked) {
+            age.push(node.value);
         }
-    }
-    if (ageChkCnt == 0) {
-        alert("연령대를 체크해 주세요!")
-        return false;
+    });
+    
+    if (giftTarget.length == 0 || giftEvent.length == 0 || age.length == 0) {
+        alert("체크박스를 체크해 주세요!")
+        return;
     }
 
     // 성별
@@ -219,10 +186,10 @@ function reviseInfo() {
         url: `/api/gifts/${gift_id}`,
         traditional: true,
         data: {
-            giftTarget: targetChkArr,
-            giftEvent: eventChkArr,
+            giftTarget: giftTarget,
+            giftEvent: giftEvent,
             sex: sex,
-            age: ageChkArr,
+            age: age,
             giftAnswerExpensive: expensive,
             giftAnswerPersonality: personality,
             giftAnswerEmotional: emotional,
@@ -259,66 +226,35 @@ function insertInfo() {
         return;
     }
   
-    // 선물타겟 value 확인 및 체크박스 미선택에 대한 알림
     const giftTarget = [];
-    let targetChkCnt = 0;
-    const targetChkBox = $(".targetChk");
-    for (let i = 1; i <= targetChkBox.length; i++) { // 1부터->전체(*) 제외하고 들어감
-        if ($("#giftTargetCheckbox" + i).is(":checked", true)) {
-            result = String($("#giftTargetCheckbox" + i).val());
-            giftTarget.push(result);
-            targetChkCnt++;
-        } else if ($("#giftTargetCheckboxAll").is(":checked", true)) {
-            giftTarget.push("*");
-            targetChkCnt++;
-            break;
+    const giftTargetList = document.getElementsByName("giftTarget");
+    giftTargetList.forEach((node) => {
+        if (node.checked) {
+            giftTarget.push(node.value);
         }
-    }
-    if (targetChkCnt == 0) {
-        alert("선물타겟을 체크해 주세요!")
-        return false;
-    }
+    });
 
-    // 선물목적 value 확인 및 체크박스 미선택에 대한 알림
     const giftEvent = [];
-    let eventChkCnt = 0;
-    const eventChkBox = $(".eventChk");
-    for (let i = 1; i <= eventChkBox.length; i++) {
-        if ($("#giftEventCheckbox" + i).is(":checked", true)) {
-            result = String($("#giftEventCheckbox" + i).val());
-            giftEvent.push(result);
-            eventChkCnt++;
-        } else if ($("#giftEventCheckboxAll").is(":checked", true)) {
-            giftEvent.push("*");
-            eventChkCnt++;
-            break;
+    const giftEventList = document.getElementsByName("giftEvent");
+    giftEventList.forEach((node) => {
+        if (node.checked) {
+            giftEvent.push(node.value);
         }
-    }
-    if (eventChkCnt == 0) {
-        alert("선물목적을 체크해 주세요!")
-        return false;
-    }
+    });
 
-    // 연령대 value 확인 및 체크박스 미선택에 대한 알림
     const age = [];
-    let ageChkCnt = 0;
-    const ageChkBox = $(".ageChk");
-    for (let i = 1; i <= ageChkBox.length; i++) {
-        if ($("#ageCheckbox" + i).is(":checked", true)) {
-            result = String($("#ageCheckbox" + i).val());
-            age.push(result);
-            ageChkCnt++;
-        } else if ($("#ageCheckboxAll").is(":checked", true)) {
-            age.push("*");
-            ageChkCnt++;
-            break;
+    const ageList = document.getElementsByName("age");
+    ageList.forEach((node) => {
+        if (node.checked) {
+            age.push(node.value);
         }
-    }
-    if (ageChkCnt == 0) {
-        alert("연령대를 체크해 주세요!")
-        return false;
-    }
+    });
 
+    if (giftTarget.length == 0 || giftEvent.length == 0 || age.length == 0) {
+        alert("체크박스를 체크해 주세요!")
+        return;
+    }
+    
     // 성별
     let sex = "";
     const radioLength = document.getElementsByName("sexRadios").length;
