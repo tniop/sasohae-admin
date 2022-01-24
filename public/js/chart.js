@@ -169,15 +169,52 @@ function makeDayChart(data) {
     });
 }
 
-function downloadPDF(chartId) {
-    const canvas = document.getElementById(chartId);
-    const canvasImage = canvas.toDataURL("image/jpeg", 1.0);
+// pdf 추출 함수
+function downloadPDF(chartId, chartName) {
+    // chart가 있는 canvas의 크기 가져오기
+    const reportPageHeight = $("#" + chartId).innerHeight();
+    const reportPageWidth = $("#" + chartId).innerWidth();
 
-    let pdf = new jsPDF("landscape");
-    pdf.setFontSize(20);
-    pdf.addImage(canvasImage, "JPEG", 10, 40, 280, 150);
+    // pdf 파일을 추출하기 위해 기존 canvas를 넣을 새로운 canvas 생성
+    const pdfCanvas = $("<canvas />").attr({
+        id: "canvaspdf",
+        width: reportPageWidth,
+        height: reportPageHeight,
+    });
+
+    // canvas 좌표 설정
+    const pdfctx = $(pdfCanvas)[0].getContext("2d");
+    let pdfctxX = 0;
+    let pdfctxY = 0;
+    const buffer = 100;
+
+    $("#" + chartId).each(function (index) {
+        const canvasHeight = $(this).innerHeight();
+        const canvasWidth = $(this).innerWidth();
+
+        // 새로운 canvas에 추가
+        pdfctx.drawImage(
+            $(this)[0],
+            pdfctxX,
+            pdfctxY,
+            canvasWidth,
+            canvasHeight
+        );
+        pdfctxX += canvasWidth + buffer;
+
+        if (index % 2 === 1) {
+            pdfctxX = 0;
+            pdfctxY += canvasHeight + buffer;
+        }
+    });
+
+    const pdf = new jsPDF("landscape", "pt", [
+        reportPageWidth,
+        reportPageHeight,
+    ]);
+    pdf.addImage($(pdfCanvas)[0], "PNG", 10, 40);
     pdf.text(15, 15, "Statistics Of https://sasohae.com/"); // pdf 다운로드 시 상단 안내 문구
-    pdf.save("chart.pdf"); // 파일명
+    pdf.save(chartName + "_chart.pdf"); // 파일명
 }
 
 function makeTimeChart(data) {
