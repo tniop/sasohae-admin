@@ -45,7 +45,6 @@
 <body class="sb-nav-fixed">
     <%- include('layoutHeader') %>
         <!-- side bar start -->
-        <div id="layoutSidenav"></div>
         <%- include ('layoutBody') %>
             <!-- side bar end -->
             <div id="layoutSidenav_content">
@@ -60,16 +59,16 @@
                                 <div class="form-group">
                                     <label for="giftQuestionType" class="col-sm-2 control-label">질문 타입 : </label>
                                     <input type="radio" id="personality" name="giftQuestionType"
-                                        style="margin-right:10px;" value="personality" disabled>Personality
+                                        style="margin-right:10px;" value="personality" >Personality
                                     <input type="radio" id="emotional" name="giftQuestionType"
-                                        style="margin-right:10px;" value="emotional" disabled>Emotional
+                                        style="margin-right:10px;" value="emotional" >Emotional
                                     <input type="radio" id="trendy" name="giftQuestionType" style="margin-right:10px;"
-                                        value="trendy" disabled>Trendy
+                                        value="trendy" >Trendy
                                 </div>
                                 <div class="form-group">
                                     <label for="giftQuestion" class="col-sm-2 control-label">질문 내용 : </label>
                                     <input type="input" class="form-control" id="giftQuestion"
-                                        style="width: 600px; display:inline;" placeholder="질문을 입력해주세요" disabled>
+                                        style="width: 600px; display:inline;" placeholder="질문을 입력해주세요" >
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
@@ -86,7 +85,8 @@
                         </div>
                     </div>
                 </main>
+                <%- include ('layoutFooter') %>
+            </div>
 </body>
-<%- include ('layoutFooter') %>
 
 </html>
