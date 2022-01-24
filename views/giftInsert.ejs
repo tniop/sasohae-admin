@@ -33,15 +33,7 @@
                 font-weight: bold;
             }
         </style>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                targetAllChkClicked();
-                eventAllChkClicked();
-                ageAllChkClicked();
-            });
-        </script>
-
+        
 </head>
 
 <body class="sb-nav-fixed">
@@ -71,86 +63,86 @@
                                             <input type="file" id="imgFile">
                                         </div>
                                     </div>
-                                    <div class="form-group" id="targetArea">
+                                    <div class="form-group">
                                         <label for="giftTarget" class="col-sm-2 control-label">선물타겟 : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckboxAll" value="*"> 전체
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                 id="giftTargetCheckboxAll" value="*" onclick="IsCheckAllChecked(this.name)"> 전체
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckbox1" value="1"> 부모님
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                id="giftTargetCheckbox1" value="1" onclick="chkboxAllChecked(this.name)" > 부모님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckbox2" value="2"> 친구
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                id="giftTargetCheckbox2" value="2" onclick="chkboxAllChecked(this.name)"> 친구
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckbox3" value="3"> 연인
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                id="giftTargetCheckbox3" value="3" onclick="chkboxAllChecked(this.name)"> 연인
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckbox4" value="4"> 선생님
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                id="giftTargetCheckbox4" value="4" onclick="chkboxAllChecked(this.name)"> 선생님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckbox5" value="5"> 교수님
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                id="giftTargetCheckbox5" value="5" onclick="chkboxAllChecked(this.name)"> 교수님
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckbox6" value="6"> 직장선배
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                id="giftTargetCheckbox6" value="6" onclick="chkboxAllChecked(this.name)"> 직장선배
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckbox7" value="7"> 선후배
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                id="giftTargetCheckbox7" value="7" onclick="chkboxAllChecked(this.name)"> 선후배
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="targetChk" name="targetChkName"
-                                                id="giftTargetCheckbox8" value="8"> 구연인
+                                            <input type="checkbox" class="targetChk" name="giftTarget"
+                                                id="giftTargetCheckbox8" value="8" onclick="chkboxAllChecked(this.name)"> 구연인
                                         </label>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="giftEvent" class="col-sm-2 control-label">선물목적 : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckboxAll" value="*">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckboxAll" name="giftEvent" value="*" onclick="IsCheckAllChecked(this.name)">
                                             전체 (하찮은 선물 X)
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox1" value="1">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox1" name="giftEvent" value="1" onclick="chkboxAllChecked(this.name)">
                                             생일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox2" value="2">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox2" name="giftEvent" value="2" onclick="chkboxAllChecked(this.name)">
                                             연인기념일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox3" value="3">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox3" name="giftEvent" value="3" onclick="chkboxAllChecked(this.name)">
                                             결혼기념일
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox4" value="4">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox4" name="giftEvent" value="4" onclick="chkboxAllChecked(this.name)">
                                             합격
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox5" value="5">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox5" name="giftEvent" value="5" onclick="chkboxAllChecked(this.name)">
                                             입학
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox6" value="6">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox6" name="giftEvent" value="6" onclick="chkboxAllChecked(this.name)">
                                             졸업
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox7" value="7">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox7" name="giftEvent" value="7" onclick="chkboxAllChecked(this.name)">
                                             집들이
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox8" value="8">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox8" name="giftEvent" value="8" onclick="chkboxAllChecked(this.name)">
                                             명절
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox9" value="9">
+                                            <input type="checkbox" class="eventChk" id="giftEventCheckbox9" name="giftEvent" value="9" onclick="chkboxAllChecked(this.name)">
                                             하찮은 선물
                                         </label>
                                     </div>
@@ -174,22 +166,22 @@
                                     <div class="form-group">
                                         <label for="age" class="col-sm-2 control-label">연령대 : </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="ageChk" id="ageCheckboxAll" value="*"> 전체
+                                            <input type="checkbox" class="ageChk" id="ageCheckboxAll" name="age" value="*" onclick="IsCheckAllChecked(this.name)"> 전체
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="ageChk" id="ageCheckbox1" value="20"> 20대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox1" name="age" value="20" onclick="chkboxAllChecked(this.name)"> 20대
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="ageChk" id="ageCheckbox2" value="30"> 30대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox2" name="age" value="30" onclick="chkboxAllChecked(this.name)"> 30대
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="ageChk" id="ageCheckbox3" value="40"> 40대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox3" name="age" value="40" onclick="chkboxAllChecked(this.name)"> 40대
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="ageChk" id="ageCheckbox4" value="50"> 50대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox4" name="age" value="50" onclick="chkboxAllChecked(this.name)"> 50대
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="ageChk" id="ageCheckbox5" value="60"> 60대
+                                            <input type="checkbox" class="ageChk" id="ageCheckbox5" name="age" value="60" onclick="chkboxAllChecked(this.name)"> 60대
                                         </label>
                                     </div>
 
