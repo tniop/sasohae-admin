@@ -1,5 +1,5 @@
 function getSelectedQuestion() {
-    const giftQuestion_id = document.location.href.split("/")[4];
+    const giftQuestion_id = window.location.href.split("/")[4];
     $("#giftQuestionsList").empty()
 
     $.ajax({
@@ -72,7 +72,7 @@ function buttonClick(name) {
 }
 
 function reviseBtnClickAgain() {
-    const giftQuestion_id = document.location.href.split("/")[4];
+    const giftQuestion_id = window.location.href.split("/")[4];
     const chkType = buttonClick("giftQuestionType");
     
     $.ajax({
