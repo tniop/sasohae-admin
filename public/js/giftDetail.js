@@ -88,7 +88,6 @@ function getSelectedGift() {
         },
         success: function (selectedGift) {
             const name = selectedGift.giftName;
-            const url = selectedGift.giftUrl;
             const target = selectedGift.giftTarget;
             const event = selectedGift.giftEvent;
             const sex = selectedGift.sex;
@@ -97,16 +96,9 @@ function getSelectedGift() {
             const personality = selectedGift.giftAnswerPersonality;
             const emotional = selectedGift.giftAnswerEmotional;
             const trendy = selectedGift.giftAnswerTrendy;
+            document.querySelector("#url").src = selectedGift.giftUrl;
 
             $("#giftName").val(name);
-
-            let htmlTemp = ` <div class="form-group">
-                                        <div class="form-group">
-                                            <label for="file" class="col-sm-2 control-label">이미지 파일 : </label>
-                                            <img src="${url}" width="80px">
-                                        </div> 
-                                    </div>`;
-            $("#imgFile").append(htmlTemp);
 
             for (let i = 0; i < target.length; i++) {
                 const value = ["1", "2", "3", "4", "5", "6", "7", "8"];
