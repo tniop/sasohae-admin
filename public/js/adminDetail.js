@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    insertInfo();
+    checkAdminPosition();
 });
 
 function insertInfo() {
@@ -88,4 +88,27 @@ function chkRadioButton(position) {
             return;
         }
     }
+}
+
+function checkAdminPosition() {
+    const admin_id = sessionStorage.getItem("_id");
+
+    $.ajax({
+        type: "get",
+        url: `/api/admins/${admin_id}`,
+        data: {},
+        success: (response) => {
+            const adminPosition = response.adminPosition;
+            if (adminPosition == "guest") {
+                alert("권한이 필요한 페이지입니다!");
+                location.href = "/";
+                return;
+            } else {
+                insertInfo();
+            }
+        },
+        error: (err) => {
+            alert(err.responseJSON.errorMessage);
+        },
+    });
 }

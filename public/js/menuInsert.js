@@ -1,3 +1,7 @@
+$(document).ready(() => {
+    checkAdminPosition();
+});
+
 function insertInfo() {
     const formData = new FormData();
     const menuName = $("#menuName").val();
@@ -74,7 +78,7 @@ function chkboxAllChecked(name) {
 
     if (menuType[1].checked && menuType[2].checked && menuType[3].checked) {
         menuType[0].checked = true;
-        IsCheckAllChecked(name)
+        IsCheckAllChecked(name);
     }
 
     if (
@@ -85,10 +89,30 @@ function chkboxAllChecked(name) {
         menuWith[5].checked
     ) {
         menuWith[0].checked = true;
-        IsCheckAllChecked(name)
+        IsCheckAllChecked(name);
     }
 }
 
 function goToList() {
     location.href = "/menuList";
+}
+
+function checkAdminPosition() {
+    const admin_id = sessionStorage.getItem("_id");
+
+    $.ajax({
+        type: "get",
+        url: `/api/admins/${admin_id}`,
+        data: {},
+        success: (response) => {
+            const adminPosition = response.adminPosition;
+            if (adminPosition == "guest") {
+                alert("권한이 필요한 페이지입니다!");
+                location.href = "/";
+            }
+        },
+        error: (err) => {
+            alert(err.responseJSON.errorMessage);
+        },
+    });
 }
