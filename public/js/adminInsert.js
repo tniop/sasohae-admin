@@ -1,3 +1,7 @@
+$(document).ready(() => {
+    checkAdminPosition();
+});
+
 async function insertInfo() {
     const positionList = document.getElementsByName("titleRadios");
     let adminPosition = "";
@@ -31,4 +35,24 @@ async function insertInfo() {
 
 function goToList() {
     location.href = "/adminList";
+}
+
+function checkAdminPosition() {
+    const admin_id = sessionStorage.getItem("_id");
+
+    $.ajax({
+        type: "get",
+        url: `/api/admins/${admin_id}`,
+        data: {},
+        success: (response) => {
+            const adminPosition = response.adminPosition;
+            if (adminPosition == "guest") {
+                alert("권한이 필요한 페이지입니다!");
+                location.href = "/";
+            }
+        },
+        error: (err) => {
+            alert(err.responseJSON.errorMessage);
+        },
+    });
 }
