@@ -1,13 +1,12 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <%- include ('common') %>
+    <head>
+        <%- include ('common') %>
         <title>GiftQuestions - Sasohae Admin</title>
-        <script src="../public/js/giftQuestions.js"></script>
+        <script src="../public/js/giftQuestionsDetail.js"></script>
         <style>
             label {
-                font-family: 'Noto Sans KR', sans-serif;
+                font-family: "Noto Sans KR", sans-serif;
             }
 
             .btn {
@@ -39,54 +38,103 @@
                 getSelectedQuestion();
             });
         </script>
+    </head>
 
-</head>
-
-<body class="sb-nav-fixed">
-    <%- include('layoutHeader') %>
+    <body class="sb-nav-fixed">
+        <%- include('layoutHeader') %>
         <!-- side bar start -->
         <%- include ('layoutBody') %>
-            <!-- side bar end -->
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">선물 질문 수정</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">SASOHAE GIFTS QUESTIONS</li>
-                        </ol>
-                        <div class="card mb-4">
-                            <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="giftQuestionType" class="col-sm-2 control-label">질문 타입 : </label>
-                                    <input type="radio" id="personality" name="giftQuestionType"
-                                        style="margin-right:10px;" value="personality" >Personality
-                                    <input type="radio" id="emotional" name="giftQuestionType"
-                                        style="margin-right:10px;" value="emotional" >Emotional
-                                    <input type="radio" id="trendy" name="giftQuestionType" style="margin-right:10px;"
-                                        value="trendy" >Trendy
-                                </div>
-                                <div class="form-group">
-                                    <label for="giftQuestion" class="col-sm-2 control-label">질문 내용 : </label>
-                                    <input type="input" class="form-control" id="giftQuestion"
-                                        style="width: 600px; display:inline;" placeholder="질문을 입력해주세요" >
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <div>
-                                            <button type="button" class="btn btn-success" id="reviseBtn"
-                                                onclick="reviseInfo()"
-                                                style="margin-right: 50px; margin-top: 30px; background-color: rgb(32, 92, 4);border-color: rgb(32, 92, 4);">수정하기</button>
-                                            <button type="button" class="btn btn-warning" onclick="backToList()"
-                                                style="margin-top: 30px">취소하기</button>
-                                        </div>
+        <!-- side bar end -->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">선물 질문 수정</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">
+                            SASOHAE GIFTS QUESTIONS
+                        </li>
+                    </ol>
+                    <div class="card mb-4">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label
+                                    for="giftQuestionType"
+                                    class="col-sm-2 control-label"
+                                    >질문 타입 :
+                                </label>
+                                <input
+                                    type="radio"
+                                    id="personality"
+                                    name="giftQuestionType"
+                                    style="margin-right: 10px"
+                                    value="personality"
+                                />Personality
+                                <input
+                                    type="radio"
+                                    id="emotional"
+                                    name="giftQuestionType"
+                                    style="margin-right: 10px"
+                                    value="emotional"
+                                />Emotional
+                                <input
+                                    type="radio"
+                                    id="trendy"
+                                    name="giftQuestionType"
+                                    style="margin-right: 10px"
+                                    value="trendy"
+                                />Trendy
+                            </div>
+                            <div class="form-group">
+                                <label
+                                    for="giftQuestion"
+                                    class="col-sm-2 control-label"
+                                    >질문 내용 :
+                                </label>
+                                <input
+                                    type="input"
+                                    class="form-control"
+                                    id="giftQuestion"
+                                    style="width: 600px; display: inline"
+                                    placeholder="질문을 입력해주세요"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-success"
+                                            id="reviseBtn"
+                                            onclick="reviseInfo()"
+                                            style="
+                                                margin-right: 50px;
+                                                margin-top: 30px;
+                                                background-color: rgb(
+                                                    32,
+                                                    92,
+                                                    4
+                                                );
+                                                border-color: rgb(32, 92, 4);
+                                            "
+                                        >
+                                            수정하기
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-warning"
+                                            onclick="backToList()"
+                                            style="margin-top: 30px"
+                                        >
+                                            취소하기
+                                        </button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
-                </main>
-                <%- include ('layoutFooter') %>
-            </div>
-</body>
-
+                </div>
+            </main>
+            <%- include ('layoutFooter') %>
+        </div>
+    </body>
 </html>
