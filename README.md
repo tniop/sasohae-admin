@@ -3,11 +3,11 @@
 
 <br><br>
 ## 🌏 Home Page
-- https://sasohae.com/
+- https://sasohae-admin.site/
 
 <br><br>
 ## 🚀 서비스 소개
-취업, 연애, 사회생활 등 진지하고 무거운 고민으로 고통 받는 사회 초년생을 위해 사소한 고민은 해결해드려요!
+사.소.해 서비스 관리자 page입니다.
 
 <img width=100% alt="character_brand" src="https://user-images.githubusercontent.com/93478396/151117899-48104463-5e3d-4ec3-aebf-0260408104fb.png">
 <img width="284" alt="main_mobile" src="https://user-images.githubusercontent.com/93478396/151117906-eb0174d1-e09b-4382-883e-a1390da4edb6.png">
