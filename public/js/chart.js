@@ -63,7 +63,11 @@ function makeDayChart(data) {
     }
 
     const firstDate = info[0];
-    const lastDate = info[info.length - 1];
+    let lastDate = "";
+    if (info[info.length - 1].split("-")[1] !== "01")
+        lastDate = "2022-01-31";
+    else 
+        lastDate = info[info.length - 1];
 
     const servicePeriod = getDatesStartToLast(firstDate, lastDate);
 
@@ -114,9 +118,10 @@ function makeDayChart(data) {
                         gridLines: {
                             display: false,
                         },
-                        // ticks: { // 가로축 옵션 필요시 사용
-                        //     maxTicksLimit: 6
-                        // }
+                        ticks: {
+                            // 가로축 옵션 필요시 사용
+                            maxTicksLimit: 6,
+                        },
                     },
                 ],
                 yAxes: [
