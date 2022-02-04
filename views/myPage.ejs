@@ -5,6 +5,11 @@
     <%- include ('common') %>
         <title>Admin - Sasohae Admin</title>
         <script src="../public/js/myPage.js"></script>
+        <script>
+            $(document).ready(() => {
+                checkAdminPosition();
+            });
+        </script>
         <style>
             label {
                 font-family: 'Noto Sans KR', sans-serif;
