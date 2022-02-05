@@ -69,3 +69,25 @@ function chkRadioButton(position) {
         }
     }
 }
+
+
+function checkAdminPosition() {
+    const admin_id = sessionStorage.getItem("_id");
+
+    $.ajax({
+        type: "get",
+        url: `/api/admins/${admin_id}`,
+        data: {},
+        success: (response) => {
+            const adminPosition = response.adminPosition;
+            if (adminPosition == "guest") {
+                alert("Guest는 정보 수정이 불가능 합니다!");
+                location.href = "/";
+                return;
+            }
+        },
+        error: (err) => {
+            alert(err.responseJSON.errorMessage);
+        },
+    });
+}
